@@ -17,278 +17,186 @@
       --border: #ACACAC;
       --sans: 'Google Sans Flex', sans-serif;
       --serif: 'Radley', Georgia, serif;
+      --left-w: 380px;
+      --pad: 40px;
     }
 
     html, body {
       width: 100%; height: 100%;
-      background: var(--bg);
-      color: var(--white);
+      background: var(--bg); color: var(--white);
       overflow: hidden;
     }
 
-    /* ── BACKGROUND ─────────────────────────────────────────── */
-    #bg-wrap {
-      position: fixed;
-      inset: 0;
-      z-index: 0;
-      overflow: hidden;
-    }
-
+    /* ── BACKGROUND ─────────────────────────────── */
+    #bg-wrap { position: fixed; inset: 0; z-index: 0; overflow: hidden; }
     #bg-img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      opacity: 0;
-      transition: opacity 1.2s ease;
-      filter: blur(6px) brightness(0.7);
-      transform: scale(1.04);
+      width: 100%; height: 100%; object-fit: cover;
+      opacity: 0; transition: opacity 1.4s ease;
+      filter: blur(8px) brightness(0.65);
+      transform: scale(1.05);
     }
+    #bg-img.loaded { opacity: 0.40; }
 
-    #bg-img.loaded { opacity: 0.30; }
-
-    /* ── LAYOUT ─────────────────────────────────────────────── */
+    /* ── OUTER SHELL ────────────────────────────── */
     #page {
-      position: relative;
-      z-index: 1;
-      width: 100vw;
-      height: 100vh;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      grid-template-rows: auto 1fr auto;
-      padding: 36px 48px;
-      gap: 0;
+      position: relative; z-index: 1;
+      width: 100vw; height: 100vh;
+      display: flex; flex-direction: column;
+      padding: var(--pad);
+      overflow: hidden;
     }
 
-    /* ── TOP BAR ────────────────────────────────────────────── */
-    #logo {
-      grid-column: 1;
-      grid-row: 1;
-      display: flex;
-      align-items: flex-start;
+    /* ── TOP BAR ────────────────────────────────── */
+    #topbar {
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0; margin-bottom: 28px;
     }
+    #logo img { height: 16px; width: auto; opacity: 0.90; }
 
-    #logo img {
-      height: 22px;
-      width: auto;
-      opacity: 0.92;
-    }
-
-    /* archive link top-right */
     #archive-link {
-      grid-column: 2;
-      grid-row: 1;
-      display: flex;
-      align-items: flex-start;
-      justify-content: flex-end;
-      text-decoration: none;
-      color: var(--muted);
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      transition: color 0.2s;
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: var(--muted); text-decoration: none; transition: color 0.2s;
+      /* push it away from the painting area */
+      margin-right: calc(50vw - var(--left-w) - var(--pad) * 0.5);
     }
     #archive-link:hover { color: var(--white); }
 
-    /* ── MIDDLE LEFT ─────────────────────────────────────────── */
-    #left-col {
-      grid-column: 1;
-      grid-row: 2;
+    /* ── BODY ROW ───────────────────────────────── */
+    #body-row {
+      flex: 1;
       display: flex;
-      flex-direction: column;
+      align-items: center;
+      min-height: 0;
+      gap: 0;
+    }
+
+    /* ── LEFT PANEL ─────────────────────────────── */
+    #left-col {
+      width: var(--left-w);
+      flex-shrink: 0;
+      display: flex; flex-direction: column;
       justify-content: center;
-      padding-right: 40px;
-      max-width: 520px;
+      padding-right: 32px;
     }
 
     #nav-prev {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin-bottom: 48px;
-      cursor: pointer;
-      color: var(--white);
-      text-decoration: none;
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      opacity: 0.75;
-      transition: opacity 0.2s;
-      width: fit-content;
+      display: flex; align-items: center; gap: 11px;
+      margin-bottom: 40px; width: fit-content;
+      color: var(--white); text-decoration: none;
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      opacity: 0.60; transition: opacity 0.2s;
     }
     #nav-prev:hover { opacity: 1; }
+    #nav-prev.disabled { opacity: 0.18; pointer-events: none; }
 
-    #nav-prev .arrow-circle {
-      width: 32px; height: 32px;
-      border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.5);
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+    .arrow-circle {
+      width: 28px; height: 28px; border-radius: 50%;
+      border: 1.5px solid rgba(255,255,255,0.4);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
-
-    #nav-prev svg { width: 14px; height: 14px; }
+    .arrow-circle svg { width: 11px; height: 11px; }
 
     #art-title {
-      font-family: var(--sans);
-      font-size: 32px;
-      font-weight: 700;
-      line-height: 1.15;
-      margin-bottom: 4px;
+      font-family: var(--sans); font-size: 32px; font-weight: 700;
+      line-height: 1.15; margin-bottom: 4px;
     }
-
     #art-artist {
-      font-family: var(--serif);
-      font-size: 32px;
-      font-style: italic;
-      font-weight: 400;
-      line-height: 1.2;
-      margin-bottom: 32px;
-      color: rgba(255,255,255,0.88);
+      font-family: var(--serif); font-size: 32px; font-style: italic;
+      font-weight: 400; line-height: 1.2; margin-bottom: 26px;
+      color: rgba(255,255,255,0.85);
     }
-
-    #meta-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 28px;
-    }
-
+    #meta-row { display: flex; align-items: flex-start; gap: 20px; }
     #art-year {
-      font-family: var(--serif);
-      font-size: 18px;
-      font-style: italic;
-      color: var(--muted);
-      flex-shrink: 0;
-      padding-top: 2px;
-      min-width: 60px;
+      font-family: var(--serif); font-size: 18px; font-style: italic;
+      color: var(--muted); flex-shrink: 0; min-width: 64px; padding-top: 1px;
     }
-
     #art-desc {
-      font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 400;
-      line-height: 1.4;
-      color: rgba(255,255,255,0.72);
+      font-family: var(--sans); font-size: 14px; font-weight: 400;
+      line-height: 1.4; color: rgba(255,255,255,0.65);
     }
 
-    /* ── MIDDLE RIGHT — PAINTING ────────────────────────────── */
+    /* 44 logo sits below the description text */
+    #logo-44 {
+      margin-top: 28px;
+    }
+    #logo-44 img { height: 18px; width: auto; opacity: 0.30; }
+
+    /* ── RIGHT PANEL — painting zone ────────────── */
     #right-col {
-      grid-column: 2;
-      grid-row: 2;
+      flex: 1;
+      min-width: 0;
+      height: 100%;
       display: flex;
-      align-items: center;
-      justify-content: flex-end;
+      flex-direction: column;
+      align-items: center;      /* center painting horizontally in zone */
+      justify-content: center;
     }
 
     #painting-frame {
       border: 1px solid var(--border);
-      border-radius: 11px;
-      overflow: hidden;
-      max-width: 1000px;
-      max-height: 700px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: rgba(255,255,255,0.03);
+      border-radius: 11px; overflow: hidden;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(255,255,255,0.02);
       position: relative;
+      /* constrain to available space */
+      max-width: 1000px;
+      max-height: calc(100vh - var(--pad)*2 - 56px - 36px); /* full height minus top bar and learn more */
+      width: 100%;
     }
 
     #painting-img {
       display: block;
       max-width: 1000px;
-      max-height: 700px;
-      width: auto;
-      height: auto;
+      max-height: calc(100vh - var(--pad)*2 - 56px - 36px);
+      width: auto; height: auto;
       object-fit: contain;
-      opacity: 0;
-      transition: opacity 1s ease;
+      opacity: 0; transition: opacity 1s ease;
     }
-
     #painting-img.loaded { opacity: 1; }
 
     #painting-loader {
-      position: absolute;
-      font-family: var(--sans);
-      font-size: 13px;
-      color: var(--muted);
+      position: absolute; font-family: var(--sans);
+      font-size: 13px; color: var(--muted); font-style: italic;
     }
 
-    /* ── BOTTOM BAR ──────────────────────────────────────────── */
-    #bottom-left {
-      grid-column: 1;
-      grid-row: 3;
-      display: flex;
-      align-items: flex-end;
+    /* Learn more anchored just below the frame */
+    #learn-more-wrap {
+      margin-top: 14px;
+      width: 100%; max-width: 1000px;
+      display: flex; justify-content: flex-end;
     }
-
-    #logo-44 {
-      font-family: var(--sans);
-      font-size: 15px;
-      font-weight: 700;
-      letter-spacing: 0.05em;
-      color: rgba(255,255,255,0.4);
-    }
-
-    #bottom-right {
-      grid-column: 2;
-      grid-row: 3;
-      display: flex;
-      align-items: flex-end;
-      justify-content: flex-end;
-    }
-
     #learn-more {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--white);
-      text-decoration: none;
-      opacity: 0.75;
-      transition: opacity 0.2s;
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--white); text-decoration: none;
+      opacity: 0.60; transition: opacity 0.2s;
     }
-
     #learn-more:hover { opacity: 1; }
-
-    /* ── LOADING STATE ───────────────────────────────────────── */
-    .skeleton {
-      background: rgba(255,255,255,0.06);
-      border-radius: 4px;
-      animation: pulse 1.6s ease-in-out infinite;
-    }
-
-    @keyframes pulse {
-      0%, 100% { opacity: 0.4; }
-      50% { opacity: 0.8; }
-    }
   </style>
 </head>
 <body>
 
-  <!-- blurred background -->
-  <div id="bg-wrap">
-    <img id="bg-img" alt="" />
+<div id="bg-wrap"><img id="bg-img" alt="" /></div>
+
+<div id="page">
+
+  <!-- top bar -->
+  <div id="topbar">
+    <div id="logo"><img src="logo.png" alt="Fourward" /></div>
+    <a id="archive-link" href="archive.html">Archive</a>
   </div>
 
-  <!-- main layout -->
-  <div id="page">
-
-    <!-- top left: logo -->
-    <div id="logo">
-      <img src="logo.png" alt="Fourward" />
-    </div>
-
-    <!-- top right: archive -->
-    <a id="archive-link" href="archive.html">Archive</a>
+  <!-- body -->
+  <div id="body-row">
 
     <!-- left: info -->
     <div id="left-col">
       <a id="nav-prev" href="#">
         <span class="arrow-circle">
-          <svg viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M9 2L4 7L9 12" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+          <svg viewBox="0 0 11 11" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M7 1.5L2.5 5.5L7 9.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </span>
         View Previous
@@ -301,137 +209,134 @@
         <div id="art-year"> </div>
         <div id="art-desc"> </div>
       </div>
+
+      <div id="logo-44"><img src="44.png" alt="44" /></div>
     </div>
 
-    <!-- right: painting -->
+    <!-- right: painting centered in its zone -->
     <div id="right-col">
       <div id="painting-frame">
         <span id="painting-loader">Loading…</span>
         <img id="painting-img" alt="" />
       </div>
+      <div id="learn-more-wrap">
+        <a id="learn-more" href="#" target="_blank">Learn More</a>
+      </div>
     </div>
 
-    <!-- bottom -->
-    <div id="bottom-left"><div id="logo-44">44</div></div>
-    <div id="bottom-right"><a id="learn-more" href="#" target="_blank">Learn More</a></div>
-
   </div>
+</div>
 
-  <script>
-    // ── DATA ──────────────────────────────────────────────────
-    const ARTWORKS = [
-      {
-        objectID: 436535,
-        wikiSlug: "Woman_Reading_a_Letter_(Vermeer)",
-        desc: "Vermeer's luminous interior depicts a woman alone, absorbed in a letter by soft window light. The scene is deliberately silent — no story is given away, only the quality of private attention."
-      },
-      {
-        objectID: 437853,
-        wikiSlug: "Portrait_of_Madame_X",
-        desc: "Sargent's portrait of Virginie Gautreau caused a scandal at the 1884 Paris Salon. Considered indecent, it nearly ended his career. He kept the painting in his studio for thirty years before selling it to the Met."
-      },
-      {
-        objectID: 459055,
-        wikiSlug: "Self-portrait_(Rembrandt,_c._1665–1669)",
-        desc: "One of Rembrandt's late self-portraits, painted as his health and finances deteriorated. The brushwork is restless and thick. He had painted himself more than eighty times — not out of vanity, but as lifelong inquiry."
-      },
-      {
-        objectID: 436121,
-        wikiSlug: "View_of_Toledo",
-        desc: "El Greco's rare pure landscape depicts Toledo under a churning, bilious sky. He rearranges the city's buildings for effect. It reads less as topography and more as a portrait of weather — a place on the edge of transformation."
-      },
-      {
-        objectID: 437329,
-        wikiSlug: "Water_Lilies_(Monet_series)",
-        desc: "One of roughly 250 paintings Monet made of his Giverny water garden. As his eyesight failed, the work grew looser, stranger, more radical. He was not thinking about the future of painting — only about light on water."
-      },
-      {
-        objectID: 11417,
-        wikiSlug: "Washington_Crossing_the_Delaware",
-        desc: "Painted in Düsseldorf in 1851 using the Rhine as a stand-in for the Delaware. The historical inaccuracies are many. None of them have diminished the painting's grip on the American imagination."
-      },
-      {
-        objectID: 436524,
-        wikiSlug: "The_Harvesters_(Bruegel)",
-        desc: "Part of Bruegel's series on the months of the year. August is rendered with sociological care: figures cut wheat, a village shimmers in the distance, and in the foreground, a man sleeps. Rest is given as much weight as labor."
-      },
-      {
-        objectID: 437984,
-        wikiSlug: "Wheat_Field_with_Cypresses",
-        desc: "Van Gogh painted three versions of this composition in the summer of 1889 from the grounds of the asylum at Saint-Rémy. The cypress twists upward like a dark flame. Everything is in motion — the sky, the wheat, the distant hills."
-      },
-      {
-        objectID: 436528,
-        wikiSlug: "Young_Woman_with_a_Water_Pitcher",
-        desc: "Another of Vermeer's quiet interiors: a woman at a window, a pitcher in hand, pausing at some threshold of thought or action. The blue cloth on the table anchors the composition. Light does the rest."
-      },
-      {
-        objectID: 436532,
-        wikiSlug: "The_Milkmaid_(Vermeer)",
-        desc: "A kitchen maid pours milk in a scene of extraordinary stillness. Vermeer fills the bottom right with broken bread — humble still life within a figure painting. The light on her cap and the stream of milk are the whole painting."
-      },
-    ];
+<script>
+const ARTWORKS = [
+  {
+    objectID: 10554,
+    title: "Watson and the Shark",
+    artist: "John Singleton Copley",
+    date: "ca. 1778",
+    wikiSlug: "Watson_and_the_Shark",
+    desc: "A boy drowning in Havana harbor, a shark rising beneath him, and nine men frozen at the edge of saving him or losing him. Copley had never seen the sea from this angle before. Nobody had painted ordinary terror at this scale."
+  },
+  {
+    objectID: 437854,
+    title: "Whalers",
+    artist: "J. M. W. Turner",
+    date: "ca. 1845",
+    wikiSlug: "Whalers_(J._M._W._Turner)",
+    desc: "A wounded sperm whale thrashes in foam and blood while the killing boats close in. Turner was seventy. Critics said they couldn't find the ship in the paint. He considered that a success."
+  },
+  {
+    objectID: 459174,
+    title: "Greifswald in Moonlight",
+    artist: "Caspar David Friedrich",
+    date: "ca. 1815–17",
+    wikiSlug: "Caspar_David_Friedrich",
+    desc: "A harbor at night, the light cold and absolute. Friedrich wasn't painting a place — he was painting the feeling of standing outside time. Silence as a philosophical position."
+  },
+  {
+    objectID: 49741,
+    title: "Don Manuel Osorio Manrique de Zuñiga",
+    artist: "Francisco Goya",
+    date: "1787–88",
+    wikiSlug: "Don_Manuel_Osorio_Manrique_de_Zuñiga",
+    desc: "A child in red holds a magpie on a string. Three cats watch the bird with complete focus. Goya painted innocence as something surrounded and temporary. The cats don't blink."
+  },
+  {
+    objectID: 437984,
+    title: "Wheat Field with Cypresses",
+    artist: "Vincent van Gogh",
+    date: "1889",
+    wikiSlug: "Wheat_Field_with_Cypresses",
+    desc: "Painted from the asylum grounds at Saint-Rémy, the cypress rising like a dark flame while the sky churns above it. Van Gogh wrote that it was one of his best. He made three versions, unable to leave it alone."
+  },
+  {
+    objectID: 459074,
+    title: "The Penitent Magdalene",
+    artist: "Georges de La Tour",
+    date: "ca. 1640",
+    wikiSlug: "The_Penitent_Magdalene_(La_Tour)",
+    desc: "A single candle. A skull in her hands. La Tour strips the scene to almost nothing and what's left is unbearable — a person reckoning with her own mortality in complete darkness."
+  },
+  {
+    objectID: 647152,
+    title: "Whalers (Boiling Blubber) Entangled in Flaw Ice",
+    artist: "J. M. W. Turner",
+    date: "ca. 1846",
+    wikiSlug: "Whalers_Entangled_in_Flaw_Ice",
+    desc: "A ship caught in Arctic ice, men boiling blubber in the hold of a dying vessel. Turner gives you the fog, the cold, and the terrible industry of it — all at once, barely distinguishable from one another."
+  }
+];
 
-    // ── ROUTING ───────────────────────────────────────────────
-    const params   = new URLSearchParams(location.search);
-    const dayIndex = Math.floor(Date.now() / 86400000);
-    let idx;
+const params = new URLSearchParams(location.search);
+const TOTAL  = ARTWORKS.length;
+const DEFAULT_DAY = TOTAL - 1;
 
-    if (params.has('day')) {
-      idx = parseInt(params.get('day'), 10) % ARTWORKS.length;
+let idx = params.has('day')
+  ? ((parseInt(params.get('day'), 10) % TOTAL) + TOTAL) % TOTAL
+  : DEFAULT_DAY;
+
+const artwork = ARTWORKS[idx];
+const prevIdx = idx - 1;
+
+const prevLink = document.getElementById('nav-prev');
+if (idx === 0) {
+  prevLink.classList.add('disabled');
+} else {
+  prevLink.href = `index.html?day=${prevIdx}`;
+}
+
+document.getElementById('art-title').textContent  = artwork.title;
+document.getElementById('art-artist').textContent = artwork.artist;
+document.getElementById('art-year').textContent   = artwork.date;
+document.getElementById('art-desc').textContent   = artwork.desc;
+document.getElementById('learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiSlug}`;
+
+async function loadImage() {
+  try {
+    const res  = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${artwork.objectID}`);
+    const data = await res.json();
+    const src  = data.primaryImage || data.primaryImageSmall;
+    if (src) {
+      const bg = document.getElementById('bg-img');
+      bg.src = src;
+      bg.onload = () => bg.classList.add('loaded');
+
+      const img = document.getElementById('painting-img');
+      img.src = src;
+      img.alt = artwork.title;
+      img.onload = () => {
+        img.classList.add('loaded');
+        document.getElementById('painting-loader').style.display = 'none';
+      };
     } else {
-      idx = dayIndex % ARTWORKS.length;
+      document.getElementById('painting-loader').textContent = 'Image unavailable';
     }
+  } catch(e) {
+    document.getElementById('painting-loader').textContent = 'Could not load image.';
+  }
+}
 
-    const artwork  = ARTWORKS[idx];
-    const prevIdx  = (idx - 1 + ARTWORKS.length) % ARTWORKS.length;
-
-    // wire up prev link
-    document.getElementById('nav-prev').href = `index.html?day=${prevIdx}`;
-
-    // ── FETCH FROM MET ────────────────────────────────────────
-    async function load() {
-      try {
-        const res  = await fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${artwork.objectID}`);
-        const data = await res.json();
-
-        // background
-        const bgSrc = data.primaryImage || data.primaryImageSmall;
-        if (bgSrc) {
-          const bg = document.getElementById('bg-img');
-          bg.src = bgSrc;
-          bg.onload = () => bg.classList.add('loaded');
-        }
-
-        // painting
-        const paintSrc = data.primaryImage || data.primaryImageSmall;
-        if (paintSrc) {
-          const img = document.getElementById('painting-img');
-          img.src   = paintSrc;
-          img.alt   = data.title || 'Artwork';
-          img.onload = () => {
-            img.classList.add('loaded');
-            document.getElementById('painting-loader').style.display = 'none';
-          };
-        }
-
-        // text
-        document.getElementById('art-title').textContent  = data.title          || '—';
-        document.getElementById('art-artist').textContent = data.artistDisplayName || 'Unknown';
-        document.getElementById('art-year').textContent   = data.objectDate      || '';
-        document.getElementById('art-desc').textContent   = artwork.desc;
-
-        // learn more → wikipedia
-        const wikiURL = `https://en.wikipedia.org/wiki/${artwork.wikiSlug}`;
-        document.getElementById('learn-more').href = wikiURL;
-
-      } catch (e) {
-        document.getElementById('painting-loader').textContent = 'Could not load artwork.';
-        console.error(e);
-      }
-    }
-
-    load();
-  </script>
+loadImage();
+</script>
 </body>
 </html>

@@ -9,270 +9,143 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Radley:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0D0D0D;
-      --white: #FFFFFF;
-      --muted: rgba(255,255,255,0.45);
-      --border: rgba(255,255,255,0.1);
-      --sans: 'Google Sans Flex', sans-serif;
-      --serif: 'Radley', Georgia, serif;
+      --bg: #0D0D0D; --white: #FFFFFF; --muted: rgba(255,255,255,0.45);
+      --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif;
     }
+    html, body { min-height: 100%; background: var(--bg); color: var(--white); }
+    body { padding: 36px 48px 80px; }
 
-    html, body {
-      min-height: 100%;
-      background: var(--bg);
-      color: var(--white);
-    }
-
-    body {
-      padding: 36px 48px 80px;
-    }
-
-    /* ── TOP BAR ─────────────────────────────────── */
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 64px;
-    }
-
-    #logo img {
-      height: 22px;
-      width: auto;
-      opacity: 0.92;
-    }
-
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 56px; }
+    #logo img { height: 20px; width: auto; opacity: 0.92; }
     #back-link {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      transition: color 0.2s;
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
+      text-decoration: none; display: flex; align-items: center; gap: 9px; transition: color 0.2s;
     }
-
     #back-link:hover { color: var(--white); }
+    #back-link svg { width: 12px; height: 12px; }
 
-    #back-link svg { width: 13px; height: 13px; }
-
-    /* ── HEADING ─────────────────────────────────── */
     h1 {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 32px;
+      font-family: var(--sans); font-size: 12px; font-weight: 600;
+      letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px;
     }
 
-    /* ── GRID ────────────────────────────────────── */
-    #grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-      gap: 2px;
-    }
+    #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px; }
 
     .card {
-      display: block;
-      text-decoration: none;
-      color: var(--white);
-      position: relative;
-      aspect-ratio: 4/3;
-      overflow: hidden;
+      display: block; text-decoration: none; color: var(--white);
+      position: relative; aspect-ratio: 4/3; overflow: hidden;
       background: rgba(255,255,255,0.04);
     }
-
     .card img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      display: block;
-      opacity: 0;
-      transition: opacity 0.6s ease, transform 0.4s ease;
+      width: 100%; height: 100%; object-fit: cover; display: block;
+      opacity: 0; transition: opacity 0.6s ease, transform 0.4s ease;
     }
-
     .card img.loaded { opacity: 1; }
-    .card:hover img { transform: scale(1.03); opacity: 0.75; }
+    .card:hover img { transform: scale(1.03); opacity: 0.7; }
 
-    .card-overlay {
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 55%);
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 18px 16px;
-      opacity: 0;
-      transition: opacity 0.25s;
-    }
-
-    .card:hover .card-overlay { opacity: 1; }
-
-    /* always-visible bottom strip */
     .card-info {
-      position: absolute;
-      bottom: 0; left: 0; right: 0;
-      padding: 14px 16px 12px;
-      background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+      position: absolute; bottom: 0; left: 0; right: 0;
+      padding: 40px 16px 14px;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, transparent 100%);
     }
-
     .card-title {
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 600;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-family: var(--sans); font-size: 13px; font-weight: 600;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-
     .card-artist {
-      font-family: var(--serif);
-      font-size: 12px;
-      font-style: italic;
-      color: rgba(255,255,255,0.65);
-      margin-top: 2px;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      font-family: var(--serif); font-size: 12px; font-style: italic;
+      color: rgba(255,255,255,0.6); margin-top: 2px;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
     }
-
     .card-day {
-      position: absolute;
-      top: 12px; left: 14px;
-      font-family: var(--sans);
-      font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      background: rgba(0,0,0,0.45);
-      padding: 3px 8px;
-      border-radius: 3px;
+      position: absolute; top: 12px; left: 14px;
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      color: rgba(255,255,255,0.5); background: rgba(0,0,0,0.5);
+      padding: 3px 8px; border-radius: 3px;
     }
-
-    .card-skeleton {
+    .card-skel {
       width: 100%; height: 100%;
       background: rgba(255,255,255,0.05);
       animation: pulse 1.6s ease-in-out infinite;
     }
+    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
 
-    @keyframes pulse {
-      0%, 100% { opacity: 0.3; }
-      50%       { opacity: 0.7; }
-    }
-
-    /* ── FOOTER ──────────────────────────────────── */
     footer {
-      margin-top: 64px;
-      font-family: var(--sans);
-      font-size: 13px;
-      font-weight: 700;
-      color: rgba(255,255,255,0.2);
-      letter-spacing: 0.05em;
+      margin-top: 56px; display: flex; align-items: center;
     }
+    footer img { height: 18px; width: auto; opacity: 0.2; }
   </style>
 </head>
 <body>
 
-  <header>
-    <div id="logo"><img src="logo.png" alt="Fourward" /></div>
-    <a id="back-link" href="index.html">
-      <svg viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M8 1.5L3 6.5L8 11.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-      Today's work
-    </a>
-  </header>
+<header>
+  <div id="logo"><img src="logo.png" alt="Fourward" /></div>
+  <a id="back-link" href="index.html">
+    <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M7.5 1.5L3 6L7.5 10.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+    Today's work
+  </a>
+</header>
 
-  <h1>Archive</h1>
+<h1>Archive</h1>
+<div id="grid"></div>
 
-  <div id="grid"></div>
+<footer><img src="44.png" alt="44" /></footer>
 
-  <footer>44</footer>
+<script>
+const ARTWORKS = [
+  { objectID: 10554,   title: "Watson and the Shark",                      artist: "John Singleton Copley" },
+  { objectID: 437854,  title: "Whalers",                                   artist: "J. M. W. Turner" },
+  { objectID: 459174,  title: "Greifswald in Moonlight",                   artist: "Caspar David Friedrich" },
+  { objectID: 49741,   title: "Don Manuel Osorio Manrique de Zuñiga",      artist: "Francisco Goya" },
+  { objectID: 437984,  title: "Wheat Field with Cypresses",                 artist: "Vincent van Gogh" },
+  { objectID: 459074,  title: "The Penitent Magdalene",                    artist: "Georges de La Tour" },
+  { objectID: 647152,  title: "Whalers (Boiling Blubber) Entangled in Flaw Ice", artist: "J. M. W. Turner" }
+];
 
-  <script>
-    const ARTWORKS = [
-      { objectID: 436535,  label: "Woman Reading a Letter" },
-      { objectID: 437853,  label: "Madame X" },
-      { objectID: 459055,  label: "Self-Portrait" },
-      { objectID: 436121,  label: "View of Toledo" },
-      { objectID: 437329,  label: "Water Lilies" },
-      { objectID: 11417,   label: "Washington Crossing the Delaware" },
-      { objectID: 436524,  label: "The Harvesters" },
-      { objectID: 437984,  label: "Wheat Field with Cypresses" },
-      { objectID: 436528,  label: "Young Woman with a Water Pitcher" },
-      { objectID: 436532,  label: "The Milkmaid" },
-    ];
+// Show all 7, newest first (day 7 → day 1)
+const grid = document.getElementById('grid');
+const reversed = [...ARTWORKS.entries()].reverse();
 
-    const todayDayIdx = Math.floor(Date.now() / 86400000) % ARTWORKS.length;
+reversed.forEach(([idx, aw]) => {
+  const a = document.createElement('a');
+  a.className = 'card';
+  a.href = `index.html?day=${idx}`;
 
-    // show past days only (including today), newest first
-    const pastArtworks = [];
-    for (let i = 0; i <= todayDayIdx; i++) {
-      pastArtworks.push({ idx: i, ...ARTWORKS[i] });
-    }
-    pastArtworks.reverse();
+  const badge = document.createElement('div');
+  badge.className = 'card-day';
+  badge.textContent = `Day ${idx + 1}`;
+  a.appendChild(badge);
 
-    const grid = document.getElementById('grid');
+  const skel = document.createElement('div');
+  skel.className = 'card-skel';
+  a.appendChild(skel);
 
-    pastArtworks.forEach(({ idx, objectID }) => {
-      const a = document.createElement('a');
-      a.className = 'card';
-      a.href = `index.html?day=${idx}`;
+  const info = document.createElement('div');
+  info.className = 'card-info';
+  info.innerHTML = `<div class="card-title">${aw.title}</div><div class="card-artist">${aw.artist}</div>`;
+  a.appendChild(info);
 
-      // day badge
-      const dayBadge = document.createElement('div');
-      dayBadge.className = 'card-day';
-      dayBadge.textContent = `Day ${idx + 1}`;
-      a.appendChild(dayBadge);
+  grid.appendChild(a);
 
-      // skeleton
-      const skel = document.createElement('div');
-      skel.className = 'card-skeleton';
-      a.appendChild(skel);
-
-      // info strip (populated after fetch)
-      const info = document.createElement('div');
-      info.className = 'card-info';
-      const titleEl = document.createElement('div');
-      titleEl.className = 'card-title';
-      const artistEl = document.createElement('div');
-      artistEl.className = 'card-artist';
-      info.appendChild(titleEl);
-      info.appendChild(artistEl);
-      a.appendChild(info);
-
-      grid.appendChild(a);
-
-      // fetch Met data
-      fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${objectID}`)
-        .then(r => r.json())
-        .then(data => {
-          skel.remove();
-
-          const img = document.createElement('img');
-          const src = data.primaryImageSmall || data.primaryImage;
-          if (src) {
-            img.src = src;
-            img.alt = data.title || '';
-            img.onload = () => img.classList.add('loaded');
-            a.insertBefore(img, a.firstChild);
-          }
-
-          titleEl.textContent  = data.title              || '—';
-          artistEl.textContent = data.artistDisplayName  || '';
-        })
-        .catch(() => {
-          skel.style.animation = 'none';
-          skel.style.opacity   = '0.05';
-        });
-    });
-  </script>
+  fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${aw.objectID}`)
+    .then(r => r.json())
+    .then(data => {
+      skel.remove();
+      const src = data.primaryImageSmall || data.primaryImage;
+      if (src) {
+        const img = document.createElement('img');
+        img.src = src; img.alt = aw.title;
+        img.onload = () => img.classList.add('loaded');
+        a.insertBefore(img, badge);
+      }
+    })
+    .catch(() => { skel.style.animation = 'none'; skel.style.opacity = '0.04'; });
+});
+</script>
 </body>
 </html>
