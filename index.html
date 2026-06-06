@@ -13,11 +13,9 @@
     :root {
       --bg: #0D0D0D;
       --white: #ffffff;
-      --muted: rgba(255,255,255,0.48);
+      --muted: rgba(255,255,255,0.46);
       --sans: 'Google Sans Flex', sans-serif;
       --serif: 'Radley', Georgia, serif;
-      /* sidebar = 1/5 of viewport */
-      --sidebar: 20vw;
     }
 
     html, body {
@@ -27,54 +25,47 @@
       overflow: hidden;
     }
 
-    /* ── LAYOUT ──────────────────────────────────── */
     #page {
       width: 100vw; height: 100vh;
       display: flex;
     }
 
-    /* ── SIDEBAR (leftmost 1/5) ──────────────────── */
+    /* ── SIDEBAR = exactly 1/5 viewport ─────────── */
     #sidebar {
-      width: var(--sidebar);
-      min-width: 200px;
-      max-width: 320px;
+      width: 20vw;
       flex-shrink: 0;
       height: 100%;
       background: var(--bg);
       display: flex;
       flex-direction: column;
-      padding: 32px 26px 28px;
+      padding: 30px 24px 28px;
       z-index: 2;
-      position: relative;
     }
 
-    /* logo top */
     #logo img { height: 14px; width: auto; opacity: 0.90; }
 
-    /* prev nav */
     #nav-prev {
       display: flex; align-items: center; gap: 10px;
-      margin-top: 30px;
+      margin-top: 28px;
       color: var(--white); text-decoration: none;
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      opacity: 0.52; transition: opacity 0.2s; width: fit-content;
+      opacity: 0.50; transition: opacity 0.2s; width: fit-content;
     }
     #nav-prev:hover { opacity: 1; }
     #nav-prev.disabled { opacity: 0.14; pointer-events: none; }
 
     .arrow-circle {
       width: 26px; height: 26px; border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.32);
-      display: flex; align-items: center; justify-content: center;
+      border: 1.5px solid rgba(255,255,255,0.30);
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
     }
     .arrow-circle svg { width: 10px; height: 10px; }
 
-    /* art info pushed to vertical center */
     #art-info {
       margin-top: auto;
       margin-bottom: auto;
-      padding: 32px 0;
+      padding: 24px 0;
     }
 
     #art-title {
@@ -91,46 +82,50 @@
       color: var(--muted); margin-bottom: 18px;
     }
     #divider {
-      width: 36px; height: 1px;
-      background: rgba(255,255,255,0.20);
-      margin-bottom: 16px;
+      width: 34px; height: 1px;
+      background: rgba(255,255,255,0.18);
+      margin-bottom: 15px;
     }
     #art-desc {
       font-family: var(--sans); font-size: 14px; font-weight: 400;
-      line-height: 1.5; color: rgba(255,255,255,0.58);
+      line-height: 1.5; color: rgba(255,255,255,0.56);
     }
 
-    /* bottom */
     #sidebar-bottom {
       margin-top: auto;
-      display: flex; flex-direction: column; gap: 14px;
     }
     #learn-more {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--white); text-decoration: none;
-      opacity: 0.52; transition: opacity 0.2s; width: fit-content;
+      opacity: 0.50; transition: opacity 0.2s; width: fit-content;
+      display: block;
     }
     #learn-more:hover { opacity: 1; }
-    #logo-44 img { height: 14px; width: auto; opacity: 0.22; }
 
-    /* ── PAINTING PANEL (rightmost 4/5) ──────────── */
+    /* ── PAINTING PANEL = 4/5 viewport ──────────── */
     #painting-panel {
-      flex: 1;
+      flex: 1;          /* takes exactly 80vw */
       height: 100%;
       position: relative;
       overflow: hidden;
-      background: #080808;
+      background: #060606;
     }
 
-    /* painting: right-aligned, full height, crops left if too wide */
+    /*
+      The image must:
+      - fill the full HEIGHT of the panel (100vh)
+      - fill the full WIDTH of the panel (80vw)
+      - be cropped (object-fit: cover) if aspect ratio doesn't match
+      - be anchored left so any crop happens on the right
+    */
     #painting-img {
       position: absolute;
-      top: 0;
-      right: 0;          /* anchor to right edge */
+      top: 0; left: 0;
+      width: 100%;
       height: 100%;
-      width: auto;
-      max-width: none;
+      object-fit: cover;
+      object-position: left center;
       display: block;
       opacity: 0;
       transition: opacity 1.1s ease;
@@ -145,17 +140,17 @@
       pointer-events: none;
     }
 
-    /* top-right nav */
     #topright {
-      position: absolute; top: 30px; right: 34px;
-      display: flex; align-items: center; gap: 26px;
+      position: absolute; top: 28px; right: 32px;
+      display: flex; align-items: center; gap: 24px;
       z-index: 3;
     }
     #topright a {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.55); text-decoration: none;
-      transition: color 0.2s; text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+      color: rgba(255,255,255,0.60); text-decoration: none;
+      transition: color 0.2s;
+      text-shadow: 0 1px 6px rgba(0,0,0,0.8);
     }
     #topright a:hover { color: var(--white); }
   </style>
@@ -168,7 +163,9 @@
 
     <a id="nav-prev" href="#" class="disabled">
       <span class="arrow-circle">
-        <svg viewBox="0 0 10 10" fill="none"><path d="M6.5 1.5L2.5 5L6.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <svg viewBox="0 0 10 10" fill="none">
+          <path d="M6.5 1.5L2.5 5L6.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </span>
       View Previous
     </a>
@@ -183,7 +180,6 @@
 
     <div id="sidebar-bottom">
       <a id="learn-more" href="#" target="_blank">Learn More</a>
-      <div id="logo-44"><img src="44.png" alt="44" /></div>
     </div>
   </div>
 
@@ -198,46 +194,78 @@
 
 </div>
 <script>
-// ── ARTWORKS ──────────────────────────────────────────────────
-// All wide-format paintings. Images loaded via Wikipedia API
-// (CORS-safe) using the article title to get the main image.
-// wikiTitle = the exact Wikipedia article title for this painting.
 const ARTWORKS = [
   {
     title: "The Raft of the Medusa",
     artist: "Théodore Géricault",
     date: "1818–1819",
-    wikiTitle: "The_Raft_of_the_Medusa",
     wikiPage: "The_Raft_of_the_Medusa",
-    desc: "Géricault spent two years on this. He visited morgues, interviewed survivors, had a life-size raft built in his studio. Of 147 people set adrift after the wreck of the Medusa, only 15 survived. He was 27 when he finished it. It was rejected by critics and became an icon."
+    wikiLearnMore: "The_Raft_of_the_Medusa",
+    desc: "Géricault spent two years preparing this. He visited morgues, interviewed survivors, and had a life-size raft built in his studio. Of 147 people set adrift after the wreck, only 15 survived. He was 27 when he finished it. Critics were horrified. It became an icon."
   },
   {
     title: "The Third of May 1808",
     artist: "Francisco Goya",
     date: "1814",
     wikiPage: "The_Third_of_May_1808",
-    desc: "Spanish rebels are executed at night by French soldiers who have no faces — only the geometry of rifles. The man in the white shirt throws his arms wide. The lantern on the ground is the only light. Goya painted this six years after the event, once the French had left."
+    wikiLearnMore: "The_Third_of_May_1808",
+    desc: "Spanish rebels executed at night by French soldiers who have no faces — only rifles. The man in the white shirt throws his arms wide. The lantern on the ground is the only light. Goya painted this six years after the event, once the French had gone."
   },
   {
-    title: "Two Men Contemplating the Moon",
-    artist: "Caspar David Friedrich",
-    date: "1825–1830",
-    wikiPage: "Two_Men_Contemplating_the_Moon",
-    desc: "Two figures on a path look up at a crescent moon through gnarled oak trees. Friedrich painted this subject four times. The figures are always small, always still, always facing away. The moon is not romantic here — it is remote, indifferent, and perfect."
+    title: "The Nightmare",
+    artist: "Henry Fuseli",
+    date: "1781",
+    wikiPage: "The_Nightmare_(Fuseli)",
+    wikiLearnMore: "The_Nightmare_(Fuseli)",
+    desc: "A woman lies unconscious as a goblin crouches on her chest. A horse's white blind eye stares from behind a curtain. Fuseli painted the unconscious as a place occupied by other things. When exhibited in 1782 it was the most talked-about painting in London."
+  },
+  {
+    title: "The Isle of the Dead",
+    artist: "Arnold Böcklin",
+    date: "1886",
+    wikiPage: "Isle_of_the_Dead_(painting)",
+    wikiLearnMore: "Isle_of_the_Dead_(painting)",
+    desc: "A white-shrouded figure stands in a boat approaching a dark island of cypress trees and sheer rock. Böcklin painted five versions and refused to explain any of them. Freud owned a print. Hitler owned a version. It was the most reproduced painting in the German-speaking world at the turn of the century."
   },
   {
     title: "Death on a Pale Horse",
     artist: "Benjamin West",
     date: "1796",
     wikiPage: "Death_on_a_Pale_Horse_(West)",
-    desc: "The four horsemen of the apocalypse, rendered at full scale with writhing bodies below them. West worked on versions of this for thirty years. No painting of the period attempted this much chaos and kept it legible. The pale horse at the center is the painting's cold engine."
+    wikiLearnMore: "Death_on_a_Pale_Horse_(West)",
+    desc: "The four horsemen of the apocalypse, with bodies writhing beneath them. West worked on versions of this composition for thirty years. No painting of its era attempted this much chaos and kept it legible. The pale horse at the center is the painting's cold engine."
+  },
+  {
+    title: "A Lion Attacking a Horse",
+    artist: "George Stubbs",
+    date: "1762",
+    wikiPage: "A_Lion_Attacking_a_Horse",
+    wikiLearnMore: "A_Lion_Attacking_a_Horse",
+    desc: "A white horse rears in terror as a lion mounts its back and sinks its claws in. Stubbs painted this subject seventeen times across thirty years. He was a trained anatomist. The terror is precise. Géricault studied these paintings obsessively."
+  },
+  {
+    title: "A Philosopher Lecturing on the Orrery",
+    artist: "Joseph Wright of Derby",
+    date: "1766",
+    wikiPage: "A_Philosopher_Lecturing_on_the_Orrery",
+    wikiLearnMore: "A_Philosopher_Lecturing_on_the_Orrery",
+    desc: "A mechanical model of the solar system glows in a dark room. The faces around it are lit from below — awe, fear, concentration. Wright painted candlelight the way Caravaggio painted torchlight: as a force that reveals what darkness conceals."
+  },
+  {
+    title: "An Experiment on a Bird in the Air Pump",
+    artist: "Joseph Wright of Derby",
+    date: "1768",
+    wikiPage: "An_Experiment_on_a_Bird_in_the_Air_Pump",
+    wikiLearnMore: "An_Experiment_on_a_Bird_in_the_Air_Pump",
+    desc: "A scientist removes air from a glass globe containing a live bird. Some watch with scientific detachment. A girl turns away. Two children hold each other. The scientist looks directly at us. Wright gives no verdict — only the moment before the choice is made."
   },
   {
     title: "The Seventh Plague of Egypt",
     artist: "John Martin",
     date: "1823",
-    wikiPage: "John_Martin_(painter)",
-    desc: "Fire and hail rain from an apocalyptic sky onto Egypt. Martin specialized in making humans look completely insignificant against the scale of divine punishment. The figures here are tiny. The sky takes up most of the canvas. That was always his point."
+    wikiPage: "The_Seventh_Plague_of_Egypt",
+    wikiLearnMore: "The_Seventh_Plague_of_Egypt",
+    desc: "Fire and hail rain from an apocalyptic sky onto Egypt. Moses stands with his staff. The human figures are tiny — barely visible against what's falling from above. Martin specialized in making people look insignificant. He considered that the point."
   }
 ];
 
@@ -247,63 +275,52 @@ const TOTAL  = ARTWORKS.length;
 
 let idx = params.has('day')
   ? ((parseInt(params.get('day'), 10) % TOTAL) + TOTAL) % TOTAL
-  : TOTAL - 1; // default: show newest (last) entry
+  : TOTAL - 1;
 
 const artwork = ARTWORKS[idx];
 
-// prev link
 const prevLink = document.getElementById('nav-prev');
 if (idx > 0) {
   prevLink.classList.remove('disabled');
   prevLink.href = `index.html?day=${idx - 1}`;
 }
 
-// fill text immediately
 document.getElementById('art-title').textContent  = artwork.title;
 document.getElementById('art-artist').textContent = artwork.artist;
 document.getElementById('art-year').textContent   = artwork.date;
 document.getElementById('art-desc').textContent   = artwork.desc;
 document.getElementById('learn-more').href =
-  `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
+  `https://en.wikipedia.org/wiki/${artwork.wikiLearnMore}`;
 
-// ── LOAD IMAGE via Wikipedia API (CORS-safe) ──────────────────
-// Requests the largest available thumbnail for the article's lead image.
+// ── IMAGE via Wikipedia API (CORS-safe from browsers) ─────────
 async function loadImage() {
   const loader = document.getElementById('painting-loader');
   const img    = document.getElementById('painting-img');
-
   try {
-    // Step 1: get the lead image filename from the page
-    const infoUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(artwork.wikiPage)}&prop=pageimages&pithumbsize=2400&format=json&origin=*`;
-    const infoRes = await fetch(infoUrl);
-    const infoData = await infoRes.json();
-    const pages = infoData.query.pages;
+    const url = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(artwork.wikiPage)}&prop=pageimages&pithumbsize=2400&format=json&origin=*`;
+    const res  = await fetch(url);
+    const data = await res.json();
+    const pages = data.query.pages;
     const page  = pages[Object.keys(pages)[0]];
+    const thumb = page?.thumbnail?.source;
 
-    const src = page?.thumbnail?.source;
+    if (!thumb) { loader.textContent = 'Image unavailable'; return; }
 
-    if (!src) {
-      loader.textContent = 'Image unavailable';
-      return;
-    }
+    // bump resolution: replace /NNNpx- with /2400px- in the URL
+    const hiRes = thumb.replace(/\/\d+px-/, '/2400px-');
 
-    // Step 2: bump up the size in the URL (Wikipedia thumb URLs let you do this)
-    // Pattern: /WIDTHpx- → replace with /2400px-
-    const hiResSrc = src.replace(/\/\d+px-/, '/2400px-');
-
-    img.src = hiResSrc;
+    img.src = hiRes;
     img.alt = artwork.title;
     img.onload = () => {
       img.classList.add('loaded');
       loader.style.display = 'none';
     };
     img.onerror = () => {
-      // fallback to original thumbnail size
-      img.src = src;
+      // fallback to original thumb size
+      img.src = thumb;
       img.onload = () => { img.classList.add('loaded'); loader.style.display = 'none'; };
       img.onerror = () => { loader.textContent = 'Image unavailable'; };
     };
-
   } catch(e) {
     loader.textContent = 'Could not load image.';
   }

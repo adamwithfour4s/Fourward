@@ -9,33 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Radley:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --bg: #0D0D0D; --white: #fff; --muted: rgba(255,255,255,0.42); --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif; }
+    :root { --bg: #0D0D0D; --white: #fff; --muted: rgba(255,255,255,0.40); --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif; }
     html, body { min-height: 100%; background: var(--bg); color: var(--white); }
-    body { padding: 32px 44px 72px; }
+    body { padding: 30px 44px 64px; }
 
-    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 52px; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
     #logo img { height: 14px; opacity: 0.90; }
-    #nav-right { display: flex; gap: 24px; }
+    #nav-right { display: flex; gap: 22px; }
     #nav-right a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
     #nav-right a:hover { color: var(--white); }
 
-    h1 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
+    h1 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 22px; }
 
     #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; }
 
     .card { display: block; text-decoration: none; color: var(--white); position: relative; aspect-ratio: 16/9; overflow: hidden; background: rgba(255,255,255,0.04); }
-    .card img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; opacity: 0; transition: opacity 0.7s ease, transform 0.4s ease; }
+    .card img { width: 100%; height: 100%; object-fit: cover; object-position: left center; display: block; opacity: 0; transition: opacity 0.7s ease, transform 0.4s ease; }
     .card img.loaded { opacity: 1; }
-    .card:hover img { transform: scale(1.03); opacity: 0.72; }
-    .card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 44px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%); }
+    .card:hover img { transform: scale(1.03); opacity: 0.70; }
+    .card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 48px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%); }
     .card-title { font-family: var(--sans); font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-artist { font-family: var(--serif); font-size: 12px; font-style: italic; color: rgba(255,255,255,0.58); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-day { position: absolute; top: 12px; left: 13px; font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.48); background: rgba(0,0,0,0.52); padding: 3px 7px; border-radius: 3px; }
+    .card-artist { font-family: var(--serif); font-size: 12px; font-style: italic; color: rgba(255,255,255,0.56); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-day { position: absolute; top: 11px; left: 13px; font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.46); background: rgba(0,0,0,0.54); padding: 3px 7px; border-radius: 3px; }
     .card-skel { width: 100%; height: 100%; background: rgba(255,255,255,0.05); animation: pulse 1.6s ease-in-out infinite; }
-    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.7} }
-
-    footer { margin-top: 52px; }
-    footer img { height: 13px; opacity: 0.18; }
+    @keyframes pulse { 0%,100%{opacity:.25} 50%{opacity:.60} }
   </style>
 </head>
 <body>
@@ -49,20 +46,22 @@
 
 <h1>Archive</h1>
 <div id="grid"></div>
-<footer><img src="44.png" alt="44" /></footer>
 
 <script>
 const ARTWORKS = [
-  { title: "The Raft of the Medusa",      artist: "Théodore Géricault",  wikiPage: "The_Raft_of_the_Medusa" },
-  { title: "The Third of May 1808",       artist: "Francisco Goya",       wikiPage: "The_Third_of_May_1808" },
-  { title: "Two Men Contemplating the Moon", artist: "Caspar David Friedrich", wikiPage: "Two_Men_Contemplating_the_Moon" },
-  { title: "Death on a Pale Horse",       artist: "Benjamin West",        wikiPage: "Death_on_a_Pale_Horse_(West)" },
-  { title: "The Seventh Plague of Egypt", artist: "John Martin",          wikiPage: "John_Martin_(painter)" },
+  { title: "The Raft of the Medusa",                      artist: "Théodore Géricault",      wikiPage: "The_Raft_of_the_Medusa" },
+  { title: "The Third of May 1808",                       artist: "Francisco Goya",           wikiPage: "The_Third_of_May_1808" },
+  { title: "The Nightmare",                               artist: "Henry Fuseli",             wikiPage: "The_Nightmare_(Fuseli)" },
+  { title: "The Isle of the Dead",                        artist: "Arnold Böcklin",           wikiPage: "Isle_of_the_Dead_(painting)" },
+  { title: "Death on a Pale Horse",                       artist: "Benjamin West",            wikiPage: "Death_on_a_Pale_Horse_(West)" },
+  { title: "A Lion Attacking a Horse",                    artist: "George Stubbs",            wikiPage: "A_Lion_Attacking_a_Horse" },
+  { title: "A Philosopher Lecturing on the Orrery",       artist: "Joseph Wright of Derby",   wikiPage: "A_Philosopher_Lecturing_on_the_Orrery" },
+  { title: "An Experiment on a Bird in the Air Pump",     artist: "Joseph Wright of Derby",   wikiPage: "An_Experiment_on_a_Bird_in_the_Air_Pump" },
+  { title: "The Seventh Plague of Egypt",                 artist: "John Martin",              wikiPage: "The_Seventh_Plague_of_Egypt" },
 ];
 
 const grid = document.getElementById('grid');
 
-// Show all entries, newest first
 [...ARTWORKS.entries()].reverse().forEach(([idx, aw]) => {
   const a = document.createElement('a');
   a.className = 'card';
@@ -84,14 +83,12 @@ const grid = document.getElementById('grid');
 
   grid.appendChild(a);
 
-  // fetch thumbnail via Wikipedia API
   const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(aw.wikiPage)}&prop=pageimages&pithumbsize=600&format=json&origin=*`;
   fetch(apiUrl)
     .then(r => r.json())
     .then(data => {
-      const pages = data.query.pages;
-      const page  = pages[Object.keys(pages)[0]];
-      const src   = page?.thumbnail?.source;
+      const page = Object.values(data.query.pages)[0];
+      const src  = page?.thumbnail?.source;
       if (src) {
         skel.remove();
         const img = document.createElement('img');
