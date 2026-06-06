@@ -414,7 +414,7 @@ const ARTWORKS = [
     title: "The Wreck of a Transport Ship",
     artist: "J. M. W. Turner",
     date: "1810",
-    imageFile: "Joseph_Mallord_William_Turner_-_Wreck_of_a_Transport_Ship.jpg",
+    imageFile: "Shipwreck_turner.jpg",
     wikiPage: "The_Wreck_of_a_Transport_Ship",
     desc: "The painting depicts a ship overwhelmed by wind and waves during a violent storm, with lifeboats attempting to rescue survivors from the doomed vessel. Although Turner had begun preparatory sketches before the event, the work gained topicality when the HMS Minotaur was wrecked off the Dutch coast with heavy loss of life in November 1810, shortly after the painting was completed."
   },
@@ -473,13 +473,13 @@ const artwork = ARTWORKS[idx];
 const prevBtn = document.getElementById('nav-prev');
 if (idx > 0) { prevBtn.classList.remove('disabled'); prevBtn.href = `index.html?day=${idx - 1}`; }
 const nextBtn = document.getElementById('nav-next');
-if (idx < LAST) { nextBtn.classList.remove('disabled'); nextBtn.href = `index.html?day=${idx + 1}`; }
+if (idx < todayIdx) { nextBtn.classList.remove('disabled'); nextBtn.href = `index.html?day=${idx + 1}`; }
 
 // mobile nav
 const mPrev = document.getElementById('mobile-prev');
 if (idx > 0) { mPrev.classList.remove('disabled'); mPrev.href = `index.html?day=${idx - 1}`; }
 const mNext = document.getElementById('mobile-next');
-if (idx < LAST) { mNext.classList.remove('disabled'); mNext.href = `index.html?day=${idx + 1}`; }
+if (idx < todayIdx) { mNext.classList.remove('disabled'); mNext.href = `index.html?day=${idx + 1}`; }
 
 // desktop text
 document.getElementById('art-title').textContent  = artwork.title;
