@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About — Fourward</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Radley:ital@0;1&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { min-height: 100%; background: #0D0D0D; color: #fff; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 32px 40px;
+    }
+    header img { height: 15px; width: auto; opacity: 0.9; }
+    #back-link {
+      font-family: 'Google Sans Flex', sans-serif; font-size: 11px; font-weight: 600;
+      letter-spacing: 0.1em; text-transform: uppercase;
+      color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s;
+    }
+    #back-link:hover { color: #fff; }
+    main { flex: 1; display: flex; align-items: center; justify-content: center; }
+    footer { padding: 32px 40px; }
+    footer img { height: 15px; opacity: 0.2; }
+  </style>
+</head>
+<body>
+  <header>
+    <img src="logo.png" alt="Fourward" />
+    <a id="back-link" href="index.html">← Today's work</a>
+  </header>
+  <main></main>
+  <footer><img src="44.png" alt="44" /></footer>
+</body>
+</html>
