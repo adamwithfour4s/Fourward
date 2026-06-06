@@ -13,10 +13,13 @@
       --bg: #0D0D0D; --white: #ffffff; --muted: rgba(255,255,255,0.46);
       --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif;
     }
-    html, body { width: 100%; height: 100%; background: var(--bg); color: var(--white); overflow: hidden; }
-    #page { width: 100vw; height: 100vh; display: flex; }
+    html, body { width: 100%; height: 100%; background: var(--bg); color: var(--white); }
 
-    /* sidebar = 20vw, inner right padding = 5vw (1/4 of column) */
+    /* ═══════════════════════════════════════════
+       DESKTOP  (> 768px)
+    ═══════════════════════════════════════════ */
+    #page { width: 100vw; height: 100vh; display: flex; overflow: hidden; }
+
     #sidebar {
       width: 20vw; flex-shrink: 0; height: 100%;
       background: var(--bg);
@@ -44,8 +47,7 @@
 
     #art-title {
       font-family: var(--sans); font-size: 16px; font-weight: 700;
-      line-height: 1.2; margin-bottom: 3px;
-      text-wrap: balance;
+      line-height: 1.2; margin-bottom: 3px; text-wrap: balance;
     }
     #art-artist {
       font-family: var(--serif); font-size: 16px; font-style: italic;
@@ -59,20 +61,22 @@
     #divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 15px; }
     #art-desc {
       font-family: var(--sans); font-size: 12px; font-weight: 400;
-      line-height: 1.5; color: rgba(255,255,255,0.56);
-      text-wrap: pretty; /* avoids orphaned last words */
+      line-height: 1.5; color: rgba(255,255,255,0.56); text-wrap: pretty;
     }
 
-    #sidebar-bottom { margin-top: auto; }
+    #sidebar-bottom {
+      margin-top: auto;
+      display: flex; align-items: center; gap: 14px;
+    }
     #learn-more {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--white); text-decoration: none;
-      opacity: 0.50; transition: opacity 0.2s; display: block;
+      opacity: 0.50; transition: opacity 0.2s;
     }
     #learn-more:hover { opacity: 1; }
 
-    /* painting panel = 80vw */
+    /* painting panel */
     #painting-panel {
       flex: 1; height: 100%; position: relative; overflow: hidden; background: #060606;
     }
@@ -91,15 +95,21 @@
     }
     #topright {
       position: absolute; top: 28px; right: 32px;
-      display: flex; gap: 24px; z-index: 3;
+      display: flex; align-items: center; gap: 18px; z-index: 3;
     }
-    #topright a {
+    #topright a.text-link {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
       color: rgba(255,255,255,0.60); text-decoration: none;
       transition: color 0.2s; text-shadow: 0 1px 6px rgba(0,0,0,0.8);
     }
-    #topright a:hover { color: var(--white); }
+    #topright a.text-link:hover { color: var(--white); }
+    #topright a.icon-link img {
+      height: 16px; width: 16px; opacity: 0.55;
+      transition: opacity 0.2s;
+      filter: drop-shadow(0 1px 4px rgba(0,0,0,0.8));
+    }
+    #topright a.icon-link:hover img { opacity: 1; }
 
     /* VIEW IN FULL */
     #view-full-btn {
@@ -107,8 +117,7 @@
       background: var(--white); color: #0D0D0D;
       font-family: var(--sans); font-size: 11px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
-      border: none; cursor: pointer; padding: 9px 16px;
-      transition: opacity 0.2s;
+      border: none; cursor: pointer; padding: 9px 16px; transition: opacity 0.2s;
     }
     #view-full-btn:hover { opacity: 0.85; }
 
@@ -121,10 +130,117 @@
       width: 60%; height: auto; max-height: 90%;
       object-fit: contain; border: 1px solid #ffffff; display: block;
     }
+
+    /* ═══════════════════════════════════════════
+       MOBILE  (≤ 768px)
+    ═══════════════════════════════════════════ */
+    @media (max-width: 768px) {
+      html, body { overflow-y: auto; overflow-x: hidden; height: auto; }
+
+      #page { flex-direction: column; height: auto; overflow: visible; }
+
+      /* hide desktop sidebar entirely */
+      #sidebar { display: none; }
+
+      /* hide desktop painting-panel overlays */
+      #topright { display: none; }
+      #view-full-btn { display: none; }
+      #full-overlay { display: none !important; }
+
+      /* painting fills full width, natural height */
+      #painting-panel {
+        width: 100vw; height: auto;
+        position: relative; overflow: hidden;
+        flex-shrink: 0;
+      }
+      #painting-img {
+        position: relative; /* take up natural space */
+        width: 100%; height: auto;
+        object-fit: unset; object-position: unset;
+        display: block; opacity: 0;
+        transition: opacity 1s ease;
+      }
+      #painting-img.loaded { opacity: 1; }
+      #painting-loader {
+        position: absolute; top: 50%; left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      /* mobile content block below image */
+      #mobile-content {
+        display: flex; flex-direction: column;
+        padding: 24px 20px 36px;
+        background: var(--bg);
+      }
+
+      /* mobile top bar */
+      #mobile-topbar {
+        display: flex; align-items: center; justify-content: space-between;
+        margin-bottom: 20px;
+      }
+      #mobile-logo img { height: 13px; width: auto; opacity: 0.90; }
+      #mobile-archive {
+        font-family: var(--sans); font-size: 11px; font-weight: 600;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: rgba(255,255,255,0.55); text-decoration: none;
+      }
+
+      #mobile-title {
+        font-family: var(--sans); font-size: 16px; font-weight: 700;
+        line-height: 1.2; margin-bottom: 3px; text-wrap: balance;
+      }
+      #mobile-artist {
+        font-family: var(--serif); font-size: 16px; font-style: italic;
+        line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80);
+      }
+      #mobile-year {
+        font-family: var(--serif); font-size: 16px; font-style: italic;
+        color: var(--muted); margin-bottom: 18px;
+      }
+      #mobile-divider {
+        width: 34px; height: 1px;
+        background: rgba(255,255,255,0.18); margin-bottom: 14px;
+      }
+      #mobile-desc {
+        font-family: var(--sans); font-size: 12px; font-weight: 400;
+        line-height: 1.5; color: rgba(255,255,255,0.56);
+        text-wrap: pretty; margin-bottom: 28px;
+      }
+
+      /* mobile bottom row: LEARN MORE left, arrows right */
+      #mobile-bottom {
+        display: flex; align-items: center; justify-content: space-between;
+      }
+      #mobile-learn-more {
+        font-family: var(--sans); font-size: 11px; font-weight: 600;
+        letter-spacing: 0.12em; text-transform: uppercase;
+        color: var(--white); text-decoration: none; opacity: 0.55;
+      }
+      #mobile-nav { display: flex; align-items: center; gap: 10px; }
+
+      /* instagram bottom */
+      #mobile-instagram {
+        display: flex; justify-content: center;
+        padding: 20px 0 8px;
+      }
+      #mobile-instagram a img {
+        height: 22px; width: 22px; opacity: 0.40;
+        transition: opacity 0.2s;
+      }
+      #mobile-instagram a:hover img { opacity: 0.7; }
+    }
+
+    /* hide mobile content on desktop */
+    #mobile-content { display: none; }
+    @media (max-width: 768px) {
+      #mobile-content { display: flex; }
+    }
   </style>
 </head>
 <body>
 <div id="page">
+
+  <!-- ── DESKTOP SIDEBAR ── -->
   <div id="sidebar">
     <a id="logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
     <div id="nav-row">
@@ -147,13 +263,50 @@
     </div>
   </div>
 
+  <!-- ── PAINTING PANEL (shared desktop/mobile) ── -->
   <div id="painting-panel">
-    <div id="topright"><a href="archive.html">Archive</a></div>
+    <!-- desktop top-right nav -->
+    <div id="topright">
+      <a class="text-link" href="archive.html">Archive</a>
+      <a class="icon-link" href="https://www.instagram.com/adamwithfour4s/" target="_blank">
+        <img src="instagram.png" alt="Instagram" />
+      </a>
+    </div>
     <div id="painting-loader">Loading…</div>
     <img id="painting-img" alt="" />
     <button id="view-full-btn">View in Full</button>
     <div id="full-overlay"><img id="full-img" src="" alt="" /></div>
   </div>
+
+  <!-- ── MOBILE CONTENT (below image) ── -->
+  <div id="mobile-content">
+    <div id="mobile-topbar">
+      <a id="mobile-logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
+      <a id="mobile-archive" href="archive.html">Archive</a>
+    </div>
+    <div id="mobile-title"></div>
+    <div id="mobile-artist"></div>
+    <div id="mobile-year"></div>
+    <div id="mobile-divider"></div>
+    <div id="mobile-desc"></div>
+    <div id="mobile-bottom">
+      <a id="mobile-learn-more" href="#" target="_blank">Learn More</a>
+      <div id="mobile-nav">
+        <a id="mobile-prev" class="nav-btn disabled" href="#">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M6.5 1.5L2.5 5L6.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a id="mobile-next" class="nav-btn disabled" href="#">
+          <svg viewBox="0 0 10 10" fill="none"><path d="M3.5 1.5L7.5 5L3.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+    </div>
+    <div id="mobile-instagram">
+      <a href="https://www.instagram.com/adamwithfour4s/" target="_blank">
+        <img src="instagram.png" alt="Instagram" />
+      </a>
+    </div>
+  </div>
+
 </div>
 
 <script>
@@ -164,7 +317,7 @@ const ARTWORKS = [
     date: "1818–1819",
     imageFile: "Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg",
     wikiPage: "The_Raft_of_the_Medusa",
-    desc: "Géricault painted this at 27 to launch his career. He interviewed survivors, visited morgues to study decomposition, and had a full-scale raft built in his studio. At least 150 people were set adrift after the frigate Méduse ran aground in 1816; only 15 survived. The painting was controversial at the 1819 Paris Salon and made him famous."
+    desc: "Depicting the aftermath of the wreck of the French frigate Méduse, the painting shows survivors adrift on a makeshift raft after the ship ran aground on July 2, 1816. At least 150 people were set adrift; only 15 survived the 13 days before rescue, enduring starvation, dehydration, and cannibalism. The event became an international scandal attributed to the incompetence of the French captain."
   },
   {
     title: "The Third of May 1808",
@@ -172,7 +325,7 @@ const ARTWORKS = [
     date: "1814",
     imageFile: "El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg",
     wikiPage: "The_Third_of_May_1808",
-    desc: "Commissioned by the Spanish government after Napoleon's defeat, the painting depicts the execution of Madrid civilians by French troops. Goya broke with tradition by showing war as atrocity rather than glory — the soldiers are faceless machinery, the victims are human. It is widely regarded as the first modern painting."
+    desc: "The painting depicts the execution of Spanish civilians by Napoleonic soldiers following the Dos de Mayo Uprising in Madrid. Commissioned by the provisional government of Spain, it broke from conventional depictions of war by presenting the soldiers as anonymous, faceless executioners and the victims as recognizable human beings. It is widely considered a foundational work of modern art."
   },
   {
     title: "The Nightmare",
@@ -180,7 +333,7 @@ const ARTWORKS = [
     date: "1781",
     imageFile: "John_Henry_Fuseli_-_The_Nightmare.JPG",
     wikiPage: "The_Nightmare_(Fuseli)",
-    desc: "A woman lies in deep sleep while an incubus crouches on her chest, and a horse with blank white eyes peers through the curtain behind her. Critics reacted with horrified fascination when it was shown in 1782 — Fuseli's first commercial success after years of rejection. He produced at least three other versions, and engraved copies spread across Europe."
+    desc: "The painting shows a woman in deep sleep with an incubus crouching on her chest, while a horse with blank white eyes peers through the parted curtain behind her. Its erotic and unsettling evocation of obsession was a commercial breakthrough for Fuseli when shown in 1782. He produced at least three further versions, and engraved prints circulated widely across Europe."
   },
   {
     title: "The Isle of the Dead",
@@ -188,7 +341,7 @@ const ARTWORKS = [
     date: "1886",
     imageFile: "Isle_of_the_Dead_(Hermitage_Version).jpg",
     wikiPage: "Isle_of_the_Dead_(painting)",
-    desc: "A white-shrouded figure stands in a small boat approaching a rocky island of tall cypress trees. Böcklin painted five versions between 1880 and 1886 and refused to explain the subject. Freud owned a print, Hitler acquired a version, and at the turn of the century it was the most reproduced painting in the German-speaking world."
+    desc: "A white-shrouded figure stands in a small boat being rowed toward a rocky island dominated by tall cypress trees and sheer stone walls. Böcklin painted five versions of the composition between 1880 and 1886 and declined to explain the subject to anyone. Sigmund Freud owned a print of it, Adolf Hitler acquired one of the original versions, and at the turn of the century it was among the most widely reproduced images in the German-speaking world."
   },
   {
     title: "Death on a Pale Horse",
@@ -196,7 +349,7 @@ const ARTWORKS = [
     date: "1796",
     imageFile: "Death-on-a-pale-horse-west-1796.jpg",
     wikiPage: "Death_on_the_Pale_Horse",
-    desc: "West returned to this subject three times over thirty years, producing a drawing in 1783, this painting in 1796, and a 25-foot canvas in 1817. Drawn from the Book of Revelation, the composition shows the four horsemen amid writhing bodies and chaos. Art historian Jules Prown named it a direct precursor to Géricault and Delacroix."
+    desc: "Inspired by apocalyptic imagery from the Book of Revelation, the composition depicts the four horsemen of the apocalypse amid a chaotic mass of writhing figures. West returned to the subject three times over thirty years: a drawing in 1783, this painting in 1796, and a monumental 25-foot canvas exhibited in 1817. All three versions are significant examples of the Sublime in British painting."
   },
   {
     title: "A Lion Attacking a Horse",
@@ -204,7 +357,7 @@ const ARTWORKS = [
     date: "1762",
     imageFile: "George_Stubbs_-_A_Lion_Attacking_a_Horse_-_Google_Art_Project.jpg",
     wikiPage: "A_Lion_Attacking_a_Horse",
-    desc: "Stubbs painted this subject seventeen times over thirty years. The most likely inspiration was an ancient Roman marble sculpture well known in London artistic circles, though legend says he witnessed the real scene in Morocco. He was a trained anatomist — the terror of the horse is rendered with clinical precision. Géricault studied these works closely."
+    desc: "The painting depicts a lion mounted on the back of a rearing white horse, claws sunk into its flesh as the horse twists in terror. Stubbs produced seventeen works on this theme over thirty years, all emphasizing the horse's terror and pain. The most probable inspiration was a large ancient Roman marble sculpture of the same subject that was well known in London artistic circles at the time."
   },
   {
     title: "A Philosopher Lecturing on the Orrery",
@@ -212,7 +365,7 @@ const ARTWORKS = [
     date: "c. 1766",
     imageFile: "Wright_of_Derby,_The_Orrery.jpg",
     wikiPage: "A_Philosopher_Lecturing_on_the_Orrery",
-    desc: "A lecturer demonstrates a mechanical model of the solar system by lamplight while a small group watches — some in wonder, some in quiet thought. Wright replaced the traditional religious subject at the center of a candlelit scene with a scientific one. An anonymous reviewer at the time called him 'a very great and uncommon genius in a peculiar way.'"
+    desc: "The painting depicts a lecturer demonstrating an orrery, a mechanical model of the solar system, to a small audience gathered in a darkened room. A lamp placed at the center of the device stands in for the sun, illuminating the faces of the onlookers with dramatic chiaroscuro. It was Wright's first major candlelit work to replace a classical subject with a scientific one at the center of the composition."
   },
   {
     title: "An Experiment on a Bird in the Air Pump",
@@ -220,7 +373,7 @@ const ARTWORKS = [
     date: "1768",
     imageFile: "An_Experiment_on_a_Bird_in_an_Air_Pump_by_Joseph_Wright_of_Derby,_1768.jpg",
     wikiPage: "An_Experiment_on_a_Bird_in_the_Air_Pump",
-    desc: "A natural philosopher pumps air from a glass globe containing a live bird while onlookers react with grief, fascination, and indifference. Wright gave a scientific subject the reverential treatment formerly reserved for religious history painting. The scientist looks directly out of the canvas. No verdict is offered — only the moment before the choice is made."
+    desc: "The painting shows a natural philosopher recreating one of Robert Boyle's air pump experiments before a group of onlookers, removing air from a glass globe containing a live bird. The viewers respond variously with scientific detachment, distress, and indifference. It was among the first paintings to treat a scientific subject with the reverential scale and lighting previously reserved for religious history painting."
   },
   {
     title: "The Seventh Plague of Egypt",
@@ -228,7 +381,7 @@ const ARTWORKS = [
     date: "1823",
     imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg",
     wikiPage: "The_Seventh_Plague_of_Egypt",
-    desc: "Moses calls down thunder and hail on Egypt as the Israelites are held in slavery. Martin drew on recent archaeological discoveries of Egyptian architecture for the monumental setting, making the human figures tiny beneath the scale of divine punishment. It appeared at the inaugural Royal Society of British Artists exhibition in 1824."
+    desc: "The painting depicts Moses calling down the seventh plague, a storm of thunder and hail, upon Egypt as divine punishment while the Israelites remain enslaved. Martin drew on contemporary archaeological discoveries of Egyptian architecture to construct the monumental setting, rendering the human figures tiny against the scale of the built environment and the destruction falling from the sky."
   }
 ];
 
@@ -242,18 +395,33 @@ let idx = params.has('day')
 
 const artwork = ARTWORKS[idx];
 
+// desktop nav
 const prevBtn = document.getElementById('nav-prev');
 if (idx > 0) { prevBtn.classList.remove('disabled'); prevBtn.href = `index.html?day=${idx - 1}`; }
-
 const nextBtn = document.getElementById('nav-next');
 if (idx < LAST) { nextBtn.classList.remove('disabled'); nextBtn.href = `index.html?day=${idx + 1}`; }
 
+// mobile nav
+const mPrev = document.getElementById('mobile-prev');
+if (idx > 0) { mPrev.classList.remove('disabled'); mPrev.href = `index.html?day=${idx - 1}`; }
+const mNext = document.getElementById('mobile-next');
+if (idx < LAST) { mNext.classList.remove('disabled'); mNext.href = `index.html?day=${idx + 1}`; }
+
+// desktop text
 document.getElementById('art-title').textContent  = artwork.title;
 document.getElementById('art-artist').textContent = artwork.artist;
 document.getElementById('art-year').textContent   = artwork.date;
 document.getElementById('art-desc').textContent   = artwork.desc;
 document.getElementById('learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
 
+// mobile text
+document.getElementById('mobile-title').textContent  = artwork.title;
+document.getElementById('mobile-artist').textContent = artwork.artist;
+document.getElementById('mobile-year').textContent   = artwork.date;
+document.getElementById('mobile-desc').textContent   = artwork.desc;
+document.getElementById('mobile-learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
+
+// image
 const loader   = document.getElementById('painting-loader');
 const paintImg = document.getElementById('painting-img');
 const fullImg  = document.getElementById('full-img');
@@ -266,9 +434,7 @@ async function loadImage() {
     const page = Object.values(data.query.pages)[0];
     const info = page?.imageinfo?.[0];
     const src  = info?.thumburl || info?.url;
-
     if (!src) { loader.textContent = 'Image unavailable'; return; }
-
     paintImg.src = src; fullImg.src = src;
     paintImg.alt = fullImg.alt = artwork.title;
     paintImg.onload = () => { paintImg.classList.add('loaded'); loader.style.display = 'none'; };
@@ -277,13 +443,12 @@ async function loadImage() {
     loader.textContent = 'Could not load image.';
   }
 }
-
 loadImage();
 
+// view in full
 const overlay   = document.getElementById('full-overlay');
 const viewBtn   = document.getElementById('view-full-btn');
 let fullVisible = false;
-
 viewBtn.addEventListener('click', () => {
   fullVisible = !fullVisible;
   overlay.classList.toggle('visible', fullVisible);
