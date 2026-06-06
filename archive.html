@@ -9,37 +9,33 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Radley:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root { --bg: #0D0D0D; --white: #FFFFFF; --muted: rgba(255,255,255,0.45); --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif; }
+    :root { --bg: #0D0D0D; --white: #fff; --muted: rgba(255,255,255,0.42); --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif; }
     html, body { min-height: 100%; background: var(--bg); color: var(--white); }
-    body { padding: 36px 48px 80px; }
+    body { padding: 32px 44px 72px; }
 
-    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 56px; }
-    #logo img { height: 15px; width: auto; opacity: 0.92; }
-    #nav-right { display: flex; align-items: center; gap: 28px; }
-    #nav-right a {
-      font-family: var(--sans); font-size: 11px; font-weight: 600;
-      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);
-      text-decoration: none; transition: color 0.2s;
-    }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 52px; }
+    #logo img { height: 14px; opacity: 0.90; }
+    #nav-right { display: flex; gap: 24px; }
+    #nav-right a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
     #nav-right a:hover { color: var(--white); }
 
-    h1 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 28px; }
+    h1 { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 24px; }
 
-    #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 2px; }
+    #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2px; }
 
     .card { display: block; text-decoration: none; color: var(--white); position: relative; aspect-ratio: 16/9; overflow: hidden; background: rgba(255,255,255,0.04); }
-    .card img { width: 100%; height: 100%; object-fit: cover; display: block; opacity: 0; transition: opacity 0.6s ease, transform 0.4s ease; }
+    .card img { width: 100%; height: 100%; object-fit: cover; object-position: center; display: block; opacity: 0; transition: opacity 0.7s ease, transform 0.4s ease; }
     .card img.loaded { opacity: 1; }
-    .card:hover img { transform: scale(1.03); opacity: 0.7; }
-    .card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 40px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%); }
+    .card:hover img { transform: scale(1.03); opacity: 0.72; }
+    .card-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 44px 16px 14px; background: linear-gradient(to top, rgba(0,0,0,0.88) 0%, transparent 100%); }
     .card-title { font-family: var(--sans); font-size: 13px; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-artist { font-family: var(--serif); font-size: 12px; font-style: italic; color: rgba(255,255,255,0.6); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-    .card-day { position: absolute; top: 12px; left: 14px; font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.5); background: rgba(0,0,0,0.5); padding: 3px 8px; border-radius: 3px; }
+    .card-artist { font-family: var(--serif); font-size: 12px; font-style: italic; color: rgba(255,255,255,0.58); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .card-day { position: absolute; top: 12px; left: 13px; font-family: var(--sans); font-size: 10px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(255,255,255,0.48); background: rgba(0,0,0,0.52); padding: 3px 7px; border-radius: 3px; }
     .card-skel { width: 100%; height: 100%; background: rgba(255,255,255,0.05); animation: pulse 1.6s ease-in-out infinite; }
-    @keyframes pulse { 0%, 100% { opacity: 0.3; } 50% { opacity: 0.7; } }
+    @keyframes pulse { 0%,100%{opacity:.3} 50%{opacity:.7} }
 
-    footer { margin-top: 56px; }
-    footer img { height: 15px; width: auto; opacity: 0.2; }
+    footer { margin-top: 52px; }
+    footer img { height: 13px; opacity: 0.18; }
   </style>
 </head>
 <body>
@@ -47,7 +43,7 @@
   <div id="logo"><img src="logo.png" alt="Fourward" /></div>
   <div id="nav-right">
     <a href="about.html">About</a>
-    <a href="index.html">Today's work</a>
+    <a href="index.html">Today</a>
   </div>
 </header>
 
@@ -57,27 +53,17 @@
 
 <script>
 const ARTWORKS = [
-  { title: "The Raft of the Medusa",            artist: "Théodore Géricault",        imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg/800px-Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg" },
-  { title: "Whalers",                           artist: "J. M. W. Turner",            metObjectID: 437854 },
-  { title: "Saturn Devouring His Son",          artist: "Francisco Goya",             imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Francisco_de_Goya%2C_Saturno_devorando_a_su_hijo_%281819-1823%29.jpg/800px-Francisco_de_Goya%2C_Saturno_devorando_a_su_hijo_%281819-1823%29.jpg" },
-  { title: "Wanderer above the Sea of Fog",     artist: "Caspar David Friedrich",     imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg/800px-Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg" },
-  { title: "The Great Wave off Kanagawa",       artist: "Katsushika Hokusai",         imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/800px-Tsunami_by_hokusai_19th_century.jpg" },
-  { title: "Judith Slaying Holofernes",         artist: "Artemisia Gentileschi",      imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Artemisia_Gentileschi_-_Judith_Beheading_Holofernes_-_WGA8563.jpg/800px-Artemisia_Gentileschi_-_Judith_Beheading_Holofernes_-_WGA8563.jpg" },
-  { title: "The Third of May 1808",             artist: "Francisco Goya",             imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/El_Tres_de_Mayo%2C_by_Francisco_de_Goya%2C_from_Prado_in_Google_Earth.jpg/800px-El_Tres_de_Mayo%2C_by_Francisco_de_Goya%2C_from_Prado_in_Google_Earth.jpg" },
-  { title: "Wheat Field with Cypresses",        artist: "Vincent van Gogh",            metObjectID: 437984 },
-  { title: "The Nightmare",                     artist: "Henry Fuseli",               imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/John_Henry_Fuseli_-_The_Nightmare.JPG/800px-John_Henry_Fuseli_-_The_Nightmare.JPG" },
-  { title: "The Colossus",                      artist: "Francisco Goya",             imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Francisco_de_Goya_y_Lucientes_-_The_Colossus_-_Google_Art_Project.jpg/800px-Francisco_de_Goya_y_Lucientes_-_The_Colossus_-_Google_Art_Project.jpg" },
-  { title: "Snow Storm: Steam-Boat",            artist: "J. M. W. Turner",            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/JMW_Turner_-_Snow_Storm_-_Steam-Boat_off_a_Harbour%27s_Mouth.jpg/800px-JMW_Turner_-_Snow_Storm_-_Steam-Boat_off_a_Harbour%27s_Mouth.jpg" },
-  { title: "The Isle of the Dead",              artist: "Arnold Böcklin",             imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Arnold_Böcklin_-_Die_Toteninsel_III_%28Alte_Nationalgalerie%2C_Berlin%29.jpg/800px-Arnold_Böcklin_-_Die_Toteninsel_III_%28Alte_Nationalgalerie%2C_Berlin%29.jpg" },
-  { title: "Dante and Virgil",                  artist: "William-Adolphe Bouguereau", imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dante_and_Virgil_in_Hell_%28William-Adolphe_Bouguereau%29.jpg/800px-Dante_and_Virgil_in_Hell_%28William-Adolphe_Bouguereau%29.jpg" },
-  { title: "Don Manuel Osorio Manrique de Zuñiga", artist: "Francisco Goya",         metObjectID: 49741 },
-  { title: "The Fighting Temeraire",            artist: "J. M. W. Turner",            imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/The_Fighting_Temeraire%2C_JMW_Turner%2C_National_Gallery.jpg/800px-The_Fighting_Temeraire%2C_JMW_Turner%2C_National_Gallery.jpg" }
+  { title: "The Raft of the Medusa",      artist: "Théodore Géricault",  wikiPage: "The_Raft_of_the_Medusa" },
+  { title: "The Third of May 1808",       artist: "Francisco Goya",       wikiPage: "The_Third_of_May_1808" },
+  { title: "Two Men Contemplating the Moon", artist: "Caspar David Friedrich", wikiPage: "Two_Men_Contemplating_the_Moon" },
+  { title: "Death on a Pale Horse",       artist: "Benjamin West",        wikiPage: "Death_on_a_Pale_Horse_(West)" },
+  { title: "The Seventh Plague of Egypt", artist: "John Martin",          wikiPage: "John_Martin_(painter)" },
 ];
 
 const grid = document.getElementById('grid');
-const reversed = [...ARTWORKS.entries()].reverse();
 
-reversed.forEach(([idx, aw]) => {
+// Show all entries, newest first
+[...ARTWORKS.entries()].reverse().forEach(([idx, aw]) => {
   const a = document.createElement('a');
   a.className = 'card';
   a.href = `index.html?day=${idx}`;
@@ -98,26 +84,25 @@ reversed.forEach(([idx, aw]) => {
 
   grid.appendChild(a);
 
-  function applyImage(src) {
-    skel.remove();
-    const img = document.createElement('img');
-    img.src = src; img.alt = aw.title;
-    img.onload = () => img.classList.add('loaded');
-    a.insertBefore(img, badge);
-  }
-
-  if (aw.imageUrl) {
-    applyImage(aw.imageUrl);
-  } else if (aw.metObjectID) {
-    fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${aw.metObjectID}`)
-      .then(r => r.json())
-      .then(data => {
-        const src = data.primaryImageSmall || data.primaryImage;
-        if (src) applyImage(src);
-        else { skel.style.animation = 'none'; skel.style.opacity = '0.04'; }
-      })
-      .catch(() => { skel.style.animation = 'none'; skel.style.opacity = '0.04'; });
-  }
+  // fetch thumbnail via Wikipedia API
+  const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(aw.wikiPage)}&prop=pageimages&pithumbsize=600&format=json&origin=*`;
+  fetch(apiUrl)
+    .then(r => r.json())
+    .then(data => {
+      const pages = data.query.pages;
+      const page  = pages[Object.keys(pages)[0]];
+      const src   = page?.thumbnail?.source;
+      if (src) {
+        skel.remove();
+        const img = document.createElement('img');
+        img.src = src; img.alt = aw.title;
+        img.onload = () => img.classList.add('loaded');
+        a.insertBefore(img, badge);
+      } else {
+        skel.style.animation = 'none'; skel.style.opacity = '0.04';
+      }
+    })
+    .catch(() => { skel.style.animation = 'none'; skel.style.opacity = '0.04'; });
 });
 </script>
 </body>

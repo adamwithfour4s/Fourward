@@ -12,11 +12,12 @@
 
     :root {
       --bg: #0D0D0D;
-      --white: #FFFFFF;
-      --muted: rgba(255,255,255,0.50);
-      --sidebar: 260px;
+      --white: #ffffff;
+      --muted: rgba(255,255,255,0.48);
       --sans: 'Google Sans Flex', sans-serif;
       --serif: 'Radley', Georgia, serif;
+      /* sidebar = 1/5 of viewport */
+      --sidebar: 20vw;
     }
 
     html, body {
@@ -26,51 +27,54 @@
       overflow: hidden;
     }
 
-    /* ── LAYOUT: sidebar left, painting right ───── */
+    /* ── LAYOUT ──────────────────────────────────── */
     #page {
       width: 100vw; height: 100vh;
       display: flex;
     }
 
-    /* ── SIDEBAR ─────────────────────────────────── */
+    /* ── SIDEBAR (leftmost 1/5) ──────────────────── */
     #sidebar {
       width: var(--sidebar);
+      min-width: 200px;
+      max-width: 320px;
       flex-shrink: 0;
       height: 100%;
+      background: var(--bg);
       display: flex;
       flex-direction: column;
-      padding: 32px 28px;
-      position: relative;
+      padding: 32px 26px 28px;
       z-index: 2;
-      background: var(--bg);
+      position: relative;
     }
 
-    #logo { margin-bottom: auto; }
-    #logo img { height: 15px; width: auto; opacity: 0.92; }
+    /* logo top */
+    #logo img { height: 14px; width: auto; opacity: 0.90; }
 
+    /* prev nav */
     #nav-prev {
       display: flex; align-items: center; gap: 10px;
-      margin-top: 32px; margin-bottom: 0;
+      margin-top: 30px;
       color: var(--white); text-decoration: none;
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      opacity: 0.55; transition: opacity 0.2s; width: fit-content;
+      opacity: 0.52; transition: opacity 0.2s; width: fit-content;
     }
     #nav-prev:hover { opacity: 1; }
-    #nav-prev.disabled { opacity: 0.15; pointer-events: none; }
+    #nav-prev.disabled { opacity: 0.14; pointer-events: none; }
 
     .arrow-circle {
       width: 26px; height: 26px; border-radius: 50%;
-      border: 1.5px solid rgba(255,255,255,0.35);
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+      border: 1.5px solid rgba(255,255,255,0.32);
+      display: flex; align-items: center; justify-content: center;
     }
     .arrow-circle svg { width: 10px; height: 10px; }
 
-    /* push art info to vertical center-ish */
+    /* art info pushed to vertical center */
     #art-info {
       margin-top: auto;
       margin-bottom: auto;
-      padding-top: 40px;
+      padding: 32px 0;
     }
 
     #art-title {
@@ -79,64 +83,57 @@
     }
     #art-artist {
       font-family: var(--serif); font-size: 18px; font-style: italic;
-      font-weight: 400; line-height: 1.2; margin-bottom: 2px;
-      color: rgba(255,255,255,0.82);
+      line-height: 1.2; margin-bottom: 2px;
+      color: rgba(255,255,255,0.80);
     }
     #art-year {
       font-family: var(--serif); font-size: 18px; font-style: italic;
-      color: var(--muted); margin-bottom: 20px;
+      color: var(--muted); margin-bottom: 18px;
     }
-
     #divider {
-      width: 40px; height: 1px;
-      background: rgba(255,255,255,0.25);
-      margin-bottom: 18px;
+      width: 36px; height: 1px;
+      background: rgba(255,255,255,0.20);
+      margin-bottom: 16px;
     }
-
     #art-desc {
       font-family: var(--sans); font-size: 14px; font-weight: 400;
-      line-height: 1.5; color: rgba(255,255,255,0.60);
+      line-height: 1.5; color: rgba(255,255,255,0.58);
     }
 
-    /* bottom of sidebar */
+    /* bottom */
     #sidebar-bottom {
       margin-top: auto;
-      padding-top: 28px;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
+      display: flex; flex-direction: column; gap: 14px;
     }
-
     #learn-more {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
       color: var(--white); text-decoration: none;
-      opacity: 0.55; transition: opacity 0.2s; width: fit-content;
+      opacity: 0.52; transition: opacity 0.2s; width: fit-content;
     }
     #learn-more:hover { opacity: 1; }
+    #logo-44 img { height: 14px; width: auto; opacity: 0.22; }
 
-    #logo-44 img { height: 16px; width: auto; opacity: 0.25; }
-
-    /* ── PAINTING PANEL ──────────────────────────── */
+    /* ── PAINTING PANEL (rightmost 4/5) ──────────── */
     #painting-panel {
       flex: 1;
       height: 100%;
       position: relative;
       overflow: hidden;
+      background: #080808;
     }
 
-    /* full-bleed image: touch top, bottom, left edge of panel */
+    /* painting: right-aligned, full height, crops left if too wide */
     #painting-img {
       position: absolute;
-      top: 0; left: 0;
+      top: 0;
+      right: 0;          /* anchor to right edge */
       height: 100%;
       width: auto;
-      max-width: none;   /* allow it to be wider than the panel — crops right */
-      object-fit: cover;
-      object-position: left center;
+      max-width: none;
       display: block;
       opacity: 0;
-      transition: opacity 1s ease;
+      transition: opacity 1.1s ease;
     }
     #painting-img.loaded { opacity: 1; }
 
@@ -145,19 +142,20 @@
       transform: translate(-50%, -50%);
       font-family: var(--sans); font-size: 13px;
       color: var(--muted); font-style: italic;
+      pointer-events: none;
     }
 
     /* top-right nav */
     #topright {
-      position: absolute; top: 32px; right: 36px;
-      display: flex; align-items: center; gap: 28px;
+      position: absolute; top: 30px; right: 34px;
+      display: flex; align-items: center; gap: 26px;
       z-index: 3;
     }
     #topright a {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.65); text-decoration: none;
-      transition: color 0.2s;
+      color: rgba(255,255,255,0.55); text-decoration: none;
+      transition: color 0.2s; text-shadow: 0 1px 4px rgba(0,0,0,0.6);
     }
     #topright a:hover { color: var(--white); }
   </style>
@@ -165,25 +163,22 @@
 <body>
 <div id="page">
 
-  <!-- LEFT SIDEBAR -->
   <div id="sidebar">
     <div id="logo"><img src="logo.png" alt="Fourward" /></div>
 
-    <a id="nav-prev" href="#">
+    <a id="nav-prev" href="#" class="disabled">
       <span class="arrow-circle">
-        <svg viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M6.5 1.5L2.5 5L6.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+        <svg viewBox="0 0 10 10" fill="none"><path d="M6.5 1.5L2.5 5L6.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </span>
       View Previous
     </a>
 
     <div id="art-info">
-      <div id="art-title"> </div>
-      <div id="art-artist"> </div>
-      <div id="art-year"> </div>
+      <div id="art-title"></div>
+      <div id="art-artist"></div>
+      <div id="art-year"></div>
       <div id="divider"></div>
-      <div id="art-desc"> </div>
+      <div id="art-desc"></div>
     </div>
 
     <div id="sidebar-bottom">
@@ -192,199 +187,129 @@
     </div>
   </div>
 
-  <!-- RIGHT: PAINTING -->
   <div id="painting-panel">
     <div id="topright">
       <a href="about.html">About</a>
       <a href="archive.html">Archive</a>
     </div>
-    <span id="painting-loader">Loading…</span>
+    <div id="painting-loader">Loading…</div>
     <img id="painting-img" alt="" />
   </div>
 
 </div>
-
 <script>
-// ── CURATED ARTWORKS ─────────────────────────────────────────
-// All images verified as public domain with direct URLs.
-// Wide/landscape format preferred to fill the right panel.
-// metObjectID = use Met API for image | imageUrl = direct URL
+// ── ARTWORKS ──────────────────────────────────────────────────
+// All wide-format paintings. Images loaded via Wikipedia API
+// (CORS-safe) using the article title to get the main image.
+// wikiTitle = the exact Wikipedia article title for this painting.
 const ARTWORKS = [
   {
     title: "The Raft of the Medusa",
     artist: "Théodore Géricault",
     date: "1818–1819",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg/2560px-Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg",
-    wikiSlug: "The_Raft_of_the_Medusa",
-    desc: "Géricault spent two years preparing this painting. He visited morgues, interviewed survivors, and had a life-size raft built in his studio. 147 people were set adrift after the wreck of the Medusa. Only 15 survived. He was 27 when he painted it."
-  },
-  {
-    title: "Whalers",
-    artist: "J. M. W. Turner",
-    date: "ca. 1845",
-    metObjectID: 437854,
-    wikiSlug: "Whalers_(J._M._W._Turner)",
-    desc: "A wounded sperm whale thrashes in foam and blood while the killing boats close in. Turner was seventy. Critics said they couldn't find the ship in the paint. He considered that a success."
-  },
-  {
-    title: "Saturn Devouring His Son",
-    artist: "Francisco Goya",
-    date: "1819–1823",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/Francisco_de_Goya%2C_Saturno_devorando_a_su_hijo_%281819-1823%29.jpg/2560px-Francisco_de_Goya%2C_Saturno_devorando_a_su_hijo_%281819-1823%29.jpg",
-    wikiSlug: "Saturn_Devouring_His_Son",
-    desc: "One of Goya's Black Paintings, found on the walls of his house after his death. Saturn's eyes are white, unhinged. He is eating his own child to prevent being overthrown. Goya painted this for himself alone, in a house he called the House of the Deaf Man."
-  },
-  {
-    title: "Wanderer above the Sea of Fog",
-    artist: "Caspar David Friedrich",
-    date: "1818",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg/1280px-Caspar_David_Friedrich_-_Wanderer_above_the_sea_of_fog.jpg",
-    wikiSlug: "Wanderer_above_the_Sea_of_Fog",
-    desc: "A man stands with his back to us on a rocky peak, looking out over clouds. We are placed behind him, which means we are looking with him, not at him. Friedrich invented this device — the Rückenfigur — to make the viewer inhabit the sublime rather than observe it."
-  },
-  {
-    title: "The Great Wave off Kanagawa",
-    artist: "Katsushika Hokusai",
-    date: "ca. 1831",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a5/Tsunami_by_hokusai_19th_century.jpg/2560px-Tsunami_by_hokusai_19th_century.jpg",
-    wikiSlug: "The_Great_Wave_off_Kanagawa",
-    desc: "The wave is about to consume the boats beneath it. Mount Fuji sits in the background, small and permanent. Hokusai was in his seventies, calling himself 'the old man mad about painting.' He made thirty-six views of the same mountain. This is the one."
-  },
-  {
-    title: "Judith Slaying Holofernes",
-    artist: "Artemisia Gentileschi",
-    date: "1614–1620",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4c/Artemisia_Gentileschi_-_Judith_Beheading_Holofernes_-_WGA8563.jpg/2560px-Artemisia_Gentileschi_-_Judith_Beheading_Holofernes_-_WGA8563.jpg",
-    wikiSlug: "Judith_Slaying_Holofernes_(Gentileschi,_Naples)",
-    desc: "Where Caravaggio painted Judith squeamish and at arm's length, Gentileschi gives her full commitment. The two women lean into the work. Critics argued for centuries that a man must have helped. Gentileschi had survived a rape trial the year before she began this painting."
+    wikiTitle: "The_Raft_of_the_Medusa",
+    wikiPage: "The_Raft_of_the_Medusa",
+    desc: "Géricault spent two years on this. He visited morgues, interviewed survivors, had a life-size raft built in his studio. Of 147 people set adrift after the wreck of the Medusa, only 15 survived. He was 27 when he finished it. It was rejected by critics and became an icon."
   },
   {
     title: "The Third of May 1808",
     artist: "Francisco Goya",
     date: "1814",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fd/El_Tres_de_Mayo%2C_by_Francisco_de_Goya%2C_from_Prado_in_Google_Earth.jpg/2560px-El_Tres_de_Mayo%2C_by_Francisco_de_Goya%2C_from_Prado_in_Google_Earth.jpg",
-    wikiSlug: "The_Third_of_May_1808",
-    desc: "Spanish rebels are executed by French soldiers in the dark. Goya gives the soldiers no faces — only the geometry of rifles. The man in the white shirt throws his arms wide. The lantern on the ground is the only light. There is no heroism here, only machinery."
+    wikiPage: "The_Third_of_May_1808",
+    desc: "Spanish rebels are executed at night by French soldiers who have no faces — only the geometry of rifles. The man in the white shirt throws his arms wide. The lantern on the ground is the only light. Goya painted this six years after the event, once the French had left."
   },
   {
-    title: "Wheat Field with Cypresses",
-    artist: "Vincent van Gogh",
-    date: "1889",
-    metObjectID: 437984,
-    wikiSlug: "Wheat_Field_with_Cypresses",
-    desc: "Painted from the asylum grounds at Saint-Rémy, the cypress rising like a dark flame while the sky churns above it. Van Gogh wrote that it was one of his best. He made three versions, unable to leave it alone."
+    title: "Two Men Contemplating the Moon",
+    artist: "Caspar David Friedrich",
+    date: "1825–1830",
+    wikiPage: "Two_Men_Contemplating_the_Moon",
+    desc: "Two figures on a path look up at a crescent moon through gnarled oak trees. Friedrich painted this subject four times. The figures are always small, always still, always facing away. The moon is not romantic here — it is remote, indifferent, and perfect."
   },
   {
-    title: "The Nightmare",
-    artist: "Henry Fuseli",
-    date: "1781",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/John_Henry_Fuseli_-_The_Nightmare.JPG/2560px-John_Henry_Fuseli_-_The_Nightmare.JPG",
-    wikiSlug: "The_Nightmare_(Fuseli)",
-    desc: "A woman sprawls unconscious while a goblin crouches on her chest. From behind a curtain, a horse's blind white eye peers in. Fuseli painted the unconscious as a place occupied by other things. When it was exhibited in 1782, it caused a sensation and became one of the most reproduced images of the century."
+    title: "Death on a Pale Horse",
+    artist: "Benjamin West",
+    date: "1796",
+    wikiPage: "Death_on_a_Pale_Horse_(West)",
+    desc: "The four horsemen of the apocalypse, rendered at full scale with writhing bodies below them. West worked on versions of this for thirty years. No painting of the period attempted this much chaos and kept it legible. The pale horse at the center is the painting's cold engine."
   },
   {
-    title: "The Colossus",
-    artist: "Francisco Goya",
-    date: "ca. 1808–1812",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Francisco_de_Goya_y_Lucientes_-_The_Colossus_-_Google_Art_Project.jpg/1280px-Francisco_de_Goya_y_Lucientes_-_The_Colossus_-_Google_Art_Project.jpg",
-    wikiSlug: "The_Colossus_(Goya)",
-    desc: "A giant stands half-obscured by clouds while tiny figures and animals scatter across the plain below. Whether the giant is a threat or a protector is unclear. Goya painted this during the Napoleonic occupation of Spain, when the answer may not have mattered."
-  },
-  {
-    title: "Snow Storm: Steam-Boat off a Harbour's Mouth",
-    artist: "J. M. W. Turner",
-    date: "1842",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/JMW_Turner_-_Snow_Storm_-_Steam-Boat_off_a_Harbour%27s_Mouth.jpg/2560px-JMW_Turner_-_Snow_Storm_-_Steam-Boat_off_a_Harbour%27s_Mouth.jpg",
-    wikiSlug: "Snow_Storm:_Steam-Boat_off_a_Harbour's_Mouth",
-    desc: "Turner claimed he had himself tied to a mast for four hours during an actual storm to paint this. Critics called it 'soapsuds and whitewash.' He replied that he did not paint it to be understood, but to show what such a scene was like."
-  },
-  {
-    title: "The Isle of the Dead",
-    artist: "Arnold Böcklin",
-    date: "1886",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c0/Arnold_Böcklin_-_Die_Toteninsel_III_%28Alte_Nationalgalerie%2C_Berlin%29.jpg/2560px-Arnold_Böcklin_-_Die_Toteninsel_III_%28Alte_Nationalgalerie%2C_Berlin%29.jpg",
-    wikiSlug: "Isle_of_the_Dead_(painting)",
-    desc: "A white-shrouded figure stands in a small boat approaching a dark island of cypress trees and rock. Böcklin painted five versions and refused to explain it. Freud owned a print. Hitler owned a version. It was one of the most reproduced paintings in the German-speaking world at the turn of the century."
-  },
-  {
-    title: "Dante and Virgil",
-    artist: "William-Adolphe Bouguereau",
-    date: "1850",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Dante_and_Virgil_in_Hell_%28William-Adolphe_Bouguereau%29.jpg/1280px-Dante_and_Virgil_in_Hell_%28William-Adolphe_Bouguereau%29.jpg",
-    wikiSlug: "Dante_and_Virgil_(Bouguereau)",
-    desc: "Two damned souls tear at each other in the eighth circle of Hell while Dante and Virgil watch from above. Bouguereau was twenty-four. Critics dismissed it as sensationalist. It is the most violent thing he ever painted, and probably his most alive."
-  },
-  {
-    title: "Don Manuel Osorio Manrique de Zuñiga",
-    artist: "Francisco Goya",
-    date: "1787–88",
-    metObjectID: 49741,
-    wikiSlug: "Don_Manuel_Osorio_Manrique_de_Zuñiga",
-    desc: "A child in red holds a magpie on a string. Three cats watch the bird with complete focus. Goya painted innocence as something surrounded and temporary. The cats don't blink."
-  },
-  {
-    title: "The Fighting Temeraire",
-    artist: "J. M. W. Turner",
-    date: "1839",
-    imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/79/The_Fighting_Temeraire%2C_JMW_Turner%2C_National_Gallery.jpg/2560px-The_Fighting_Temeraire%2C_JMW_Turner%2C_National_Gallery.jpg",
-    wikiSlug: "The_Fighting_Temeraire",
-    desc: "A great warship, white as a ghost, is towed to the breakers by a small black steamboat. The Temeraire fought at Trafalgar. Turner saw it being towed to be broken up and followed it along the Thames. The sun sets in the wrong direction. He didn't care."
+    title: "The Seventh Plague of Egypt",
+    artist: "John Martin",
+    date: "1823",
+    wikiPage: "John_Martin_(painter)",
+    desc: "Fire and hail rain from an apocalyptic sky onto Egypt. Martin specialized in making humans look completely insignificant against the scale of divine punishment. The figures here are tiny. The sky takes up most of the canvas. That was always his point."
   }
 ];
 
 // ── ROUTING ───────────────────────────────────────────────────
 const params = new URLSearchParams(location.search);
 const TOTAL  = ARTWORKS.length;
-const DEFAULT_DAY = TOTAL - 1;
 
 let idx = params.has('day')
   ? ((parseInt(params.get('day'), 10) % TOTAL) + TOTAL) % TOTAL
-  : DEFAULT_DAY;
+  : TOTAL - 1; // default: show newest (last) entry
 
 const artwork = ARTWORKS[idx];
 
 // prev link
 const prevLink = document.getElementById('nav-prev');
-if (idx === 0) {
-  prevLink.classList.add('disabled');
-} else {
+if (idx > 0) {
+  prevLink.classList.remove('disabled');
   prevLink.href = `index.html?day=${idx - 1}`;
 }
 
-// populate text immediately
+// fill text immediately
 document.getElementById('art-title').textContent  = artwork.title;
 document.getElementById('art-artist').textContent = artwork.artist;
 document.getElementById('art-year').textContent   = artwork.date;
 document.getElementById('art-desc').textContent   = artwork.desc;
-document.getElementById('learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiSlug}`;
+document.getElementById('learn-more').href =
+  `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
 
-// ── LOAD IMAGE ────────────────────────────────────────────────
-function setImage(src) {
-  const img = document.getElementById('painting-img');
-  img.src = src;
-  img.onload = () => {
-    img.classList.add('loaded');
-    document.getElementById('painting-loader').style.display = 'none';
-  };
-  img.onerror = () => {
-    document.getElementById('painting-loader').textContent = 'Image unavailable';
-  };
+// ── LOAD IMAGE via Wikipedia API (CORS-safe) ──────────────────
+// Requests the largest available thumbnail for the article's lead image.
+async function loadImage() {
+  const loader = document.getElementById('painting-loader');
+  const img    = document.getElementById('painting-img');
+
+  try {
+    // Step 1: get the lead image filename from the page
+    const infoUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(artwork.wikiPage)}&prop=pageimages&pithumbsize=2400&format=json&origin=*`;
+    const infoRes = await fetch(infoUrl);
+    const infoData = await infoRes.json();
+    const pages = infoData.query.pages;
+    const page  = pages[Object.keys(pages)[0]];
+
+    const src = page?.thumbnail?.source;
+
+    if (!src) {
+      loader.textContent = 'Image unavailable';
+      return;
+    }
+
+    // Step 2: bump up the size in the URL (Wikipedia thumb URLs let you do this)
+    // Pattern: /WIDTHpx- → replace with /2400px-
+    const hiResSrc = src.replace(/\/\d+px-/, '/2400px-');
+
+    img.src = hiResSrc;
+    img.alt = artwork.title;
+    img.onload = () => {
+      img.classList.add('loaded');
+      loader.style.display = 'none';
+    };
+    img.onerror = () => {
+      // fallback to original thumbnail size
+      img.src = src;
+      img.onload = () => { img.classList.add('loaded'); loader.style.display = 'none'; };
+      img.onerror = () => { loader.textContent = 'Image unavailable'; };
+    };
+
+  } catch(e) {
+    loader.textContent = 'Could not load image.';
+  }
 }
 
-if (artwork.imageUrl) {
-  setImage(artwork.imageUrl);
-} else if (artwork.metObjectID) {
-  fetch(`https://collectionapi.metmuseum.org/public/collection/v1/objects/${artwork.metObjectID}`)
-    .then(r => r.json())
-    .then(data => {
-      const src = data.primaryImage || data.primaryImageSmall;
-      if (src) setImage(src);
-      else document.getElementById('painting-loader').textContent = 'Image unavailable';
-    })
-    .catch(() => {
-      document.getElementById('painting-loader').textContent = 'Could not load image.';
-    });
-}
+loadImage();
 </script>
 </body>
 </html>
