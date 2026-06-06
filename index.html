@@ -173,12 +173,19 @@
         background: var(--bg);
       }
 
-      /* mobile top bar */
+      /* mobile header: logo above painting */
+      #mobile-header {
+        display: flex; align-items: center; justify-content: center;
+        padding: 20px 20px 14px;
+        background: var(--bg);
+      }
+      #mobile-header img { height: 13px; width: auto; opacity: 0.90; }
+
+      /* mobile top bar below painting: just archive */
       #mobile-topbar {
-        display: flex; align-items: center; justify-content: space-between;
+        display: flex; align-items: center; justify-content: flex-end;
         margin-bottom: 20px;
       }
-      #mobile-logo img { height: 13px; width: auto; opacity: 0.90; }
       #mobile-archive {
         font-family: var(--sans); font-size: 11px; font-weight: 600;
         letter-spacing: 0.1em; text-transform: uppercase;
@@ -230,10 +237,12 @@
       #mobile-instagram a:hover img { opacity: 0.7; }
     }
 
-    /* hide mobile content on desktop */
+    /* hide mobile-only elements on desktop */
     #mobile-content { display: none; }
+    #mobile-header { display: none; }
     @media (max-width: 768px) {
       #mobile-content { display: flex; }
+      #mobile-header { display: flex; }
     }
   </style>
 </head>
@@ -263,6 +272,11 @@
     </div>
   </div>
 
+  <!-- ── MOBILE LOGO (above painting, mobile only) ── -->
+  <div id="mobile-header">
+    <a href="index.html"><img src="logo.png" alt="Fourward" /></a>
+  </div>
+
   <!-- ── PAINTING PANEL (shared desktop/mobile) ── -->
   <div id="painting-panel">
     <!-- desktop top-right nav -->
@@ -281,7 +295,6 @@
   <!-- ── MOBILE CONTENT (below image) ── -->
   <div id="mobile-content">
     <div id="mobile-topbar">
-      <a id="mobile-logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
       <a id="mobile-archive" href="archive.html">Archive</a>
     </div>
     <div id="mobile-title"></div>
@@ -349,7 +362,7 @@ const ARTWORKS = [
     date: "1796",
     imageFile: "Death-on-a-pale-horse-west-1796.jpg",
     wikiPage: "Death_on_the_Pale_Horse",
-    desc: "Inspired by apocalyptic imagery from the Book of Revelation, the composition depicts the four horsemen of the apocalypse amid a chaotic mass of writhing figures. West returned to the subject three times over thirty years: a drawing in 1783, this painting in 1796, and a monumental 25-foot canvas exhibited in 1817. All three versions are significant examples of the Sublime in British painting."
+    desc: "Inspired by apocalyptic imagery from the Book of Revelation, the composition depicts the four horsemen of the apocalypse amid a chaotic mass of writhing figures. West returned to the subject three times over thirty years: a drawing in 1783, this painting in 1796, and a monumental 25-foot canvas exhibited in 1817 in a dedicated gallery on Pall Mall where he charged admission."
   },
   {
     title: "A Lion Attacking a Horse",

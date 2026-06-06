@@ -53,19 +53,22 @@ const ARTWORKS = [
   { title: "The Isle of the Dead",                    artist: "Arnold Böcklin",         imageFile: "Isle_of_the_Dead_(Hermitage_Version).jpg" },
   { title: "Death on a Pale Horse",                   artist: "Benjamin West",          imageFile: "Death-on-a-pale-horse-west-1796.jpg" },
   { title: "A Lion Attacking a Horse",                artist: "George Stubbs",          imageFile: "George_Stubbs_-_A_Lion_Attacking_a_Horse_-_Google_Art_Project.jpg" },
-  { title: "A Philosopher Lecturing on the Orrery",   artist: "Joseph Wright of Derby", imageFile: "Joseph_Wright_of_Derby_-_Philosopher_giving_a_lecture_on_the_orrery_-_Google_Art_Project.jpg" },
+  { title: "A Philosopher Lecturing on the Orrery",   artist: "Joseph Wright of Derby", imageFile: "Wright_of_Derby,_The_Orrery.jpg" },
   { title: "An Experiment on a Bird in the Air Pump", artist: "Joseph Wright of Derby", imageFile: "An_Experiment_on_a_Bird_in_an_Air_Pump_by_Joseph_Wright_of_Derby,_1768.jpg" },
   { title: "The Seventh Plague of Egypt",             artist: "John Martin",            imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg" },
 ];
 
 const grid = document.getElementById('grid');
 
+  const LAST = ARTWORKS.length - 1;
+
 [...ARTWORKS.entries()].reverse().forEach(([idx, aw]) => {
   const a = document.createElement('a');
   a.className = 'card'; a.href = `index.html?day=${idx}`;
 
   const badge = document.createElement('div');
-  badge.className = 'card-day'; badge.textContent = `Day ${idx + 1}`;
+  badge.className = 'card-day';
+  badge.textContent = idx === LAST ? 'Today' : `Day ${idx + 1}`;
   a.appendChild(badge);
 
   const skel = document.createElement('div'); skel.className = 'card-skel';
