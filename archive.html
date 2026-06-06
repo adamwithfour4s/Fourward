@@ -14,6 +14,7 @@
     body { padding: 30px 44px 64px; }
 
     header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
+    #logo { cursor: pointer; }
     #logo img { height: 14px; opacity: 0.90; }
     #nav-right { display: flex; gap: 22px; }
     #nav-right a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); text-decoration: none; transition: color 0.2s; }
@@ -37,11 +38,8 @@
 </head>
 <body>
 <header>
-  <div id="logo"><img src="logo.png" alt="Fourward" /></div>
-  <div id="nav-right">
-    <a href="about.html">About</a>
-    <a href="index.html">Today</a>
-  </div>
+  <a id="logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
+  <div id="nav-right"><a href="index.html">Today</a></div>
 </header>
 
 <h1>Archive</h1>
@@ -49,55 +47,49 @@
 
 <script>
 const ARTWORKS = [
-  { title: "The Raft of the Medusa",                      artist: "Théodore Géricault",      wikiPage: "The_Raft_of_the_Medusa" },
-  { title: "The Third of May 1808",                       artist: "Francisco Goya",           wikiPage: "The_Third_of_May_1808" },
-  { title: "The Nightmare",                               artist: "Henry Fuseli",             wikiPage: "The_Nightmare_(Fuseli)" },
-  { title: "The Isle of the Dead",                        artist: "Arnold Böcklin",           wikiPage: "Isle_of_the_Dead_(painting)" },
-  { title: "Death on a Pale Horse",                       artist: "Benjamin West",            wikiPage: "Death_on_a_Pale_Horse_(West)" },
-  { title: "A Lion Attacking a Horse",                    artist: "George Stubbs",            wikiPage: "A_Lion_Attacking_a_Horse" },
-  { title: "A Philosopher Lecturing on the Orrery",       artist: "Joseph Wright of Derby",   wikiPage: "A_Philosopher_Lecturing_on_the_Orrery" },
-  { title: "An Experiment on a Bird in the Air Pump",     artist: "Joseph Wright of Derby",   wikiPage: "An_Experiment_on_a_Bird_in_the_Air_Pump" },
-  { title: "The Seventh Plague of Egypt",                 artist: "John Martin",              wikiPage: "The_Seventh_Plague_of_Egypt" },
+  { title: "The Raft of the Medusa",                  artist: "Théodore Géricault",    imageFile: "Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg" },
+  { title: "The Third of May 1808",                   artist: "Francisco Goya",         imageFile: "El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg" },
+  { title: "The Nightmare",                           artist: "Henry Fuseli",           imageFile: "John_Henry_Fuseli_-_The_Nightmare.JPG" },
+  { title: "The Isle of the Dead",                    artist: "Arnold Böcklin",         imageFile: "Isle_of_the_Dead_(Hermitage_Version).jpg" },
+  { title: "Death on a Pale Horse",                   artist: "Benjamin West",          imageFile: "Death-on-a-pale-horse-west-1796.jpg" },
+  { title: "A Lion Attacking a Horse",                artist: "George Stubbs",          imageFile: "George_Stubbs_-_A_Lion_Attacking_a_Horse_-_Google_Art_Project.jpg" },
+  { title: "A Philosopher Lecturing on the Orrery",   artist: "Joseph Wright of Derby", imageFile: "Joseph_Wright_of_Derby_-_Philosopher_giving_a_lecture_on_the_orrery_-_Google_Art_Project.jpg" },
+  { title: "An Experiment on a Bird in the Air Pump", artist: "Joseph Wright of Derby", imageFile: "An_Experiment_on_a_Bird_in_an_Air_Pump_by_Joseph_Wright_of_Derby,_1768.jpg" },
+  { title: "The Seventh Plague of Egypt",             artist: "John Martin",            imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg" },
 ];
 
 const grid = document.getElementById('grid');
 
 [...ARTWORKS.entries()].reverse().forEach(([idx, aw]) => {
   const a = document.createElement('a');
-  a.className = 'card';
-  a.href = `index.html?day=${idx}`;
+  a.className = 'card'; a.href = `index.html?day=${idx}`;
 
   const badge = document.createElement('div');
-  badge.className = 'card-day';
-  badge.textContent = `Day ${idx + 1}`;
+  badge.className = 'card-day'; badge.textContent = `Day ${idx + 1}`;
   a.appendChild(badge);
 
-  const skel = document.createElement('div');
-  skel.className = 'card-skel';
+  const skel = document.createElement('div'); skel.className = 'card-skel';
   a.appendChild(skel);
 
-  const info = document.createElement('div');
-  info.className = 'card-info';
+  const info = document.createElement('div'); info.className = 'card-info';
   info.innerHTML = `<div class="card-title">${aw.title}</div><div class="card-artist">${aw.artist}</div>`;
   a.appendChild(info);
-
   grid.appendChild(a);
 
-  const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(aw.wikiPage)}&prop=pageimages&pithumbsize=600&format=json&origin=*`;
+  // Fetch image via Wikipedia imageinfo API
+  const apiUrl = `https://en.wikipedia.org/w/api.php?action=query&titles=File:${encodeURIComponent(aw.imageFile)}&prop=imageinfo&iiprop=url&iiurlwidth=600&format=json&origin=*`;
   fetch(apiUrl)
     .then(r => r.json())
     .then(data => {
       const page = Object.values(data.query.pages)[0];
-      const src  = page?.thumbnail?.source;
+      const src  = page?.imageinfo?.[0]?.thumburl || page?.imageinfo?.[0]?.url;
       if (src) {
         skel.remove();
         const img = document.createElement('img');
         img.src = src; img.alt = aw.title;
         img.onload = () => img.classList.add('loaded');
         a.insertBefore(img, badge);
-      } else {
-        skel.style.animation = 'none'; skel.style.opacity = '0.04';
-      }
+      } else { skel.style.animation = 'none'; skel.style.opacity = '0.04'; }
     })
     .catch(() => { skel.style.animation = 'none'; skel.style.opacity = '0.04'; });
 });
