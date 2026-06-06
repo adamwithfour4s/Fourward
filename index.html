@@ -393,6 +393,14 @@ const ARTWORKS = [
     imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg",
     wikiPage: "The_Seventh_Plague_of_Egypt",
     desc: "The painting depicts Moses calling down the seventh plague, a storm of thunder and hail, upon Egypt as divine punishment while the Israelites remain enslaved. Martin drew on contemporary archaeological discoveries of Egyptian architecture to construct the monumental setting, rendering the human figures tiny against the scale of the built environment and the destruction falling from the sky."
+  },
+  {
+    title: "The Gulf Stream",
+    artist: "Winslow Homer",
+    date: "1899",
+    imageFile: "Winslow_Homer_-_The_Gulf_Stream_-_Metropolitan_Museum_of_Art.jpg",
+    wikiPage: "The_Gulf_Stream_(painting)",
+    desc: "The painting shows a solitary Black man lying on a dismasted, rudderless fishing boat surrounded by sharks, with a waterspout visible on the horizon and a sailing ship in the far distance. Homer worked on the theme for over a decade, producing numerous related watercolors before completing this oil. When asked about the man's fate, Homer replied that the sharks, the elements, and Providence would attend to that."
   }
 ];
 
@@ -400,9 +408,15 @@ const params = new URLSearchParams(location.search);
 const TOTAL  = ARTWORKS.length;
 const LAST   = TOTAL - 1;
 
+// Calendar-locked rotation: start date = May 29 2026 (day 0 = Raft of the Medusa)
+const START_DATE = new Date('2026-05-29T00:00:00-05:00'); // midnight EST
+const now = new Date();
+const daysSinceStart = Math.floor((now - START_DATE) / 86400000);
+const todayIdx = Math.min(Math.max(daysSinceStart, 0), LAST);
+
 let idx = params.has('day')
   ? ((parseInt(params.get('day'), 10) % TOTAL) + TOTAL) % TOTAL
-  : LAST;
+  : todayIdx;
 
 const artwork = ARTWORKS[idx];
 

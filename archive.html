@@ -56,11 +56,15 @@ const ARTWORKS = [
   { title: "A Philosopher Lecturing on the Orrery",   artist: "Joseph Wright of Derby", imageFile: "Wright_of_Derby,_The_Orrery.jpg" },
   { title: "An Experiment on a Bird in the Air Pump", artist: "Joseph Wright of Derby", imageFile: "An_Experiment_on_a_Bird_in_an_Air_Pump_by_Joseph_Wright_of_Derby,_1768.jpg" },
   { title: "The Seventh Plague of Egypt",             artist: "John Martin",            imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg" },
+  { title: "The Gulf Stream",                         artist: "Winslow Homer",           imageFile: "Winslow_Homer_-_The_Gulf_Stream_-_Metropolitan_Museum_of_Art.jpg" },
 ];
 
 const grid = document.getElementById('grid');
 
-  const LAST = ARTWORKS.length - 1;
+// Calendar-locked: figure out which index is "today"
+const START_DATE = new Date('2026-05-29T00:00:00-05:00');
+const daysSinceStart = Math.floor((new Date() - START_DATE) / 86400000);
+const todayIdx = Math.min(Math.max(daysSinceStart, 0), ARTWORKS.length - 1);
 
 [...ARTWORKS.entries()].reverse().forEach(([idx, aw]) => {
   const a = document.createElement('a');
@@ -68,7 +72,7 @@ const grid = document.getElementById('grid');
 
   const badge = document.createElement('div');
   badge.className = 'card-day';
-  badge.textContent = idx === LAST ? 'Today' : `Day ${idx + 1}`;
+  badge.textContent = idx === todayIdx ? 'Today' : `Day ${idx + 1}`;
   a.appendChild(badge);
 
   const skel = document.createElement('div'); skel.className = 'card-skel';
