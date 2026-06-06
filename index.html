@@ -173,24 +173,21 @@
         background: var(--bg);
       }
 
-      /* mobile header: logo above painting */
+      /* mobile header: logo + archive on same line above painting */
       #mobile-header {
-        display: flex; align-items: center; justify-content: center;
-        padding: 20px 20px 14px;
+        display: flex; align-items: center; justify-content: space-between;
+        padding: 18px 20px 14px;
         background: var(--bg);
       }
-      #mobile-header img { height: 13px; width: auto; opacity: 0.90; }
-
-      /* mobile top bar below painting: just archive */
-      #mobile-topbar {
-        display: flex; align-items: center; justify-content: flex-end;
-        margin-bottom: 20px;
-      }
-      #mobile-archive {
+      #mobile-header img { height: 9px; width: auto; opacity: 0.90; }
+      .mobile-header-archive {
         font-family: var(--sans); font-size: 11px; font-weight: 600;
         letter-spacing: 0.1em; text-transform: uppercase;
         color: rgba(255,255,255,0.55); text-decoration: none;
       }
+
+      /* hide the old separate topbar below painting */
+      #mobile-topbar { display: none; }
 
       #mobile-title {
         font-family: var(--sans); font-size: 16px; font-weight: 700;
@@ -275,6 +272,7 @@
   <!-- ── MOBILE LOGO (above painting, mobile only) ── -->
   <div id="mobile-header">
     <a href="index.html"><img src="logo.png" alt="Fourward" /></a>
+    <a class="mobile-header-archive" href="archive.html">Archive</a>
   </div>
 
   <!-- ── PAINTING PANEL (shared desktop/mobile) ── -->
