@@ -9,50 +9,32 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Radley:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0D0D0D;
-      --white: #ffffff;
-      --muted: rgba(255,255,255,0.46);
-      --sans: 'Google Sans Flex', sans-serif;
-      --serif: 'Radley', Georgia, serif;
-      --col: 20vw; /* 1 column = 1/5 viewport */
+      --bg: #0D0D0D; --white: #ffffff; --muted: rgba(255,255,255,0.46);
+      --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif;
     }
-
     html, body { width: 100%; height: 100%; background: var(--bg); color: var(--white); overflow: hidden; }
-
     #page { width: 100vw; height: 100vh; display: flex; }
 
-    /* ── SIDEBAR: 1 column wide, inner padding leaves 1/4 col gap on right ── */
+    /* sidebar = 20vw, inner right padding = 5vw (1/4 of column) */
     #sidebar {
-      width: var(--col);
-      flex-shrink: 0;
-      height: 100%;
+      width: 20vw; flex-shrink: 0; height: 100%;
       background: var(--bg);
-      display: flex;
-      flex-direction: column;
-      /* right padding = 1/4 of col width = 5vw */
+      display: flex; flex-direction: column;
       padding: 30px 5vw 28px 24px;
       z-index: 2;
     }
 
-    #logo { cursor: pointer; display: inline-block; }
+    #logo { display: inline-block; }
     #logo img { height: 14px; width: auto; opacity: 0.90; }
 
-    /* nav row: left arrow + right arrow, no text */
-    #nav-row {
-      display: flex; align-items: center; gap: 10px;
-      margin-top: 28px;
-    }
-
+    #nav-row { display: flex; align-items: center; gap: 10px; margin-top: 28px; }
     .nav-btn {
       width: 28px; height: 28px; border-radius: 50%;
       border: 1.5px solid rgba(255,255,255,0.30);
       display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; cursor: pointer;
-      text-decoration: none; color: var(--white);
-      opacity: 0.50; transition: opacity 0.2s;
-      background: none;
+      flex-shrink: 0; text-decoration: none; color: var(--white);
+      opacity: 0.50; transition: opacity 0.2s; background: none;
     }
     .nav-btn:hover { opacity: 1; }
     .nav-btn.disabled { opacity: 0.14; pointer-events: none; }
@@ -60,11 +42,26 @@
 
     #art-info { margin-top: auto; margin-bottom: auto; padding: 24px 0; }
 
-    #art-title  { font-family: var(--sans); font-size: 18px; font-weight: 700; line-height: 1.2; margin-bottom: 3px; }
-    #art-artist { font-family: var(--serif); font-size: 18px; font-style: italic; line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80); }
-    #art-year   { font-family: var(--serif); font-size: 18px; font-style: italic; color: var(--muted); margin-bottom: 18px; }
-    #divider    { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 15px; }
-    #art-desc   { font-family: var(--sans); font-size: 14px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.56); }
+    #art-title {
+      font-family: var(--sans); font-size: 16px; font-weight: 700;
+      line-height: 1.2; margin-bottom: 3px;
+      text-wrap: balance;
+    }
+    #art-artist {
+      font-family: var(--serif); font-size: 16px; font-style: italic;
+      line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80);
+      text-wrap: balance;
+    }
+    #art-year {
+      font-family: var(--serif); font-size: 16px; font-style: italic;
+      color: var(--muted); margin-bottom: 18px;
+    }
+    #divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 15px; }
+    #art-desc {
+      font-family: var(--sans); font-size: 12px; font-weight: 400;
+      line-height: 1.5; color: rgba(255,255,255,0.56);
+      text-wrap: pretty; /* avoids orphaned last words */
+    }
 
     #sidebar-bottom { margin-top: auto; }
     #learn-more {
@@ -75,36 +72,26 @@
     }
     #learn-more:hover { opacity: 1; }
 
-    /* ── PAINTING PANEL: 4 columns ── */
+    /* painting panel = 80vw */
     #painting-panel {
-      flex: 1;
-      height: 100%;
-      position: relative;
-      overflow: hidden;
-      background: #060606;
+      flex: 1; height: 100%; position: relative; overflow: hidden; background: #060606;
     }
-
     #painting-img {
       position: absolute; top: 0; left: 0;
       width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: left center;
-      display: block;
-      opacity: 0; transition: opacity 1.1s ease;
+      object-fit: cover; object-position: left center;
+      display: block; opacity: 0; transition: opacity 1.1s ease;
     }
     #painting-img.loaded { opacity: 1; }
-
     #painting-loader {
       position: absolute; top: 50%; left: 50%;
       transform: translate(-50%, -50%);
       font-family: var(--sans); font-size: 13px;
       color: var(--muted); font-style: italic; pointer-events: none;
     }
-
-    /* archive link top-right */
     #topright {
       position: absolute; top: 28px; right: 32px;
-      display: flex; align-items: center; gap: 24px; z-index: 3;
+      display: flex; gap: 24px; z-index: 3;
     }
     #topright a {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
@@ -114,43 +101,32 @@
     }
     #topright a:hover { color: var(--white); }
 
-    /* VIEW IN FULL button — bottom right */
+    /* VIEW IN FULL */
     #view-full-btn {
       position: absolute; bottom: 28px; right: 32px; z-index: 3;
       background: var(--white); color: #0D0D0D;
       font-family: var(--sans); font-size: 11px; font-weight: 700;
       letter-spacing: 0.1em; text-transform: uppercase;
-      border: none; cursor: pointer;
-      padding: 9px 16px;
+      border: none; cursor: pointer; padding: 9px 16px;
       transition: opacity 0.2s;
     }
     #view-full-btn:hover { opacity: 0.85; }
 
-    /* Full painting overlay */
     #full-overlay {
-      display: none;
-      position: absolute; inset: 0; z-index: 4;
-      align-items: center; justify-content: center;
-      pointer-events: none;
+      display: none; position: absolute; inset: 0; z-index: 4;
+      align-items: center; justify-content: center; pointer-events: none;
     }
     #full-overlay.visible { display: flex; pointer-events: auto; }
-
     #full-overlay img {
-      width: 60%;
-      height: auto;
-      max-height: 90%;
-      object-fit: contain;
-      border: 1px solid #ffffff;
-      display: block;
+      width: 60%; height: auto; max-height: 90%;
+      object-fit: contain; border: 1px solid #ffffff; display: block;
     }
   </style>
 </head>
 <body>
 <div id="page">
-
   <div id="sidebar">
     <a id="logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
-
     <div id="nav-row">
       <a id="nav-prev" class="nav-btn disabled" href="#">
         <svg viewBox="0 0 10 10" fill="none"><path d="M6.5 1.5L2.5 5L6.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -159,7 +135,6 @@
         <svg viewBox="0 0 10 10" fill="none"><path d="M3.5 1.5L7.5 5L3.5 8.5" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </a>
     </div>
-
     <div id="art-info">
       <div id="art-title"></div>
       <div id="art-artist"></div>
@@ -167,7 +142,6 @@
       <div id="divider"></div>
       <div id="art-desc"></div>
     </div>
-
     <div id="sidebar-bottom">
       <a id="learn-more" href="#" target="_blank">Learn More</a>
     </div>
@@ -178,16 +152,11 @@
     <div id="painting-loader">Loading…</div>
     <img id="painting-img" alt="" />
     <button id="view-full-btn">View in Full</button>
-    <div id="full-overlay">
-      <img id="full-img" src="" alt="" />
-    </div>
+    <div id="full-overlay"><img id="full-img" src="" alt="" /></div>
   </div>
-
 </div>
+
 <script>
-// ── ARTWORKS ──────────────────────────────────────────────────
-// imageFile = exact Wikimedia Commons filename for guaranteed image lookup
-// wikiPage  = Wikipedia article title for fallback API lookup
 const ARTWORKS = [
   {
     title: "The Raft of the Medusa",
@@ -195,7 +164,7 @@ const ARTWORKS = [
     date: "1818–1819",
     imageFile: "Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg",
     wikiPage: "The_Raft_of_the_Medusa",
-    desc: "Géricault spent two years on this. He visited morgues, interviewed survivors, and had a life-size raft built in his studio. Of 147 people set adrift after the wreck, only 15 survived. He was 27 when he finished it. Critics were horrified. It became an icon."
+    desc: "Géricault painted this at 27 to launch his career. He interviewed survivors, visited morgues to study decomposition, and had a full-scale raft built in his studio. At least 150 people were set adrift after the frigate Méduse ran aground in 1816; only 15 survived. The painting was controversial at the 1819 Paris Salon and made him famous."
   },
   {
     title: "The Third of May 1808",
@@ -203,7 +172,7 @@ const ARTWORKS = [
     date: "1814",
     imageFile: "El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg",
     wikiPage: "The_Third_of_May_1808",
-    desc: "Spanish rebels executed at night by French soldiers who have no faces — only rifles. The man in the white shirt throws his arms wide. The lantern on the ground is the only light. Goya painted this six years after the event, once the French had gone."
+    desc: "Commissioned by the Spanish government after Napoleon's defeat, the painting depicts the execution of Madrid civilians by French troops. Goya broke with tradition by showing war as atrocity rather than glory — the soldiers are faceless machinery, the victims are human. It is widely regarded as the first modern painting."
   },
   {
     title: "The Nightmare",
@@ -211,7 +180,7 @@ const ARTWORKS = [
     date: "1781",
     imageFile: "John_Henry_Fuseli_-_The_Nightmare.JPG",
     wikiPage: "The_Nightmare_(Fuseli)",
-    desc: "A woman lies unconscious as a goblin crouches on her chest. A horse's white blind eye stares from behind a curtain. Fuseli painted the unconscious as a place occupied by other things. When exhibited in 1782 it was the most talked-about painting in London."
+    desc: "A woman lies in deep sleep while an incubus crouches on her chest, and a horse with blank white eyes peers through the curtain behind her. Critics reacted with horrified fascination when it was shown in 1782 — Fuseli's first commercial success after years of rejection. He produced at least three other versions, and engraved copies spread across Europe."
   },
   {
     title: "The Isle of the Dead",
@@ -219,7 +188,7 @@ const ARTWORKS = [
     date: "1886",
     imageFile: "Isle_of_the_Dead_(Hermitage_Version).jpg",
     wikiPage: "Isle_of_the_Dead_(painting)",
-    desc: "A white-shrouded figure stands in a boat approaching a dark island of cypress trees and sheer rock. Böcklin painted five versions and refused to explain any of them. Freud owned a print. Hitler owned a version. It was the most reproduced painting in the German-speaking world at the turn of the century."
+    desc: "A white-shrouded figure stands in a small boat approaching a rocky island of tall cypress trees. Böcklin painted five versions between 1880 and 1886 and refused to explain the subject. Freud owned a print, Hitler acquired a version, and at the turn of the century it was the most reproduced painting in the German-speaking world."
   },
   {
     title: "Death on a Pale Horse",
@@ -227,7 +196,7 @@ const ARTWORKS = [
     date: "1796",
     imageFile: "Death-on-a-pale-horse-west-1796.jpg",
     wikiPage: "Death_on_the_Pale_Horse",
-    desc: "The four horsemen of the apocalypse, with bodies writhing beneath them. West worked on versions of this composition for thirty years. No painting of its era attempted this much chaos and kept it legible. The pale horse at the center is the painting's cold engine."
+    desc: "West returned to this subject three times over thirty years, producing a drawing in 1783, this painting in 1796, and a 25-foot canvas in 1817. Drawn from the Book of Revelation, the composition shows the four horsemen amid writhing bodies and chaos. Art historian Jules Prown named it a direct precursor to Géricault and Delacroix."
   },
   {
     title: "A Lion Attacking a Horse",
@@ -235,15 +204,15 @@ const ARTWORKS = [
     date: "1762",
     imageFile: "George_Stubbs_-_A_Lion_Attacking_a_Horse_-_Google_Art_Project.jpg",
     wikiPage: "A_Lion_Attacking_a_Horse",
-    desc: "A white horse rears in terror as a lion mounts its back and sinks its claws in. Stubbs painted this subject seventeen times across thirty years. He was a trained anatomist. The terror is precise. Géricault studied these paintings obsessively."
+    desc: "Stubbs painted this subject seventeen times over thirty years. The most likely inspiration was an ancient Roman marble sculpture well known in London artistic circles, though legend says he witnessed the real scene in Morocco. He was a trained anatomist — the terror of the horse is rendered with clinical precision. Géricault studied these works closely."
   },
   {
     title: "A Philosopher Lecturing on the Orrery",
     artist: "Joseph Wright of Derby",
-    date: "1766",
-    imageFile: "Joseph_Wright_of_Derby_-_Philosopher_giving_a_lecture_on_the_orrery_-_Google_Art_Project.jpg",
+    date: "c. 1766",
+    imageFile: "Wright_of_Derby,_The_Orrery.jpg",
     wikiPage: "A_Philosopher_Lecturing_on_the_Orrery",
-    desc: "A mechanical model of the solar system glows in a dark room. The faces around it are lit from below — awe, fear, concentration. Wright painted candlelight the way Caravaggio painted torchlight: as a force that reveals what darkness conceals."
+    desc: "A lecturer demonstrates a mechanical model of the solar system by lamplight while a small group watches — some in wonder, some in quiet thought. Wright replaced the traditional religious subject at the center of a candlelit scene with a scientific one. An anonymous reviewer at the time called him 'a very great and uncommon genius in a peculiar way.'"
   },
   {
     title: "An Experiment on a Bird in the Air Pump",
@@ -251,7 +220,7 @@ const ARTWORKS = [
     date: "1768",
     imageFile: "An_Experiment_on_a_Bird_in_an_Air_Pump_by_Joseph_Wright_of_Derby,_1768.jpg",
     wikiPage: "An_Experiment_on_a_Bird_in_the_Air_Pump",
-    desc: "A scientist removes air from a glass globe containing a live bird. Some watch with scientific detachment. A girl turns away. Two children hold each other. The scientist looks directly at us. Wright gives no verdict — only the moment before the choice is made."
+    desc: "A natural philosopher pumps air from a glass globe containing a live bird while onlookers react with grief, fascination, and indifference. Wright gave a scientific subject the reverential treatment formerly reserved for religious history painting. The scientist looks directly out of the canvas. No verdict is offered — only the moment before the choice is made."
   },
   {
     title: "The Seventh Plague of Egypt",
@@ -259,14 +228,13 @@ const ARTWORKS = [
     date: "1823",
     imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg",
     wikiPage: "The_Seventh_Plague_of_Egypt",
-    desc: "Fire and hail rain from an apocalyptic sky onto Egypt. Moses stands with his staff. The human figures are tiny — barely visible against what's falling from above. Martin specialized in making people look insignificant. He considered that the point."
+    desc: "Moses calls down thunder and hail on Egypt as the Israelites are held in slavery. Martin drew on recent archaeological discoveries of Egyptian architecture for the monumental setting, making the human figures tiny beneath the scale of divine punishment. It appeared at the inaugural Royal Society of British Artists exhibition in 1824."
   }
 ];
 
-// ── ROUTING ───────────────────────────────────────────────────
-const params  = new URLSearchParams(location.search);
-const TOTAL   = ARTWORKS.length;
-const LAST    = TOTAL - 1;
+const params = new URLSearchParams(location.search);
+const TOTAL  = ARTWORKS.length;
+const LAST   = TOTAL - 1;
 
 let idx = params.has('day')
   ? ((parseInt(params.get('day'), 10) % TOTAL) + TOTAL) % TOTAL
@@ -274,74 +242,35 @@ let idx = params.has('day')
 
 const artwork = ARTWORKS[idx];
 
-// nav: prev
 const prevBtn = document.getElementById('nav-prev');
 if (idx > 0) { prevBtn.classList.remove('disabled'); prevBtn.href = `index.html?day=${idx - 1}`; }
 
-// nav: next (disabled on today = last entry)
 const nextBtn = document.getElementById('nav-next');
 if (idx < LAST) { nextBtn.classList.remove('disabled'); nextBtn.href = `index.html?day=${idx + 1}`; }
 
-// fill text
 document.getElementById('art-title').textContent  = artwork.title;
 document.getElementById('art-artist').textContent = artwork.artist;
 document.getElementById('art-year').textContent   = artwork.date;
 document.getElementById('art-desc').textContent   = artwork.desc;
 document.getElementById('learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
 
-// ── IMAGE LOADING ─────────────────────────────────────────────
-// Strategy: use Wikimedia Commons Special:FilePath which redirects
-// to the actual image — fully CORS-safe from browsers.
 const loader   = document.getElementById('painting-loader');
 const paintImg = document.getElementById('painting-img');
 const fullImg  = document.getElementById('full-img');
 
-function buildCommonsUrl(filename, width) {
-  // Wikipedia thumbnail API — resolves any Commons file to a sized thumb
-  return `https://en.wikipedia.org/w/api.php?action=query&titles=File:${encodeURIComponent(filename)}&prop=imageinfo&iiprop=url&iiurlwidth=${width}&format=json&origin=*`;
-}
-
 async function loadImage() {
   try {
-    const res  = await fetch(buildCommonsUrl(artwork.imageFile, 2400));
-    const data = await res.json();
-    const pages = data.query.pages;
-    const page  = pages[Object.keys(pages)[0]];
-    const info  = page?.imageinfo?.[0];
-    const src   = info?.thumburl || info?.url;
-
-    if (!src) { loader.textContent = 'Image unavailable'; return; }
-
-    paintImg.src = src;
-    paintImg.alt = artwork.title;
-    fullImg.src  = src;
-    fullImg.alt  = artwork.title;
-
-    paintImg.onload = () => {
-      paintImg.classList.add('loaded');
-      loader.style.display = 'none';
-    };
-    paintImg.onerror = () => {
-      // fallback: try Wikipedia pageimages API
-      loadFallback();
-    };
-  } catch(e) {
-    loadFallback();
-  }
-}
-
-async function loadFallback() {
-  try {
-    const url  = `https://en.wikipedia.org/w/api.php?action=query&titles=${encodeURIComponent(artwork.wikiPage)}&prop=pageimages&pithumbsize=2400&format=json&origin=*`;
+    const url  = `https://en.wikipedia.org/w/api.php?action=query&titles=File:${encodeURIComponent(artwork.imageFile)}&prop=imageinfo&iiprop=url&iiurlwidth=2400&format=json&origin=*`;
     const res  = await fetch(url);
     const data = await res.json();
     const page = Object.values(data.query.pages)[0];
-    const src  = page?.thumbnail?.source?.replace(/\/\d+px-/, '/2400px-');
+    const info = page?.imageinfo?.[0];
+    const src  = info?.thumburl || info?.url;
 
     if (!src) { loader.textContent = 'Image unavailable'; return; }
 
-    paintImg.src = src;
-    fullImg.src  = src;
+    paintImg.src = src; fullImg.src = src;
+    paintImg.alt = fullImg.alt = artwork.title;
     paintImg.onload = () => { paintImg.classList.add('loaded'); loader.style.display = 'none'; };
     paintImg.onerror = () => { loader.textContent = 'Image unavailable'; };
   } catch(e) {
@@ -351,18 +280,15 @@ async function loadFallback() {
 
 loadImage();
 
-// ── VIEW IN FULL toggle ───────────────────────────────────────
-const overlay    = document.getElementById('full-overlay');
-const viewBtn    = document.getElementById('view-full-btn');
-let fullVisible  = false;
+const overlay   = document.getElementById('full-overlay');
+const viewBtn   = document.getElementById('view-full-btn');
+let fullVisible = false;
 
 viewBtn.addEventListener('click', () => {
   fullVisible = !fullVisible;
   overlay.classList.toggle('visible', fullVisible);
   viewBtn.textContent = fullVisible ? 'Close' : 'View in Full';
 });
-
-// click outside the inner image to close
 overlay.addEventListener('click', (e) => {
   if (e.target === overlay) {
     fullVisible = false;
