@@ -449,10 +449,19 @@ const TOTAL  = ARTWORKS.length;
 const LAST   = TOTAL - 1;
 
 // Calendar-locked rotation: start date = May 29 2026 (day 0 = Raft of the Medusa)
-const START_DATE = new Date('2026-05-29T00:00:00-05:00'); // midnight EST
-const now = new Date();
-const daysSinceStart = Math.floor((now - START_DATE) / 86400000);
-const todayIdx = Math.min(Math.max(daysSinceStart, 0), LAST);
+// All date math done in EST (UTC-5) so it rolls over at midnight Eastern time
+function getTodayIndexEST() {
+  const now = new Date();
+  // Convert current time to EST (UTC-5)
+  const estOffset = -5 * 60; // minutes
+  const estNow = new Date(now.getTime() + (estOffset - now.getTimezoneOffset()) * 60000);
+  const estDateStr = estNow.toISOString().slice(0, 10);
+  const estToday = new Date(estDateStr + 'T00:00:00');
+  const startDate = new Date('2026-05-29T00:00:00');
+  const days = Math.floor((estToday - startDate) / 86400000);
+  return Math.min(Math.max(days, 0), ARTWORKS.length - 1);
+}
+const todayIdx = getTodayIndexEST();
 
 let idx = params.has('day')
   ? ((parseInt(params.get('day'), 10) % TOTAL) + TOTAL) % TOTAL
