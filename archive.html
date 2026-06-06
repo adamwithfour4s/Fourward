@@ -79,7 +79,9 @@ function getTodayIndexEST() {
 }
 const todayIdx = getTodayIndexEST();
 
-[...ARTWORKS.entries()].reverse().forEach(([idx, aw]) => {
+// Only show entries up to and including today — future ones are hidden
+const visibleArtworks = [...ARTWORKS.entries()].filter(([idx]) => idx <= todayIdx);
+[...visibleArtworks].reverse().forEach(([idx, aw]) => {
   const a = document.createElement('a');
   a.className = 'card'; a.href = `index.html?day=${idx}`;
 
