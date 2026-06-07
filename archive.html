@@ -67,17 +67,10 @@ const ARTWORKS = [
 const grid = document.getElementById('grid');
 
 // Calendar-locked: figure out which index is "today" in EST
-function getTodayIndexEST() {
-  const now = new Date();
-  const estOffset = -5 * 60;
-  const estNow = new Date(now.getTime() + (estOffset - now.getTimezoneOffset()) * 60000);
-  const estDateStr = estNow.toISOString().slice(0, 10);
-  const estToday = new Date(estDateStr + 'T00:00:00');
-  const startDate = new Date('2026-05-29T00:00:00');
-  const days = Math.floor((estToday - startDate) / 86400000);
-  return Math.min(Math.max(days, 0), ARTWORKS.length - 1);
-}
-const todayIdx = getTodayIndexEST();
+const startDate = Date.UTC(2026, 4, 29);
+const todayUTC  = Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate());
+const daysSinceStart = Math.floor((todayUTC - startDate) / 86400000);
+const todayIdx = Math.min(Math.max(daysSinceStart, 0), ARTWORKS.length - 1);
 
 // Only show entries up to and including today — future ones are hidden
 const visibleArtworks = [...ARTWORKS.entries()].filter(([idx]) => idx <= todayIdx);
