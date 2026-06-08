@@ -43,14 +43,15 @@
     }
 
     /* RIGHT IMAGE
-       right edge aligns with center of "DAILY ART" in nav (~79% from left)
-       top at 23% of viewport height */
+       left edge at ~45.6% (first 'e' in 'there')
+       right edge at ~78% (center of DAILY ART)
+       top at 23%, bottom at 73.5% */
     #img-right {
       position: absolute;
       top: 23%;
-      left: var(--adam);          /* left starts at adam alignment */
-      right: 21%;                 /* right edge ~79% = center of DAILY ART */
-      height: 50%;
+      left: 45.6%;
+      right: 22%;
+      bottom: 26.5%;
       overflow: hidden;
       z-index: 1;
     }
@@ -61,14 +62,16 @@
     }
 
     /* LEFT IMAGE
-       left edge aligns with "hello there," (15%)
-       top at 51%, width ~24vw */
+       left edge at 15.1% (same as hello there)
+       right edge at ~39.8% (midpoint of 't' in 'there')
+       top at ~50.9% (midway through hello text)
+       bottom aligns with top of body copy ~76.7% */
     #img-left {
       position: absolute;
-      top: 51%;
-      left: var(--left);
-      width: 24vw;
-      height: 36%;
+      top: 50.9%;
+      left: 15.1%;
+      right: 60.2%;
+      bottom: 23.3%;
       overflow: hidden;
       z-index: 1;
     }
@@ -78,71 +81,71 @@
       display: block;
     }
 
-    /* TYPE — hello there, at --left, vertically around 30% */
+    /* TYPE — hello there */
     #hello-there {
       position: absolute;
-      top: 28%;
-      left: var(--left);
+      top: 36%;
+      left: 15.1%;
       font-family: var(--sans);
       font-size: 11vw;
       font-weight: 400;
       line-height: 1;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.01em;
       color: var(--white);
       white-space: nowrap;
       z-index: 2;
     }
 
-    /* I'M ADAM — at --adam, just below hello there */
+    /* I'M ADAM — left at ~42.9%, just below hello there */
     #im-adam {
       position: absolute;
-      top: 46%;
-      left: var(--adam);
+      top: 53%;
+      left: 42.9%;
       font-family: var(--serif);
       font-size: 9vw;
       font-style: italic;
       font-weight: 400;
       line-height: 1;
-      letter-spacing: -0.02em;
+      letter-spacing: -0.06em;
       color: var(--white);
       white-space: nowrap;
       z-index: 2;
     }
 
-    /* BODY COPY — left at --adam, bottom area */
+    /* BODY COPY — left at 42.9%, top at 76.7% */
     #body-cols {
       position: absolute;
-      bottom: 10%;
-      left: var(--adam);
+      top: 76.7%;
+      left: 42.9%;
       display: flex;
       gap: 28px;
       z-index: 2;
     }
 
     .body-col {
-      width: 335px;
+      width: 333px;
       font-family: var(--sans);
-      font-size: 14px;
-      font-weight: 400;
+      font-size: 11px;
+      font-weight: 300;
       line-height: 1.25;
       letter-spacing: -0.01em;
       color: var(--white);
       text-align: justify;
     }
 
-    /* LINKS — left at --left, same bottom as body-cols */
+    /* LINKS — left at 15.1%, same top as body-cols */
     #links-row {
       position: absolute;
-      bottom: 10%;
-      left: var(--left);
+      top: 76.7%;
+      left: 15.1%;
       display: flex;
-      align-items: flex-end;
+      align-items: flex-start;
       gap: 24px;
       z-index: 2;
     }
     #links-row a {
       font-family: var(--sans);
-      font-size: 12px;
+      font-size: 9px;
       font-weight: 400;
       color: rgba(255,255,255,0.30);
       text-decoration: none;
