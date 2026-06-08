@@ -12,14 +12,14 @@
     :root {
       --bg: #0D0D0D;
       --white: #fff;
-      --muted: rgba(255,255,255,0.46);
-      --dim: rgba(255,255,255,0.30);
       --sans: 'Google Sans Flex', sans-serif;
       --serif: 'Radley', Georgia, serif;
+      --left: 15%;   /* left edge of "hello there," and links */
+      --adam: 42%;   /* left edge of "I'm Adam" and body copy */
     }
-    html, body { background: var(--bg); color: var(--white); width: 100%; overflow-x: hidden; }
+    html, body { background: var(--bg); color: var(--white); width: 100%; overflow: hidden; height: 100%; }
 
-    /* ── NAV ─────────────────────────────────────── */
+    /* ── NAV ── */
     #topnav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -33,25 +33,24 @@
       color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s;
     }
     #nav-right a:hover { color: var(--white); }
-    #nav-right a.icon-link img { height: 14px; width: 14px; opacity: 0.50; display: block; transition: opacity 0.2s; }
-    #nav-right a.icon-link:hover img { opacity: 1; }
+    #nav-right a.icon img { height: 14px; width: 14px; opacity: 0.50; display: block; transition: opacity 0.2s; }
+    #nav-right a.icon:hover img { opacity: 1; }
 
-    /* ── DESKTOP ─────────────────────────────────── */
+    /* ── DESKTOP ── */
     #desktop {
-      display: block;
       width: 100vw; height: 100vh;
       position: relative; overflow: hidden;
     }
 
-    /* RIGHT IMAGE — Raft of Medusa
-       In mockup: top ~190px, right edge near right edge of viewport,
-       spans from roughly 45% to 79% width, height ~390px */
+    /* RIGHT IMAGE
+       right edge aligns with center of "DAILY ART" in nav (~79% from left)
+       top at 23% of viewport height */
     #img-right {
       position: absolute;
-      top: 13%;        /* ~140px on 1080 */
-      right: 5%;
-      width: 37%;
-      height: 52%;
+      top: 23%;
+      left: var(--adam);          /* left starts at adam alignment */
+      right: 21%;                 /* right edge ~79% = center of DAILY ART */
+      height: 50%;
       overflow: hidden;
       z-index: 1;
     }
@@ -61,14 +60,15 @@
       display: block;
     }
 
-    /* LEFT IMAGE — ascii
-       In mockup: starts around x=15%, y=38%, ends around x=40%, y=78% */
+    /* LEFT IMAGE
+       left edge aligns with "hello there," (15%)
+       top at 51%, width ~24vw */
     #img-left {
       position: absolute;
-      top: 37%;
-      left: 15%;
-      width: 26%;
-      height: 38%;
+      top: 51%;
+      left: var(--left);
+      width: 24vw;
+      height: 36%;
       overflow: hidden;
       z-index: 1;
     }
@@ -78,118 +78,84 @@
       display: block;
     }
 
-    /* TYPE BLOCK
-       "hello there," top edge at ~28% from top, left at ~15%
-       "I'm Adam" left-aligned with the "h" in "there" —
-       which in the mockup is roughly 43% from left */
-    #type-block {
-      position: absolute;
-      top: 25%;
-      left: 15%;
-      z-index: 2;
-      pointer-events: none;
-    }
-
+    /* TYPE — hello there, at --left, vertically around 30% */
     #hello-there {
+      position: absolute;
+      top: 28%;
+      left: var(--left);
       font-family: var(--sans);
-      font-size: clamp(80px, 12vw, 175px);
+      font-size: 11vw;
       font-weight: 400;
-      line-height: 0.88;
+      line-height: 1;
       letter-spacing: -0.02em;
       color: var(--white);
-      display: block;
       white-space: nowrap;
+      z-index: 2;
     }
 
-    /* I'm Adam starts at roughly the "h" in "there"
-       In the word "hello there," the "t" starts around 47% of the text width.
-       We use margin-left as a percentage of the font size to approximate. */
-    #adam-row {
-      display: flex;
-      align-items: flex-start;
-      position: relative;
-      /* push right to align with "h" of "there" — roughly 44% of hello-there width */
-      margin-left: 28%;
-      margin-top: 0.02em;
-    }
-
+    /* I'M ADAM — at --adam, just below hello there */
     #im-adam {
+      position: absolute;
+      top: 46%;
+      left: var(--adam);
       font-family: var(--serif);
-      font-size: clamp(65px, 10vw, 145px);
+      font-size: 9vw;
       font-style: italic;
       font-weight: 400;
-      line-height: 0.88;
+      line-height: 1;
       letter-spacing: -0.02em;
       color: var(--white);
       white-space: nowrap;
-    }
-
-    #with-four4s {
-      font-family: var(--sans);
-      font-size: 19px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.55);
-      line-height: 1.1;
-      margin-left: 10px;
-      margin-top: 8px;
-      white-space: nowrap;
-    }
-
-    /* CONTENT BLOCK — body + links
-       Left-aligned with "I'm Adam" (i.e. left + 28% indent)
-       Sits below the type, near bottom of viewport */
-    #content-block {
-      position: absolute;
-      bottom: 8%;
-      left: 15%;
-      right: 5%;
       z-index: 2;
-      display: flex;
-      flex-direction: column;
-      gap: 0;
     }
 
-    /* body copy: two columns, left-aligned with "I'm Adam" */
+    /* BODY COPY — left at --adam, bottom area */
     #body-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
+      position: absolute;
+      bottom: 10%;
+      left: var(--adam);
+      display: flex;
       gap: 28px;
-      margin-left: 28%; /* aligns with "I'm Adam" */
+      z-index: 2;
     }
 
     .body-col {
+      width: 335px;
       font-family: var(--sans);
       font-size: 14px;
       font-weight: 400;
-      line-height: 1.6;
-      color: rgba(255,255,255,0.55);
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+      color: var(--white);
       text-align: justify;
     }
 
-    /* links: same bottom row, left-aligned with "hello there," (no indent) */
+    /* LINKS — left at --left, same bottom as body-cols */
     #links-row {
+      position: absolute;
+      bottom: 10%;
+      left: var(--left);
       display: flex;
-      align-items: center;
-      gap: 28px;
-      margin-top: 18px;
-      /* no left margin — aligns with "hello there," */
+      align-items: flex-end;
+      gap: 24px;
+      z-index: 2;
     }
-
     #links-row a {
       font-family: var(--sans);
       font-size: 12px;
       font-weight: 400;
-      color: var(--dim);
+      color: rgba(255,255,255,0.30);
       text-decoration: none;
       transition: color 0.2s;
       white-space: nowrap;
     }
     #links-row a:hover { color: var(--white); }
 
-    /* ── MOBILE ──────────────────────────────────── */
+    /* ── MOBILE ── */
     #mobile { display: none; }
 
     @media (max-width: 768px) {
+      html, body { overflow: auto; height: auto; }
       #desktop { display: none; }
       #topnav  { display: none; }
 
@@ -200,8 +166,7 @@
       }
 
       #mob-logo-bar {
-        width: 100%; display: flex; justify-content: center;
-        padding: 20px 0 0;
+        width: 100%; display: flex; justify-content: center; padding: 20px 0 0;
       }
       #mob-logo-bar img { height: 10px; opacity: 0.90; }
 
@@ -212,37 +177,24 @@
         width: 100%; padding: 28px 24px 0;
         display: flex; flex-direction: column; align-items: center;
       }
-
       #mob-hello {
         font-family: var(--sans); font-size: 42px; font-weight: 400;
         color: var(--white); text-align: center; line-height: 1; margin-bottom: 2px;
       }
-
-      #mob-adam-row {
-        display: flex; align-items: flex-start;
-        position: relative; margin-bottom: 20px;
-      }
       #mob-adam {
         font-family: var(--serif); font-size: 38px; font-style: italic;
-        color: var(--white); line-height: 1;
+        color: var(--white); line-height: 1; margin-bottom: 20px;
       }
-      #mob-four4s {
-        font-family: var(--sans); font-size: 9px;
-        color: rgba(255,255,255,0.50);
-        position: absolute; right: -36px; top: 3px; line-height: 1.1;
-      }
-
       #mob-divider {
         width: 34px; height: 1px;
         background: rgba(255,255,255,0.18); margin-bottom: 18px;
       }
-
       .mob-body {
         font-family: var(--sans); font-size: 14px;
-        line-height: 1.6; color: rgba(255,255,255,0.55);
-        text-align: justify; width: 100%; margin-bottom: 14px;
+        line-height: 1.25; letter-spacing: -0.01em;
+        color: var(--white); text-align: justify;
+        width: 100%; margin-bottom: 14px;
       }
-
       #mob-icons {
         display: flex; align-items: center; justify-content: center;
         gap: 20px; padding: 32px 0 40px; width: 100%;
@@ -257,14 +209,13 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav id="topnav">
   <a id="nav-logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
   <div id="nav-right">
     <a href="index.html">Daily Art</a>
     <a href="archive.html">Archive</a>
     <a href="about.html">About</a>
-    <a class="icon-link" href="https://www.instagram.com/adamwithfour4s/" target="_blank">
+    <a class="icon" href="https://www.instagram.com/adamwithfour4s/" target="_blank">
       <img src="instagram.png" alt="Instagram" />
     </a>
   </div>
@@ -273,37 +224,22 @@
 <!-- DESKTOP -->
 <div id="desktop">
 
-  <div id="img-right">
-    <img src="raft.png" alt="The Raft of the Medusa" />
+  <div id="img-right"><img src="raft.png" alt="" /></div>
+  <div id="img-left"><img src="ascii2.png" alt="" /></div>
+
+  <div id="hello-there">hello there,</div>
+  <div id="im-adam">I'm Adam</div>
+
+  <div id="body-cols">
+    <div class="body-col">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</div>
+    <div class="body-col">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</div>
   </div>
 
-  <div id="img-left">
-    <img src="ascii2.png" alt="" />
-  </div>
-
-  <div id="type-block">
-    <span id="hello-there">hello there,</span>
-    <div id="adam-row">
-      <span id="im-adam">I'm Adam</span>
-      <span id="with-four4s">with<br>four4s</span>
-    </div>
-  </div>
-
-  <div id="content-block">
-    <div id="body-cols">
-      <div class="body-col">
-        Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.
-      </div>
-      <div class="body-col">
-        And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.
-      </div>
-    </div>
-    <div id="links-row">
-      <a href="mailto:adam4karim@gmail.com">adam4karim@gmail.com</a>
-      <a href="https://readymag.website/6247804" target="_blank">Visit Website</a>
-      <a href="https://www.instagram.com/adamwithfour4s/" target="_blank">Instagram</a>
-      <a href="https://x.com/Adamwithfour4s" target="_blank">Twitter (x)</a>
-    </div>
+  <div id="links-row">
+    <a href="mailto:adam4karim@gmail.com">adam4karim@gmail.com</a>
+    <a href="https://readymag.website/6247804" target="_blank">Visit Website</a>
+    <a href="https://www.instagram.com/adamwithfour4s/" target="_blank">Instagram</a>
+    <a href="https://x.com/Adamwithfour4s" target="_blank">Twitter (x)</a>
   </div>
 
 </div>
@@ -314,10 +250,7 @@
   <div id="mob-img"><img src="ascii1.png" alt="" /></div>
   <div id="mob-text">
     <div id="mob-hello">hello,</div>
-    <div id="mob-adam-row">
-      <span id="mob-adam">I'm Adam</span>
-      <span id="mob-four4s">with<br>four4s</span>
-    </div>
+    <div id="mob-adam">I'm Adam</div>
     <div id="mob-divider"></div>
     <div class="mob-body">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</div>
     <div class="mob-body">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</div>
