@@ -9,255 +9,30 @@
   <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Radley:ital@0;1&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    :root {
-      --bg: #0D0D0D;
-      --white: #fff;
-      --sans: 'Google Sans Flex', sans-serif;
-      --serif: 'Radley', Georgia, serif;
-      --left: 15%;   /* left edge of "hello there," and links */
-      --adam: 42%;   /* left edge of "I'm Adam" and body copy */
-    }
-    html, body { background: var(--bg); color: var(--white); width: 100%; overflow: hidden; height: 100%; }
-
-    /* ── NAV ── */
-    #topnav {
-      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    html, body { min-height: 100%; background: #0D0D0D; color: #fff; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
+    header {
       display: flex; align-items: center; justify-content: space-between;
-      padding: 28px 40px;
+      padding: 32px 40px;
     }
-    #nav-logo img { height: 14px; opacity: 0.90; }
-    #nav-right { display: flex; align-items: center; gap: 28px; }
-    #nav-right a {
-      font-family: var(--sans); font-size: 11px; font-weight: 600;
+    header img { height: 15px; width: auto; opacity: 0.9; }
+    #back-link {
+      font-family: 'Google Sans Flex', sans-serif; font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s;
+      color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s;
     }
-    #nav-right a:hover { color: var(--white); }
-    #nav-right a.icon img { height: 14px; width: 14px; opacity: 0.50; display: block; transition: opacity 0.2s; }
-    #nav-right a.icon:hover img { opacity: 1; }
-
-    /* ── DESKTOP ── */
-    #desktop {
-      width: 100vw; height: 100vh;
-      position: relative; overflow: hidden;
-    }
-
-    /* RIGHT IMAGE: 466×319px, top=190px, right edge=1122px → left=656px */
-    #img-right {
-      position: absolute;
-      top: 190px;
-      left: 656px;
-      width: 466px;
-      height: 319px;
-      overflow: hidden;
-      z-index: 1;
-    }
-    #img-right img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center 20%;
-      display: block;
-    }
-
-    /* LEFT IMAGE: 322×250px, left=248px, top=283px (midway through hello) */
-    #img-left {
-      position: absolute;
-      top: 283px;
-      left: 248px;
-      width: 322px;
-      height: 250px;
-      overflow: hidden;
-      z-index: 1;
-    }
-    #img-left img {
-      width: 100%; height: 100%;
-      object-fit: cover; object-position: center center;
-      display: block;
-    }
-
-    /* HELLO THERE: 136px font, top=215px, left=227px */
-    #hello-there {
-      position: absolute;
-      top: 215px;
-      left: 227px;
-      font-family: var(--sans);
-      font-size: 136px;
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -0.01em;
-      color: var(--white);
-      white-space: nowrap;
-      z-index: 2;
-    }
-
-    /* I'M ADAM: 111px font, top=403px, left=607px */
-    #im-adam {
-      position: absolute;
-      top: 403px;
-      left: 607px;
-      font-family: var(--serif);
-      font-size: 111px;
-      font-style: italic;
-      font-weight: 400;
-      line-height: 1;
-      letter-spacing: -0.06em;
-      color: var(--white);
-      white-space: nowrap;
-      z-index: 2;
-    }
-
-    /* BODY COPY: top=617px, left=625px, each col 250px (334×0.75), gap=21px */
-    #body-cols {
-      position: absolute;
-      top: 617px;
-      left: 625px;
-      display: flex;
-      gap: 21px;
-      z-index: 2;
-    }
-
-    .body-col {
-      width: 250px;
-      font-family: var(--sans);
-      font-size: 10.5px;
-      font-weight: 300;
-      line-height: 1.25;
-      letter-spacing: -0.01em;
-      color: var(--white);
-      text-align: justify;
-    }
-
-    /* LINKS: top=617px, left=227px */
-    #links-row {
-      position: absolute;
-      top: 617px;
-      left: 227px;
-      display: flex;
-      align-items: flex-start;
-      gap: 18px;
-      z-index: 2;
-    }
-    #links-row a {
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.30);
-      text-decoration: none;
-      transition: color 0.2s;
-      white-space: nowrap;
-    }
-    #links-row a:hover { color: var(--white); }
-
-    /* ── MOBILE ── */
-    #mobile { display: none; }
-
-    @media (max-width: 768px) {
-      html, body { overflow: auto; height: auto; }
-      #desktop { display: none; }
-      #topnav  { display: none; }
-
-      #mobile {
-        display: flex; flex-direction: column;
-        align-items: center;
-        background: var(--bg); min-height: 100vh;
-      }
-
-      #mob-logo-bar {
-        width: 100%; display: flex; justify-content: center; padding: 20px 0 0;
-      }
-      #mob-logo-bar img { height: 10px; opacity: 0.90; }
-
-      #mob-img { width: 100%; margin-top: 14px; }
-      #mob-img img { width: 100%; display: block; }
-
-      #mob-text {
-        width: 100%; padding: 28px 24px 0;
-        display: flex; flex-direction: column; align-items: center;
-      }
-      #mob-hello {
-        font-family: var(--sans); font-size: 42px; font-weight: 400;
-        color: var(--white); text-align: center; line-height: 1; margin-bottom: 2px;
-      }
-      #mob-adam {
-        font-family: var(--serif); font-size: 38px; font-style: italic;
-        color: var(--white); line-height: 1; margin-bottom: 20px;
-      }
-      #mob-divider {
-        width: 34px; height: 1px;
-        background: rgba(255,255,255,0.18); margin-bottom: 18px;
-      }
-      .mob-body {
-        font-family: var(--sans); font-size: 14px;
-        line-height: 1.25; letter-spacing: -0.01em;
-        color: var(--white); text-align: justify;
-        width: 100%; margin-bottom: 14px;
-      }
-      #mob-icons {
-        display: flex; align-items: center; justify-content: center;
-        gap: 20px; padding: 32px 0 40px; width: 100%;
-      }
-      #mob-icons a img {
-        height: 20px; width: 20px; opacity: 0.32;
-        transition: opacity 0.2s; display: block;
-      }
-      #mob-icons a:hover img { opacity: 0.70; }
-    }
+    #back-link:hover { color: #fff; }
+    main { flex: 1; display: flex; align-items: center; justify-content: center; }
+    footer { padding: 32px 40px; }
+    footer img { height: 15px; opacity: 0.2; }
   </style>
 </head>
 <body>
-
-<nav id="topnav">
-  <a id="nav-logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
-  <div id="nav-right">
-    <a href="index.html">Daily Art</a>
-    <a href="archive.html">Archive</a>
-    <a href="about.html">About</a>
-    <a class="icon" href="https://www.instagram.com/adamwithfour4s/" target="_blank">
-      <img src="instagram.png" alt="Instagram" />
-    </a>
-  </div>
-</nav>
-
-<!-- DESKTOP -->
-<div id="desktop">
-
-  <div id="img-right"><img src="raft.png" alt="" /></div>
-  <div id="img-left"><img src="ascii2.png" alt="" /></div>
-
-  <div id="hello-there">hello there,</div>
-  <div id="im-adam">I'm Adam</div>
-
-  <div id="body-cols">
-    <div class="body-col">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</div>
-    <div class="body-col">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</div>
-  </div>
-
-  <div id="links-row">
-    <a href="mailto:adam4karim@gmail.com">adam4karim@gmail.com</a>
-    <a href="https://readymag.website/6247804" target="_blank">Visit Website</a>
-    <a href="https://www.instagram.com/adamwithfour4s/" target="_blank">Instagram</a>
-    <a href="https://x.com/Adamwithfour4s" target="_blank">Twitter (x)</a>
-  </div>
-
-</div>
-
-<!-- MOBILE -->
-<div id="mobile">
-  <div id="mob-logo-bar"><img src="logo.png" alt="Fourward" /></div>
-  <div id="mob-img"><img src="ascii1.png" alt="" /></div>
-  <div id="mob-text">
-    <div id="mob-hello">hello,</div>
-    <div id="mob-adam">I'm Adam</div>
-    <div id="mob-divider"></div>
-    <div class="mob-body">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</div>
-    <div class="mob-body">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</div>
-  </div>
-  <div id="mob-icons">
-    <a href="mailto:adam4karim@gmail.com"><img src="icon-mail.png" alt="Email" /></a>
-    <a href="https://readymag.website/6247804" target="_blank"><img src="icon-globe.png" alt="Website" /></a>
-    <a href="https://www.instagram.com/adamwithfour4s/" target="_blank"><img src="instagram.png" alt="Instagram" /></a>
-    <a href="https://x.com/Adamwithfour4s" target="_blank"><img src="social-icons.png" alt="Twitter" /></a>
-  </div>
-</div>
-
+  <header>
+    <img src="logo.png" alt="Fourward" />
+    <a id="back-link" href="index.html">← Today's work</a>
+  </header>
+  <main></main>
+  <footer><img src="44.png" alt="44" /></footer>
 </body>
 </html>
