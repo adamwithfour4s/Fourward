@@ -65,20 +65,24 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      /* body left = 21% of this column from its left edge */
       padding: 0 40px 0 0;
       position: relative;
+      overflow: visible;
+      z-index: 2;
     }
 
-    /* Text block: hello + i'm adam */
+    /* Text block: left edge at 93% into col 2 = 64.33vw from page left
+       The right panel starts at 66.6vw, so content-panel needs overflow visible
+       and we position everything at calc(64.33vw - 66.6vw) = -2.27vw relative */
     #type-block {
-      padding-left: 21%;
+      padding-left: 0;
+      margin-left: -2.3vw;
       margin-bottom: 48px;
     }
 
     #hello {
       font-family: var(--sans);
-      font-size: 97.5px; /* 130 Figma × 0.75 */
+      font-size: 97.5px;
       font-weight: 400;
       line-height: 0.95;
       letter-spacing: -0.03em;
@@ -96,27 +100,26 @@
       display: block;
     }
 
-    /* Body copy: left edge at 21% of right column */
     #body-block {
-      padding-left: 21%;
+      padding-left: 0;
+      margin-left: -2.3vw;
       margin-bottom: 48px;
     }
 
     .body-p {
       font-family: var(--sans);
-      font-size: 12.75px; /* 17 Figma × 0.75 */
+      font-size: 12.75px;
       font-weight: 300;
       line-height: 1.45;
       color: var(--white);
       text-align: left;
-      width: 243px; /* 324 Figma × 0.75 */
+      width: 243px;
       margin-bottom: 20px;
     }
     .body-p:last-child { margin-bottom: 0; }
 
-    /* Icons row */
     #icons-block {
-      padding-left: 21%;
+      margin-left: -2.3vw;
       display: flex; align-items: center; gap: 16px;
     }
     #icons-block a img {
