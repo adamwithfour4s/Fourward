@@ -6,33 +6,251 @@
   <title>About — Fourward</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&family=Radley:ital@0;1&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Google+Sans+Flex:wght@100..900&display=swap" rel="stylesheet" />
   <style>
+    @font-face {
+      font-family: 'Redaction50';
+      src: url('Redaction_50-Italic.woff2') format('woff2');
+      font-weight: normal;
+      font-style: italic;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { min-height: 100%; background: #0D0D0D; color: #fff; }
-    body { display: flex; flex-direction: column; min-height: 100vh; }
-    header {
+    :root {
+      --bg: #0D0D0D; --white: #fff;
+      --sans: 'Google Sans Flex', sans-serif;
+      --redaction: 'Redaction50', serif;
+    }
+    html, body { background: var(--bg); color: var(--white); width: 100%; overflow: hidden; height: 100%; }
+
+    /* ── NAV ── */
+    #topnav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
-      padding: 32px 40px;
+      padding: 28px 40px;
     }
-    header img { height: 15px; width: auto; opacity: 0.9; }
-    #back-link {
-      font-family: 'Google Sans Flex', sans-serif; font-size: 11px; font-weight: 600;
+    #nav-logo img { height: 14px; opacity: 0.90; }
+    #nav-right { display: flex; align-items: center; gap: 28px; }
+    #nav-right a {
+      font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.1em; text-transform: uppercase;
-      color: rgba(255,255,255,0.45); text-decoration: none; transition: color 0.2s;
+      color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s;
     }
-    #back-link:hover { color: #fff; }
-    main { flex: 1; display: flex; align-items: center; justify-content: center; }
-    footer { padding: 32px 40px; }
-    footer img { height: 15px; opacity: 0.2; }
+    #nav-right a:hover { color: var(--white); }
+    #nav-right a.icon img { height: 14px; width: 14px; opacity: 0.50; display: block; transition: opacity 0.2s; }
+    #nav-right a.icon:hover img { opacity: 1; }
+
+    /* ── DESKTOP ── */
+    #desktop {
+      width: 100vw; height: 100vh;
+      display: grid;
+      grid-template-columns: 2fr 1fr; /* left 2/3, right 1/3 */
+      overflow: hidden;
+    }
+
+    /* Left 2/3: full-bleed image */
+    #img-panel {
+      position: relative;
+      overflow: hidden;
+    }
+    #img-panel img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center center;
+      display: block;
+    }
+
+    /* Right 1/3: dark content panel */
+    #content-panel {
+      background: var(--bg);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      /* body left = 21% of this column from its left edge */
+      padding: 0 40px 0 0;
+      position: relative;
+    }
+
+    /* Text block: hello + i'm adam */
+    #type-block {
+      padding-left: 21%;
+      margin-bottom: 48px;
+    }
+
+    #hello {
+      font-family: var(--sans);
+      font-size: 97.5px; /* 130 Figma × 0.75 */
+      font-weight: 400;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      display: block;
+    }
+
+    #im-adam {
+      font-family: var(--redaction);
+      font-style: italic;
+      font-size: 97.5px;
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      color: var(--white);
+      display: block;
+    }
+
+    /* Body copy: left edge at 21% of right column */
+    #body-block {
+      padding-left: 21%;
+      margin-bottom: 48px;
+    }
+
+    .body-p {
+      font-family: var(--sans);
+      font-size: 12.75px; /* 17 Figma × 0.75 */
+      font-weight: 300;
+      line-height: 1.45;
+      color: var(--white);
+      text-align: left;
+      width: 243px; /* 324 Figma × 0.75 */
+      margin-bottom: 20px;
+    }
+    .body-p:last-child { margin-bottom: 0; }
+
+    /* Icons row */
+    #icons-block {
+      padding-left: 21%;
+      display: flex; align-items: center; gap: 16px;
+    }
+    #icons-block a img {
+      height: 20px; width: 20px; opacity: 0.40;
+      transition: opacity 0.2s; display: block;
+    }
+    #icons-block a:hover img { opacity: 0.90; }
+
+    /* ── MOBILE ── */
+    #mobile { display: none; }
+
+    @media (max-width: 768px) {
+      html, body { overflow: auto; height: auto; }
+      #desktop { display: none; }
+      #topnav  { display: none; }
+
+      #mobile {
+        display: flex; flex-direction: column;
+        align-items: center; background: var(--bg); min-height: 100vh;
+      }
+
+      /* mobile header — matches all other pages */
+      #mob-header {
+        width: 100%; display: flex; align-items: center; justify-content: space-between;
+        padding: 18px 20px 14px;
+      }
+      #mob-header img { height: 9px; opacity: 0.90; }
+      #mob-header-right { display: flex; align-items: center; gap: 16px; }
+      #mob-header-right a {
+        font-family: var(--sans); font-size: 11px; font-weight: 600;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: rgba(255,255,255,0.55); text-decoration: none;
+      }
+
+      #mob-img { width: 100%; }
+      #mob-img img { width: 100%; display: block; }
+
+      #mob-text {
+        width: 100%; padding: 24px 24px 0;
+        display: flex; flex-direction: column; align-items: center;
+      }
+
+      #mob-hello {
+        font-family: var(--sans); font-size: 42px; font-weight: 400;
+        color: var(--white); text-align: center;
+        line-height: 0.95; letter-spacing: -0.03em;
+        margin-bottom: 0;
+      }
+      #mob-adam {
+        font-family: var(--redaction); font-style: italic; font-size: 42px;
+        color: var(--white); line-height: 0.95; letter-spacing: -0.03em;
+        margin-bottom: 20px; text-align: center;
+      }
+      #mob-divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 18px; }
+
+      .mob-body {
+        font-family: var(--sans); font-size: 14px; font-weight: 300;
+        line-height: 1.45;
+        color: var(--white); text-align: justify;
+        width: 100%; margin-bottom: 14px;
+      }
+
+      #mob-icons {
+        display: flex; align-items: center; justify-content: center;
+        gap: 20px; padding: 28px 0 40px; width: 100%;
+      }
+      #mob-icons a img { height: 20px; width: 20px; opacity: 0.32; transition: opacity 0.2s; display: block; }
+      #mob-icons a:hover img { opacity: 0.70; }
+    }
   </style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" alt="Fourward" />
-    <a id="back-link" href="index.html">← Today's work</a>
-  </header>
-  <main></main>
-  <footer><img src="44.png" alt="44" /></footer>
+
+<!-- NAV desktop -->
+<nav id="topnav">
+  <a id="nav-logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
+  <div id="nav-right">
+    <a href="index.html">Daily Art</a>
+    <a href="about.html">About</a>
+    <a href="archive.html">Archive</a>
+    <a class="icon" href="https://www.instagram.com/adamwithfour4s/" target="_blank">
+      <img src="instagram.png" alt="Instagram" />
+    </a>
+  </div>
+</nav>
+
+<!-- DESKTOP -->
+<div id="desktop">
+  <div id="img-panel">
+    <img src="crashdummy.png" alt="" />
+  </div>
+  <div id="content-panel">
+    <div id="type-block">
+      <span id="hello">hello,</span>
+      <span id="im-adam">i'm adam</span>
+    </div>
+    <div id="body-block">
+      <p class="body-p">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</p>
+      <p class="body-p">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</p>
+    </div>
+    <div id="icons-block">
+      <a href="mailto:adam4karim@gmail.com"><img src="icon-mail.png" alt="Email" /></a>
+      <a href="https://readymag.website/6247804" target="_blank"><img src="icon-globe.png" alt="Website" /></a>
+      <a href="https://www.instagram.com/adamwithfour4s/" target="_blank"><img src="instagram.png" alt="Instagram" /></a>
+      <a href="https://x.com/Adamwithfour4s" target="_blank"><img src="social-icons.png" alt="Twitter" /></a>
+    </div>
+  </div>
+</div>
+
+<!-- MOBILE -->
+<div id="mobile">
+  <div id="mob-header">
+    <a href="index.html"><img src="logo.png" alt="Fourward" /></a>
+    <div id="mob-header-right">
+      <a href="index.html">Daily Art</a>
+      <a href="about.html">About</a>
+      <a href="archive.html">Archive</a>
+    </div>
+  </div>
+  <div id="mob-img"><img src="crashdummy.png" alt="" /></div>
+  <div id="mob-text">
+    <div id="mob-hello">hello,</div>
+    <div id="mob-adam">i'm adam</div>
+    <div id="mob-divider"></div>
+    <div class="mob-body">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</div>
+    <div class="mob-body">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</div>
+  </div>
+  <div id="mob-icons">
+    <a href="mailto:adam4karim@gmail.com"><img src="icon-mail.png" alt="Email" /></a>
+    <a href="https://readymag.website/6247804" target="_blank"><img src="icon-globe.png" alt="Website" /></a>
+    <a href="https://www.instagram.com/adamwithfour4s/" target="_blank"><img src="instagram.png" alt="Instagram" /></a>
+    <a href="https://x.com/Adamwithfour4s" target="_blank"><img src="social-icons.png" alt="Twitter" /></a>
+  </div>
+</div>
+
 </body>
 </html>
