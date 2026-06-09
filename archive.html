@@ -13,9 +13,12 @@
     html, body { min-height: 100%; background: var(--bg); color: var(--white); }
     body { padding: 30px 44px 64px; }
 
-    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; }
+    header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 48px; padding: 0; }
     #logo { cursor: pointer; }
     #logo img { height: 14px; opacity: 0.90; }
+    #nav-right { display: flex; align-items: center; gap: 28px; }
+    #nav-right a { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.55); text-decoration: none; transition: color 0.2s; }
+    #nav-right a:hover { color: var(--white); }
     #mob-header { display: none; }
 
     @media (max-width: 768px) {
