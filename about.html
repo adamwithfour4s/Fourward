@@ -71,11 +71,8 @@
       z-index: 2;
     }
 
-    /* Text block: left edge at 93% into col 2 = 64.33vw from page left
-       The right panel starts at 66.6vw, so content-panel needs overflow visible
-       and we position everything at calc(64.33vw - 66.6vw) = -2.27vw relative */
+    /* Text block: left edge at 93% into col 2 = overlaps image by ~2.3vw */
     #type-block {
-      padding-left: 0;
       margin-left: -2.3vw;
       margin-bottom: 48px;
     }
@@ -100,9 +97,9 @@
       display: block;
     }
 
+    /* Body copy: back to 21% padding as before */
     #body-block {
-      padding-left: 0;
-      margin-left: -2.3vw;
+      padding-left: 21%;
       margin-bottom: 48px;
     }
 
@@ -118,8 +115,9 @@
     }
     .body-p:last-child { margin-bottom: 0; }
 
+    /* Icons: back to 21% padding as before */
     #icons-block {
-      margin-left: -2.3vw;
+      padding-left: 21%;
       display: flex; align-items: center; gap: 16px;
     }
     #icons-block a img {
