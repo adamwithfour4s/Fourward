@@ -15,19 +15,14 @@
     }
     html, body { width: 100%; height: 100%; background: var(--bg); color: var(--white); }
 
-    /* ═══════════════════════════════════════════
-       DESKTOP  (> 768px)
-    ═══════════════════════════════════════════ */
+    /* ═══════════════════ DESKTOP ═══════════════════ */
     #page { width: 100vw; height: 100vh; display: flex; overflow: hidden; }
 
     #sidebar {
       width: 20vw; flex-shrink: 0; height: 100%;
-      background: var(--bg);
-      display: flex; flex-direction: column;
-      padding: 30px 5vw 28px 24px;
-      z-index: 2;
+      background: var(--bg); display: flex; flex-direction: column;
+      padding: 30px 5vw 28px 24px; z-index: 2;
     }
-
     #logo { display: inline-block; }
     #logo img { height: 14px; width: auto; opacity: 0.90; }
 
@@ -44,55 +39,33 @@
     .nav-btn svg { width: 10px; height: 10px; }
 
     #art-info { margin-top: auto; margin-bottom: auto; padding: 24px 0; }
-
-    #art-title {
-      font-family: var(--sans); font-size: 16px; font-weight: 700;
-      line-height: 1.2; margin-bottom: 3px; text-wrap: balance;
-    }
-    #art-artist {
-      font-family: var(--serif); font-size: 16px; font-style: italic;
-      line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80);
-      text-wrap: balance;
-    }
-    #art-year {
-      font-family: var(--serif); font-size: 16px; font-style: italic;
-      color: var(--muted); margin-bottom: 18px;
-    }
+    #art-title { font-family: var(--sans); font-size: 16px; font-weight: 700; line-height: 1.2; margin-bottom: 3px; text-wrap: balance; }
+    #art-artist { font-family: var(--serif); font-size: 16px; font-style: italic; line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80); text-wrap: balance; }
+    #art-year { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--muted); margin-bottom: 18px; }
     #divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 15px; }
-    #art-desc {
-      font-family: var(--sans); font-size: 12px; font-weight: 400;
-      line-height: 1.5; color: rgba(255,255,255,0.56); text-wrap: pretty;
-    }
+    #art-desc { font-family: var(--sans); font-size: 12px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.56); text-wrap: pretty; }
 
-    #sidebar-bottom {
-      margin-top: auto;
-      display: flex; align-items: center; gap: 14px;
-    }
+    #sidebar-bottom { margin-top: auto; }
     #learn-more {
       font-family: var(--sans); font-size: 11px; font-weight: 600;
       letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--white); text-decoration: none;
-      opacity: 0.50; transition: opacity 0.2s;
+      color: var(--white); text-decoration: none; opacity: 0.50; transition: opacity 0.2s;
     }
     #learn-more:hover { opacity: 1; }
 
-    /* painting panel */
-    #painting-panel {
-      flex: 1; height: 100%; position: relative; overflow: hidden; background: #060606;
-    }
+    #painting-panel { flex: 1; height: 100%; position: relative; overflow: hidden; background: #060606; }
     #painting-img {
-      position: absolute; top: 0; left: 0;
-      width: 100%; height: 100%;
+      position: absolute; top: 0; left: 0; width: 100%; height: 100%;
       object-fit: cover; object-position: left center;
       display: block; opacity: 0; transition: opacity 1.1s ease;
     }
     #painting-img.loaded { opacity: 1; }
     #painting-loader {
-      position: absolute; top: 50%; left: 50%;
-      transform: translate(-50%, -50%);
-      font-family: var(--sans); font-size: 13px;
-      color: var(--muted); font-style: italic; pointer-events: none;
+      position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%);
+      font-family: var(--sans); font-size: 13px; color: var(--muted); font-style: italic; pointer-events: none;
     }
+
+    /* desktop top-right nav */
     #topright {
       position: absolute; top: 28px; right: 32px;
       display: flex; align-items: center; gap: 18px; z-index: 3;
@@ -105,13 +78,11 @@
     }
     #topright a.text-link:hover { color: var(--white); }
     #topright a.icon-link img {
-      height: 16px; width: 16px; opacity: 0.55;
-      transition: opacity 0.2s;
+      height: 15px; width: 15px; opacity: 0.55; transition: opacity 0.2s;
       filter: drop-shadow(0 1px 4px rgba(0,0,0,0.8));
     }
     #topright a.icon-link:hover img { opacity: 1; }
 
-    /* VIEW IN FULL */
     #view-full-btn {
       position: absolute; bottom: 28px; right: 32px; z-index: 3;
       background: var(--white); color: #0D0D0D;
@@ -120,144 +91,62 @@
       border: none; cursor: pointer; padding: 9px 16px; transition: opacity 0.2s;
     }
     #view-full-btn:hover { opacity: 0.85; }
-
-    #full-overlay {
-      display: none; position: absolute; inset: 0; z-index: 4;
-      align-items: center; justify-content: center; pointer-events: none;
-    }
+    #full-overlay { display: none; position: absolute; inset: 0; z-index: 4; align-items: center; justify-content: center; pointer-events: none; }
     #full-overlay.visible { display: flex; pointer-events: auto; }
-    #full-overlay img {
-      width: 60%; height: auto; max-height: 90%;
-      object-fit: contain; border: 1px solid #ffffff; display: block;
-    }
+    #full-overlay img { width: 60%; height: auto; max-height: 90%; object-fit: contain; border: 1px solid #fff; display: block; }
 
-    /* ═══════════════════════════════════════════
-       MOBILE  (≤ 768px)
-    ═══════════════════════════════════════════ */
+    /* ═══════════════════ MOBILE ═══════════════════ */
+    #mobile-header { display: none; }
+    #mobile-content { display: none; }
+
     @media (max-width: 768px) {
       html, body { overflow-y: auto; overflow-x: hidden; height: auto; }
-
       #page { flex-direction: column; height: auto; overflow: visible; }
-
-      /* hide desktop sidebar entirely */
       #sidebar { display: none; }
-
-      /* hide desktop painting-panel overlays */
       #topright { display: none; }
       #view-full-btn { display: none; }
       #full-overlay { display: none !important; }
 
-      /* painting fills full width, natural height */
-      #painting-panel {
-        width: 100vw; height: auto;
-        position: relative; overflow: hidden;
-        flex-shrink: 0;
-      }
-      #painting-img {
-        position: relative; /* take up natural space */
-        width: 100%; height: auto;
-        object-fit: unset; object-position: unset;
-        display: block; opacity: 0;
-        transition: opacity 1s ease;
-      }
-      #painting-img.loaded { opacity: 1; }
-      #painting-loader {
-        position: absolute; top: 50%; left: 50%;
-        transform: translate(-50%, -50%);
-      }
-
-      /* mobile content block below image */
-      #mobile-content {
-        display: flex; flex-direction: column;
-        padding: 24px 20px 36px;
-        background: var(--bg);
-      }
-
-      /* mobile header: logo + archive on same line above painting */
+      /* ONE unified header above the painting */
       #mobile-header {
         display: flex; align-items: center; justify-content: space-between;
-        padding: 18px 20px 14px;
-        background: var(--bg);
+        padding: 18px 20px 14px; background: var(--bg); width: 100%;
       }
       #mobile-header img { height: 9px; width: auto; opacity: 0.90; }
-      .mobile-header-archive {
+      #mobile-header-right { display: flex; align-items: center; gap: 16px; }
+      #mobile-header-right a {
         font-family: var(--sans); font-size: 11px; font-weight: 600;
         letter-spacing: 0.1em; text-transform: uppercase;
         color: rgba(255,255,255,0.55); text-decoration: none;
       }
 
-      /* mobile topbar: About + Archive */
-      #mobile-topbar {
-        display: flex; align-items: center; justify-content: flex-end;
-        gap: 20px; margin-bottom: 20px;
-      }
-      #mobile-about, #mobile-archive {
-        font-family: var(--sans); font-size: 11px; font-weight: 600;
-        letter-spacing: 0.1em; text-transform: uppercase;
-        color: rgba(255,255,255,0.55); text-decoration: none;
-      }
+      #painting-panel { width: 100vw; height: auto; position: relative; overflow: hidden; flex-shrink: 0; }
+      #painting-img { position: relative; width: 100%; height: auto; object-fit: unset; object-position: unset; display: block; opacity: 0; transition: opacity 1s ease; }
+      #painting-img.loaded { opacity: 1; }
+      #painting-loader { position: absolute; top: 50%; left: 50%; transform: translate(-50%,-50%); }
 
-      #mobile-title {
-        font-family: var(--sans); font-size: 16px; font-weight: 700;
-        line-height: 1.2; margin-bottom: 3px; text-wrap: balance;
+      #mobile-content {
+        display: flex; flex-direction: column;
+        padding: 24px 20px 36px; background: var(--bg);
       }
-      #mobile-artist {
-        font-family: var(--serif); font-size: 16px; font-style: italic;
-        line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80);
-      }
-      #mobile-year {
-        font-family: var(--serif); font-size: 16px; font-style: italic;
-        color: var(--muted); margin-bottom: 18px;
-      }
-      #mobile-divider {
-        width: 34px; height: 1px;
-        background: rgba(255,255,255,0.18); margin-bottom: 14px;
-      }
-      #mobile-desc {
-        font-family: var(--sans); font-size: 12px; font-weight: 400;
-        line-height: 1.5; color: rgba(255,255,255,0.56);
-        text-wrap: pretty; margin-bottom: 28px;
-      }
-
-      /* mobile bottom row: LEARN MORE left, arrows right */
-      #mobile-bottom {
-        display: flex; align-items: center; justify-content: space-between;
-      }
-      #mobile-learn-more {
-        font-family: var(--sans); font-size: 11px; font-weight: 600;
-        letter-spacing: 0.12em; text-transform: uppercase;
-        color: var(--white); text-decoration: none; opacity: 0.55;
-      }
+      #mobile-title { font-family: var(--sans); font-size: 16px; font-weight: 700; line-height: 1.2; margin-bottom: 3px; text-wrap: balance; }
+      #mobile-artist { font-family: var(--serif); font-size: 16px; font-style: italic; line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80); }
+      #mobile-year { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--muted); margin-bottom: 18px; }
+      #mobile-divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 14px; }
+      #mobile-desc { font-family: var(--sans); font-size: 13px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.56); text-wrap: pretty; margin-bottom: 28px; }
+      #mobile-bottom { display: flex; align-items: center; justify-content: space-between; }
+      #mobile-learn-more { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); text-decoration: none; opacity: 0.55; }
       #mobile-nav { display: flex; align-items: center; gap: 10px; }
-
-      /* mobile icons */
-      #mobile-instagram {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 20px;
-        padding: 20px 0 8px;
-      }
-      #mobile-instagram a img {
-        height: 20px; width: 20px; opacity: 0.35;
-        transition: opacity 0.2s;
-      }
-      #mobile-instagram a:hover img { opacity: 0.7; }
-    }
-
-    /* hide mobile-only elements on desktop */
-    #mobile-content { display: none; }
-    #mobile-header { display: none; }
-    @media (max-width: 768px) {
-      #mobile-content { display: flex; }
-      #mobile-header { display: flex; }
+      #mobile-icons { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 24px 0 8px; }
+      #mobile-icons a img { height: 20px; width: 20px; opacity: 0.35; transition: opacity 0.2s; }
+      #mobile-icons a:hover img { opacity: 0.7; }
     }
   </style>
 </head>
 <body>
 <div id="page">
 
-  <!-- ── DESKTOP SIDEBAR ── -->
+  <!-- DESKTOP SIDEBAR -->
   <div id="sidebar">
     <a id="logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
     <div id="nav-row">
@@ -280,16 +169,20 @@
     </div>
   </div>
 
-  <!-- ── MOBILE LOGO (above painting, mobile only) ── -->
+  <!-- MOBILE HEADER (above painting, mobile only) -->
   <div id="mobile-header">
     <a href="index.html"><img src="logo.png" alt="Fourward" /></a>
-    <a class="mobile-header-archive" href="archive.html">Archive</a>
+    <div id="mobile-header-right">
+      <a href="index.html">Daily Art</a>
+      <a href="about.html">About</a>
+      <a href="archive.html">Archive</a>
+    </div>
   </div>
 
-  <!-- ── PAINTING PANEL (shared desktop/mobile) ── -->
+  <!-- PAINTING PANEL -->
   <div id="painting-panel">
-    <!-- desktop top-right nav -->
     <div id="topright">
+      <a class="text-link" href="index.html">Daily Art</a>
       <a class="text-link" href="about.html">About</a>
       <a class="text-link" href="archive.html">Archive</a>
       <a class="icon-link" href="https://www.instagram.com/adamwithfour4s/" target="_blank">
@@ -302,12 +195,8 @@
     <div id="full-overlay"><img id="full-img" src="" alt="" /></div>
   </div>
 
-  <!-- ── MOBILE CONTENT (below image) ── -->
+  <!-- MOBILE CONTENT (below painting) -->
   <div id="mobile-content">
-    <div id="mobile-topbar">
-      <a id="mobile-about" href="about.html">About</a>
-      <a id="mobile-archive" href="archive.html">Archive</a>
-    </div>
     <div id="mobile-title"></div>
     <div id="mobile-artist"></div>
     <div id="mobile-year"></div>
@@ -324,195 +213,66 @@
         </a>
       </div>
     </div>
-    <div id="mobile-instagram">
-      <a href="mailto:adam4karim@gmail.com">
-        <img src="icon-mail.png" alt="Email" />
-      </a>
-      <a href="https://readymag.website/6247804" target="_blank">
-        <img src="icon-globe.png" alt="Website" />
-      </a>
-      <a href="https://www.instagram.com/adamwithfour4s/" target="_blank">
-        <img src="instagram.png" alt="Instagram" />
-      </a>
-      <a href="https://x.com/Adamwithfour4s" target="_blank">
-        <img src="social-icons.png" alt="Twitter" />
-      </a>
+    <div id="mobile-icons">
+      <a href="mailto:adam4karim@gmail.com"><img src="icon-mail.png" alt="Email" /></a>
+      <a href="https://readymag.website/6247804" target="_blank"><img src="icon-globe.png" alt="Website" /></a>
+      <a href="https://www.instagram.com/adamwithfour4s/" target="_blank"><img src="instagram.png" alt="Instagram" /></a>
+      <a href="https://x.com/Adamwithfour4s" target="_blank"><img src="social-icons.png" alt="Twitter" /></a>
     </div>
   </div>
 
 </div>
-
 <script>
 const ARTWORKS = [
-  {
-    title: "The Raft of the Medusa",
-    artist: "Théodore Géricault",
-    date: "1818–1819",
-    imageFile: "Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg",
-    wikiPage: "The_Raft_of_the_Medusa",
-    desc: "Depicting the aftermath of the wreck of the French frigate Méduse, the painting shows survivors adrift on a makeshift raft after the ship ran aground on July 2, 1816. At least 150 people were set adrift; only 15 survived the 13 days before rescue, enduring starvation, dehydration, and cannibalism. The event became an international scandal attributed to the incompetence of the French captain."
-  },
-  {
-    title: "The Third of May 1808",
-    artist: "Francisco Goya",
-    date: "1814",
-    imageFile: "El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg",
-    wikiPage: "The_Third_of_May_1808",
-    desc: "The painting depicts the execution of Spanish civilians by Napoleonic soldiers following the Dos de Mayo Uprising in Madrid. Commissioned by the provisional government of Spain, it broke from conventional depictions of war by presenting the soldiers as anonymous, faceless executioners and the victims as recognizable human beings. It is widely considered a foundational work of modern art."
-  },
-  {
-    title: "The Nightmare",
-    artist: "Henry Fuseli",
-    date: "1781",
-    imageFile: "John_Henry_Fuseli_-_The_Nightmare.JPG",
-    wikiPage: "The_Nightmare_(Fuseli)",
-    desc: "The painting shows a woman in deep sleep with an incubus crouching on her chest, while a horse with blank white eyes peers through the parted curtain behind her. Its erotic and unsettling evocation of obsession was a commercial breakthrough for Fuseli when shown in 1782. He produced at least three further versions, and engraved prints circulated widely across Europe."
-  },
-  {
-    title: "The Isle of the Dead",
-    artist: "Arnold Böcklin",
-    date: "1886",
-    imageFile: "Isle_of_the_Dead_(Hermitage_Version).jpg",
-    wikiPage: "Isle_of_the_Dead_(painting)",
-    desc: "A white-shrouded figure stands in a small boat being rowed toward a rocky island dominated by tall cypress trees and sheer stone walls. Böcklin painted five versions of the composition between 1880 and 1886 and declined to explain the subject to anyone. Sigmund Freud owned a print of it, Adolf Hitler acquired one of the original versions, and at the turn of the century it was among the most widely reproduced images in the German-speaking world."
-  },
-  {
-    title: "Death on a Pale Horse",
-    artist: "Benjamin West",
-    date: "1796",
-    imageFile: "Death-on-a-pale-horse-west-1796.jpg",
-    wikiPage: "Death_on_the_Pale_Horse",
-    desc: "Inspired by apocalyptic imagery from the Book of Revelation, the composition depicts the four horsemen of the apocalypse amid a chaotic mass of writhing figures. West returned to the subject three times over thirty years: a drawing in 1783, this painting in 1796, and a monumental 25-foot canvas exhibited in 1817 in a dedicated gallery on Pall Mall where he charged admission."
-  },
-  {
-    title: "A Lion Attacking a Horse",
-    artist: "George Stubbs",
-    date: "1762",
-    imageFile: "George_Stubbs_-_A_Lion_Attacking_a_Horse_-_Google_Art_Project.jpg",
-    wikiPage: "A_Lion_Attacking_a_Horse",
-    desc: "The painting depicts a lion mounted on the back of a rearing white horse, claws sunk into its flesh as the horse twists in terror. Stubbs produced seventeen works on this theme over thirty years, all emphasizing the horse's terror and pain. The most probable inspiration was a large ancient Roman marble sculpture of the same subject that was well known in London artistic circles at the time."
-  },
-  {
-    title: "A Philosopher Lecturing on the Orrery",
-    artist: "Joseph Wright of Derby",
-    date: "c. 1766",
-    imageFile: "Wright_of_Derby,_The_Orrery.jpg",
-    wikiPage: "A_Philosopher_Lecturing_on_the_Orrery",
-    desc: "The painting depicts a lecturer demonstrating an orrery, a mechanical model of the solar system, to a small audience gathered in a darkened room. A lamp placed at the center of the device stands in for the sun, illuminating the faces of the onlookers with dramatic chiaroscuro. It was Wright's first major candlelit work to replace a classical subject with a scientific one at the center of the composition."
-  },
-  {
-    title: "An Experiment on a Bird in the Air Pump",
-    artist: "Joseph Wright of Derby",
-    date: "1768",
-    imageFile: "An_Experiment_on_a_Bird_in_an_Air_Pump_by_Joseph_Wright_of_Derby,_1768.jpg",
-    wikiPage: "An_Experiment_on_a_Bird_in_the_Air_Pump",
-    desc: "The painting shows a natural philosopher recreating one of Robert Boyle's air pump experiments before a group of onlookers, removing air from a glass globe containing a live bird. The viewers respond variously with scientific detachment, distress, and indifference. It was among the first paintings to treat a scientific subject with the reverential scale and lighting previously reserved for religious history painting."
-  },
-  {
-    title: "The Seventh Plague of Egypt",
-    artist: "John Martin",
-    date: "1823",
-    imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg",
-    wikiPage: "The_Seventh_Plague_of_Egypt",
-    desc: "The painting depicts Moses calling down the seventh plague, a storm of thunder and hail, upon Egypt as divine punishment while the Israelites remain enslaved. Martin drew on contemporary archaeological discoveries of Egyptian architecture to construct the monumental setting, rendering the human figures tiny against the scale of the built environment and the destruction falling from the sky."
-  },
-  {
-    title: "The Gulf Stream",
-    artist: "Winslow Homer",
-    date: "1899",
-    imageFile: "Winslow_Homer_-_The_Gulf_Stream_-_Metropolitan_Museum_of_Art.jpg",
-    wikiPage: "The_Gulf_Stream_(painting)",
-    desc: "The painting shows a solitary Black man lying on a dismasted, rudderless fishing boat surrounded by sharks, with a waterspout visible on the horizon and a sailing ship in the far distance. Homer worked on the theme for over a decade, producing numerous related watercolors before completing this oil. When asked about the man's fate, Homer replied that the sharks, the elements, and Providence would attend to that."
-  },
-  {
-    title: "The Deluge",
-    artist: "Francis Danby",
-    date: "1840",
-    imageFile: "Francis_Danby_-_The_Deluge_-_Google_Art_Project.jpg",
-    wikiPage: "The_Deluge_(Danby)",
-    desc: "The painting depicts the biblical flood at its height, with crowds of figures clinging to rocks and each other as the waters rise around them. Danby exhibited it at the Royal Academy in 1840 alongside John Martin's Eve of the Deluge, setting up a direct competition between the two leading painters of apocalyptic spectacle in Britain. Critics considered it Danby's masterpiece."
-  },
-  {
-    title: "The Wreck of a Transport Ship",
-    artist: "J. M. W. Turner",
-    date: "1810",
-    imageFile: "Shipwreck_turner.jpg",
-    wikiPage: "The_Wreck_of_a_Transport_Ship",
-    desc: "The painting depicts a ship overwhelmed by wind and waves during a violent storm, with lifeboats attempting to rescue survivors from the doomed vessel. Although Turner had begun preparatory sketches before the event, the work gained topicality when the HMS Minotaur was wrecked off the Dutch coast with heavy loss of life in November 1810, shortly after the painting was completed."
-  },
-  {
-    title: "Ulysses Deriding Polyphemus",
-    artist: "J. M. W. Turner",
-    date: "1829",
-    imageFile: "Turner_-_Ulysses_deriding_Polyphemus_1829.jpg",
-    wikiPage: "Ulysses_Deriding_Polyphemus",
-    desc: "The painting depicts a scene from Homer's Odyssey in which Odysseus stands on his ship and taunts the blinded cyclops Polyphemus, who looms as a dark mass behind the mountains on the left. Turner considered it one of his most important works. The sea is lit with an extraordinary golden light, and the figures of the Nereids can be seen in the waves beneath the ship."
-  },
-  {
-    title: "Ophelia",
-    artist: "John Everett Millais",
-    date: "1851–1852",
-    imageFile: "John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg",
-    wikiPage: "Ophelia_(painting)",
-    desc: "The painting depicts Ophelia from Shakespeare's Hamlet floating in a stream moments before her drowning, her expression serene and her hands open above the water. Millais painted the landscape on location in Surrey over five months, and later had the model Elizabeth Siddal pose in a heated bath for the figure. The botanically precise flowers surrounding her each carry symbolic meaning."
-  },
-  {
-    title: "The Hay Wain",
-    artist: "John Constable",
-    date: "1821",
-    imageFile: "John_Constable_-_The_Hay_Wain_(1821).jpg",
-    wikiPage: "The_Hay_Wain",
-    desc: "The painting shows a horse-drawn cart fording a shallow river beside a water mill in the Stour Valley on the border of Suffolk and Essex. Constable made dozens of oil sketches for the work, pioneering a method of direct outdoor observation that was highly unusual for the period. When it was shown in Paris in 1824 it caused a sensation and directly influenced the generation of French painters that followed."
-  }
+  { title: "The Raft of the Medusa", artist: "Théodore Géricault", date: "1818–1819", imageFile: "Théodore_Géricault_-_The_Raft_of_the_Medusa_-_WGA08630.jpg", wikiPage: "The_Raft_of_the_Medusa", desc: "Depicting the aftermath of the wreck of the French frigate Méduse, the painting shows survivors adrift on a makeshift raft after the ship ran aground on July 2, 1816. At least 150 people were set adrift; only 15 survived the 13 days before rescue, enduring starvation, dehydration, and cannibalism. The event became an international scandal attributed to the incompetence of the French captain." },
+  { title: "The Third of May 1808", artist: "Francisco Goya", date: "1814", imageFile: "El_Tres_de_Mayo,_by_Francisco_de_Goya,_from_Prado_in_Google_Earth.jpg", wikiPage: "The_Third_of_May_1808", desc: "The painting depicts the execution of Spanish civilians by Napoleonic soldiers following the Dos de Mayo Uprising in Madrid. Commissioned by the provisional government of Spain, it broke from conventional depictions of war by presenting the soldiers as anonymous, faceless executioners and the victims as recognizable human beings. It is widely considered a foundational work of modern art." },
+  { title: "The Nightmare", artist: "Henry Fuseli", date: "1781", imageFile: "John_Henry_Fuseli_-_The_Nightmare.JPG", wikiPage: "The_Nightmare_(Fuseli)", desc: "The painting shows a woman in deep sleep with an incubus crouching on her chest, while a horse with blank white eyes peers through the parted curtain behind her. Its erotic and unsettling evocation of obsession was a commercial breakthrough for Fuseli when shown in 1782. He produced at least three further versions, and engraved prints circulated widely across Europe." },
+  { title: "The Isle of the Dead", artist: "Arnold Böcklin", date: "1886", imageFile: "Isle_of_the_Dead_(Hermitage_Version).jpg", wikiPage: "Isle_of_the_Dead_(painting)", desc: "A white-shrouded figure stands in a small boat being rowed toward a rocky island dominated by tall cypress trees and sheer stone walls. Böcklin painted five versions of the composition between 1880 and 1886 and declined to explain the subject to anyone. Sigmund Freud owned a print of it, Adolf Hitler acquired one of the original versions, and at the turn of the century it was among the most widely reproduced images in the German-speaking world." },
+  { title: "Death on a Pale Horse", artist: "Benjamin West", date: "1796", imageFile: "Death-on-a-pale-horse-west-1796.jpg", wikiPage: "Death_on_the_Pale_Horse", desc: "Inspired by apocalyptic imagery from the Book of Revelation, the composition depicts the four horsemen of the apocalypse amid a chaotic mass of writhing figures. West returned to the subject three times over thirty years: a drawing in 1783, this painting in 1796, and a monumental 25-foot canvas exhibited in 1817. All three versions are significant works in British Romantic painting." },
+  { title: "A Lion Attacking a Horse", artist: "George Stubbs", date: "1762", imageFile: "George_Stubbs_-_A_Lion_Attacking_a_Horse_-_Google_Art_Project.jpg", wikiPage: "A_Lion_Attacking_a_Horse", desc: "The painting depicts a lion mounted on the back of a rearing white horse, claws sunk into its flesh as the horse twists in terror. Stubbs produced seventeen works on this theme over thirty years, all emphasizing the horse's terror and pain. The most probable inspiration was a large ancient Roman marble sculpture of the same subject that was well known in London artistic circles at the time. Stubbs was a trained anatomist, and the violence here is rendered with clinical precision." },
+  { title: "A Philosopher Lecturing on the Orrery", artist: "Joseph Wright of Derby", date: "c. 1766", imageFile: "Wright_of_Derby,_The_Orrery.jpg", wikiPage: "A_Philosopher_Lecturing_on_the_Orrery", desc: "The painting depicts a lecturer demonstrating an orrery, a mechanical model of the solar system, to a small audience gathered in a darkened room. A lamp placed at the center of the device stands in for the sun, illuminating the faces of the onlookers with dramatic chiaroscuro. It was Wright's first major candlelit work to replace a classical subject with a scientific one at the center of the composition." },
+  { title: "An Experiment on a Bird in the Air Pump", artist: "Joseph Wright of Derby", date: "1768", imageFile: "An_Experiment_on_a_Bird_in_an_Air_Pump_by_Joseph_Wright_of_Derby,_1768.jpg", wikiPage: "An_Experiment_on_a_Bird_in_the_Air_Pump", desc: "The painting shows a natural philosopher recreating one of Robert Boyle's air pump experiments before a group of onlookers, removing air from a glass globe containing a live bird. The viewers respond variously with scientific detachment, distress, and indifference. It was among the first paintings to treat a scientific subject with the reverential scale and lighting previously reserved for religious history painting." },
+  { title: "The Seventh Plague of Egypt", artist: "John Martin", date: "1823", imageFile: "Martin,_John_-_The_Seventh_Plague_-_1823.jpg", wikiPage: "The_Seventh_Plague_of_Egypt", desc: "The painting depicts Moses calling down the seventh plague, a storm of thunder and hail, upon Egypt as divine punishment while the Israelites remain enslaved. Martin drew on contemporary archaeological discoveries of Egyptian architecture to construct the monumental setting, rendering the human figures tiny against the scale of the built environment and the destruction falling from the sky." },
+  { title: "The Gulf Stream", artist: "Winslow Homer", date: "1899", imageFile: "Winslow_Homer_-_The_Gulf_Stream_-_Metropolitan_Museum_of_Art.jpg", wikiPage: "The_Gulf_Stream_(painting)", desc: "The painting shows a solitary Black man lying on a dismasted, rudderless fishing boat surrounded by sharks, with a waterspout visible on the horizon and a sailing ship in the far distance. Homer worked on the theme for over a decade, producing numerous related watercolors before completing this oil. When asked about the man's fate, Homer replied that the sharks, the elements, and Providence would attend to that." },
+  { title: "The Deluge", artist: "Francis Danby", date: "1840", imageFile: "Francis_Danby_-_The_Deluge_-_Google_Art_Project.jpg", wikiPage: "The_Deluge_(Danby)", desc: "The painting depicts the biblical flood at its height, with crowds of figures clinging to rocks and each other as the waters rise around them. Danby exhibited it at the Royal Academy in 1840 alongside John Martin's Eve of the Deluge, setting up a direct competition between the two leading painters of apocalyptic spectacle in Britain. Critics considered it Danby's masterpiece." },
+  { title: "The Wreck of a Transport Ship", artist: "J. M. W. Turner", date: "1810", imageFile: "Shipwreck_turner.jpg", wikiPage: "The_Wreck_of_a_Transport_Ship", desc: "The painting depicts a ship overwhelmed by wind and waves during a violent storm, with lifeboats attempting to rescue survivors from the doomed vessel. Although Turner had begun preparatory sketches before the event, the work gained topicality when the HMS Minotaur was wrecked off the Dutch coast with heavy loss of life in November 1810, shortly after the painting was completed." },
+  { title: "Ulysses Deriding Polyphemus", artist: "J. M. W. Turner", date: "1829", imageFile: "Turner_-_Ulysses_deriding_Polyphemus_1829.jpg", wikiPage: "Ulysses_Deriding_Polyphemus", desc: "The painting depicts a scene from Homer's Odyssey in which Odysseus stands on his ship and taunts the blinded cyclops Polyphemus, who looms as a dark mass behind the mountains on the left. Turner considered it one of his most important works. The sea is lit with an extraordinary golden light, and the figures of the Nereids can be seen in the waves beneath the ship." },
+  { title: "Ophelia", artist: "John Everett Millais", date: "1851–1852", imageFile: "John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg", wikiPage: "Ophelia_(painting)", desc: "The painting depicts Ophelia from Shakespeare's Hamlet floating in a stream moments before her drowning, her expression serene and her hands open above the water. Millais painted the landscape on location in Surrey over five months, and later had the model Elizabeth Siddal pose in a heated bath for the figure. The botanically precise flowers surrounding her each carry symbolic meaning." },
+  { title: "The Hay Wain", artist: "John Constable", date: "1821", imageFile: "John_Constable_-_The_Hay_Wain_(1821).jpg", wikiPage: "The_Hay_Wain", desc: "The painting shows a horse-drawn cart fording a shallow river beside a water mill in the Stour Valley on the border of Suffolk and Essex. Constable made dozens of oil sketches for the work, pioneering a method of direct outdoor observation that was highly unusual for the period. When it was shown in Paris in 1824 it caused a sensation and directly influenced the generation of French painters that followed." }
 ];
 
 const params = new URLSearchParams(location.search);
 const TOTAL  = ARTWORKS.length;
 const LAST   = TOTAL - 1;
-
-// Calendar-locked rotation: start date = May 29 2026 (day 0 = Raft of the Medusa)
-// All date math done in EST (UTC-5) so it rolls over at midnight Eastern time
-// Use UTC date — simple, consistent for all visitors worldwide
-// Start date: May 29 2026 UTC = Day 0 (Raft of the Medusa)
-const startDate = Date.UTC(2026, 4, 29); // month is 0-indexed, so 4 = May
+const startDate = Date.UTC(2026, 4, 29);
 const todayUTC  = Date.UTC(new Date().getUTCFullYear(), new Date().getUTCMonth(), new Date().getUTCDate());
 const daysSinceStart = Math.floor((todayUTC - startDate) / 86400000);
-const todayIdx = Math.min(Math.max(daysSinceStart, 0), ARTWORKS.length - 1);
+const todayIdx = Math.min(Math.max(daysSinceStart, 0), LAST);
 
-let idx = params.has('day')
-  ? ((parseInt(params.get('day'), 10) % TOTAL) + TOTAL) % TOTAL
-  : todayIdx;
-
+let idx = params.has('day') ? ((parseInt(params.get('day'),10)%TOTAL)+TOTAL)%TOTAL : todayIdx;
 const artwork = ARTWORKS[idx];
 
-// desktop nav
 const prevBtn = document.getElementById('nav-prev');
-if (idx > 0) { prevBtn.classList.remove('disabled'); prevBtn.href = `index.html?day=${idx - 1}`; }
+if (idx > 0) { prevBtn.classList.remove('disabled'); prevBtn.href = `index.html?day=${idx-1}`; }
 const nextBtn = document.getElementById('nav-next');
-if (idx < todayIdx) { nextBtn.classList.remove('disabled'); nextBtn.href = `index.html?day=${idx + 1}`; }
-
-// mobile nav
+if (idx < todayIdx) { nextBtn.classList.remove('disabled'); nextBtn.href = `index.html?day=${idx+1}`; }
 const mPrev = document.getElementById('mobile-prev');
-if (idx > 0) { mPrev.classList.remove('disabled'); mPrev.href = `index.html?day=${idx - 1}`; }
+if (idx > 0) { mPrev.classList.remove('disabled'); mPrev.href = `index.html?day=${idx-1}`; }
 const mNext = document.getElementById('mobile-next');
-if (idx < todayIdx) { mNext.classList.remove('disabled'); mNext.href = `index.html?day=${idx + 1}`; }
+if (idx < todayIdx) { mNext.classList.remove('disabled'); mNext.href = `index.html?day=${idx+1}`; }
 
-// desktop text
 document.getElementById('art-title').textContent  = artwork.title;
 document.getElementById('art-artist').textContent = artwork.artist;
 document.getElementById('art-year').textContent   = artwork.date;
 document.getElementById('art-desc').textContent   = artwork.desc;
 document.getElementById('learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
-
-// mobile text
 document.getElementById('mobile-title').textContent  = artwork.title;
 document.getElementById('mobile-artist').textContent = artwork.artist;
 document.getElementById('mobile-year').textContent   = artwork.date;
 document.getElementById('mobile-desc').textContent   = artwork.desc;
 document.getElementById('mobile-learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
 
-// image
-const loader   = document.getElementById('painting-loader');
+const loader = document.getElementById('painting-loader');
 const paintImg = document.getElementById('painting-img');
 const fullImg  = document.getElementById('full-img');
 
@@ -529,15 +289,12 @@ async function loadImage() {
     paintImg.alt = fullImg.alt = artwork.title;
     paintImg.onload = () => { paintImg.classList.add('loaded'); loader.style.display = 'none'; };
     paintImg.onerror = () => { loader.textContent = 'Image unavailable'; };
-  } catch(e) {
-    loader.textContent = 'Could not load image.';
-  }
+  } catch(e) { loader.textContent = 'Could not load image.'; }
 }
 loadImage();
 
-// view in full
-const overlay   = document.getElementById('full-overlay');
-const viewBtn   = document.getElementById('view-full-btn');
+const overlay = document.getElementById('full-overlay');
+const viewBtn = document.getElementById('view-full-btn');
 let fullVisible = false;
 viewBtn.addEventListener('click', () => {
   fullVisible = !fullVisible;
@@ -545,11 +302,7 @@ viewBtn.addEventListener('click', () => {
   viewBtn.textContent = fullVisible ? 'Close' : 'View in Full';
 });
 overlay.addEventListener('click', (e) => {
-  if (e.target === overlay) {
-    fullVisible = false;
-    overlay.classList.remove('visible');
-    viewBtn.textContent = 'View in Full';
-  }
+  if (e.target === overlay) { fullVisible = false; overlay.classList.remove('visible'); viewBtn.textContent = 'View in Full'; }
 });
 </script>
 </body>

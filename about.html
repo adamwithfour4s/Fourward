@@ -10,15 +10,12 @@
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --bg: #0D0D0D;
-      --white: #fff;
-      --muted: rgba(255,255,255,0.30);
-      --sans: 'Google Sans Flex', sans-serif;
-      --serif: 'Radley', Georgia, serif;
+      --bg: #0D0D0D; --white: #fff; --muted: rgba(255,255,255,0.30);
+      --sans: 'Google Sans Flex', sans-serif; --serif: 'Radley', Georgia, serif;
     }
     html, body { background: var(--bg); color: var(--white); width: 100%; overflow: hidden; height: 100%; }
 
-    /* ── NAV — same across all pages ── */
+    /* ── SHARED NAV — same on all pages ── */
     #topnav {
       position: fixed; top: 0; left: 0; right: 0; z-index: 100;
       display: flex; align-items: center; justify-content: space-between;
@@ -36,57 +33,52 @@
     #nav-right a.icon:hover img { opacity: 1; }
 
     /* ── DESKTOP ── */
-    #desktop {
-      width: 100vw; height: 100vh;
-      display: flex;
-      overflow: hidden;
-    }
+    #desktop { width: 100vw; height: 100vh; display: flex; overflow: hidden; }
 
-    /* Left: image fills ~51% of viewport, full height */
-    #img-panel {
-      width: 51%;
-      flex-shrink: 0;
-      height: 100%;
-      overflow: hidden;
-    }
-    #img-panel img {
-      width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      display: block;
-    }
+    /* Image: left 51%, full height */
+    #img-panel { width: 51%; flex-shrink: 0; height: 100%; overflow: hidden; }
+    #img-panel img { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; }
 
-    /* Right: content panel */
+    /* Content: right 49% */
     #content-panel {
-      flex: 1;
-      height: 100%;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-end;
-      padding: 0 56px 56px 60px;
+      flex: 1; height: 100%;
+      display: flex; flex-direction: column;
+      padding: 0 56px 0 60px;
+      position: relative;
     }
 
-    /* "hello, i'm adam" — all one line, large sans */
+    /* headline: "hello, i'm adam" — positioned so its bottom line sits at 50vh */
     #headline {
       font-family: var(--sans);
       font-size: 72px;
       font-weight: 400;
       line-height: 1;
-      letter-spacing: -0.01em;
+      letter-spacing: -0.03em;
       color: var(--white);
       white-space: nowrap;
-      margin-bottom: 36px;
+      /* position so bottom of text = 50vh */
+      position: absolute;
+      bottom: 50%;
+      left: 60px; right: 56px;
     }
 
-    /* Two body columns */
+    /* body + links: sit below headline, starting at 50vh */
+    #lower {
+      position: absolute;
+      top: 50%;
+      left: 60px; right: 56px;
+      padding-top: 36px; /* gap between headline bottom and body top */
+    }
+
+    /* body cols: 288 figma px × 0.75 = 216px each, two cols side by side */
     #body-cols {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 24px;
-      margin-bottom: 48px;
+      display: flex;
+      gap: 21px; /* small gutter */
+      margin-bottom: 40px;
     }
 
     .body-col {
+      width: 216px;
       font-family: var(--sans);
       font-size: 10.5px;
       font-weight: 300;
@@ -96,22 +88,15 @@
       text-align: justify;
     }
 
-    /* Links row */
+    /* links as icons */
     #links-row {
-      display: flex;
-      align-items: center;
-      gap: 24px;
+      display: flex; align-items: center; gap: 16px;
     }
-    #links-row a {
-      font-family: var(--sans);
-      font-size: 9px;
-      font-weight: 400;
-      color: var(--muted);
-      text-decoration: none;
-      transition: color 0.2s;
-      white-space: nowrap;
+    #links-row a img {
+      height: 18px; width: 18px; opacity: 0.30;
+      transition: opacity 0.2s; display: block;
     }
-    #links-row a:hover { color: var(--white); }
+    #links-row a:hover img { opacity: 0.80; }
 
     /* ── MOBILE ── */
     #mobile { display: none; }
@@ -123,59 +108,60 @@
 
       #mobile {
         display: flex; flex-direction: column;
-        align-items: center;
-        background: var(--bg); min-height: 100vh;
+        align-items: center; background: var(--bg); min-height: 100vh;
       }
 
-      #mob-logo-bar {
-        width: 100%; display: flex; justify-content: center; padding: 20px 0 0;
+      /* mobile header — same style as other pages */
+      #mob-header {
+        width: 100%; display: flex; align-items: center; justify-content: space-between;
+        padding: 18px 20px 14px; background: var(--bg);
       }
-      #mob-logo-bar img { height: 10px; opacity: 0.90; }
+      #mob-header img { height: 9px; opacity: 0.90; }
+      #mob-header-right { display: flex; align-items: center; gap: 16px; }
+      #mob-header-right a {
+        font-family: var(--sans); font-size: 11px; font-weight: 600;
+        letter-spacing: 0.1em; text-transform: uppercase;
+        color: rgba(255,255,255,0.55); text-decoration: none;
+      }
 
-      #mob-img { width: 100%; margin-top: 14px; }
+      #mob-img { width: 100%; }
       #mob-img img { width: 100%; display: block; }
 
-      #mob-text {
-        width: 100%; padding: 28px 24px 0;
-        display: flex; flex-direction: column; align-items: center;
-      }
+      #mob-text { width: 100%; padding: 24px 24px 0; display: flex; flex-direction: column; align-items: center; }
 
       #mob-hello {
         font-family: var(--sans); font-size: 42px; font-weight: 400;
-        color: var(--white); text-align: center; line-height: 1; margin-bottom: 2px;
+        color: var(--white); text-align: center; line-height: 1; margin-bottom: 0px;
       }
       #mob-adam {
         font-family: var(--serif); font-size: 38px; font-style: italic;
-        color: var(--white); line-height: 1; margin-bottom: 20px; text-align: center;
+        color: var(--white); line-height: 1.05; margin-bottom: 18px; text-align: center;
       }
-      #mob-divider {
-        width: 34px; height: 1px;
-        background: rgba(255,255,255,0.18); margin-bottom: 18px;
-      }
+      #mob-divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 18px; }
+
       .mob-body {
-        font-family: var(--sans); font-size: 10.5px; font-weight: 300;
-        line-height: 1.25; letter-spacing: -0.01em;
+        font-family: var(--sans); font-size: 13px; font-weight: 300;
+        line-height: 1.35; letter-spacing: -0.01em;
         color: var(--white); text-align: justify;
         width: 100%; margin-bottom: 14px;
       }
+
       #mob-icons {
         display: flex; align-items: center; justify-content: center;
-        gap: 20px; padding: 32px 0 40px; width: 100%;
+        gap: 20px; padding: 28px 0 40px; width: 100%;
       }
-      #mob-icons a img {
-        height: 20px; width: 20px; opacity: 0.32;
-        transition: opacity 0.2s; display: block;
-      }
+      #mob-icons a img { height: 20px; width: 20px; opacity: 0.32; transition: opacity 0.2s; display: block; }
       #mob-icons a:hover img { opacity: 0.70; }
     }
   </style>
 </head>
 <body>
 
-<!-- NAV -->
+<!-- NAV (desktop only) -->
 <nav id="topnav">
   <a id="nav-logo" href="index.html"><img src="logo.png" alt="Fourward" /></a>
   <div id="nav-right">
+    <a href="index.html">Daily Art</a>
     <a href="about.html">About</a>
     <a href="archive.html">Archive</a>
     <a class="icon" href="https://www.instagram.com/adamwithfour4s/" target="_blank">
@@ -186,27 +172,34 @@
 
 <!-- DESKTOP -->
 <div id="desktop">
-  <div id="img-panel">
-    <img src="crashdummy.png" alt="" />
-  </div>
+  <div id="img-panel"><img src="crashdummy.png" alt="" /></div>
   <div id="content-panel">
     <div id="headline">hello, i'm adam</div>
-    <div id="body-cols">
-      <div class="body-col">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</div>
-      <div class="body-col">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</div>
-    </div>
-    <div id="links-row">
-      <a href="mailto:adam4karim@gmail.com">adam4karim@gmail.com</a>
-      <a href="https://readymag.website/6247804" target="_blank">Visit Website</a>
-      <a href="https://www.instagram.com/adamwithfour4s/" target="_blank">Instagram</a>
-      <a href="https://x.com/Adamwithfour4s" target="_blank">Twitter (x)</a>
+    <div id="lower">
+      <div id="body-cols">
+        <div class="body-col">Over the last several centuries I created hundreds of paintings across multiple movements to broaden my horizons as a brand strategist &amp; visual designer including Romanticism, Neoclassicism, etc.</div>
+        <div class="body-col">And so I built this website to share my collection. Some of the pieces may appear under different names in museums or art history books. This is mostly administrative. Pay no mind. Enjoy.</div>
+      </div>
+      <div id="links-row">
+        <a href="mailto:adam4karim@gmail.com"><img src="icon-mail.png" alt="Email" /></a>
+        <a href="https://readymag.website/6247804" target="_blank"><img src="icon-globe.png" alt="Website" /></a>
+        <a href="https://www.instagram.com/adamwithfour4s/" target="_blank"><img src="instagram.png" alt="Instagram" /></a>
+        <a href="https://x.com/Adamwithfour4s" target="_blank"><img src="social-icons.png" alt="Twitter" /></a>
+      </div>
     </div>
   </div>
 </div>
 
 <!-- MOBILE -->
 <div id="mobile">
-  <div id="mob-logo-bar"><img src="logo.png" alt="Fourward" /></div>
+  <div id="mob-header">
+    <a href="index.html"><img src="logo.png" alt="Fourward" /></a>
+    <div id="mob-header-right">
+      <a href="index.html">Daily Art</a>
+      <a href="about.html">About</a>
+      <a href="archive.html">Archive</a>
+    </div>
+  </div>
   <div id="mob-img"><img src="crashdummy.png" alt="" /></div>
   <div id="mob-text">
     <div id="mob-hello">hello,</div>
