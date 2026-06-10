@@ -44,6 +44,7 @@
     #art-year { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--muted); margin-bottom: 18px; }
     #divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 15px; }
     #art-desc { font-family: var(--sans); font-size: 12px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.56); text-wrap: pretty; }
+    #art-notes { font-family: var(--sans); font-size: 12px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.38); text-wrap: pretty; margin-top: 10px; font-style: italic; }
 
     #sidebar-bottom { margin-top: auto; }
     #learn-more {
@@ -136,7 +137,8 @@
       #mobile-artist { font-family: var(--serif); font-size: 16px; font-style: italic; line-height: 1.2; margin-bottom: 2px; color: rgba(255,255,255,0.80); }
       #mobile-year { font-family: var(--serif); font-size: 16px; font-style: italic; color: var(--muted); margin-bottom: 18px; }
       #mobile-divider { width: 34px; height: 1px; background: rgba(255,255,255,0.18); margin-bottom: 14px; }
-      #mobile-desc { font-family: var(--sans); font-size: 13px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.56); text-wrap: pretty; margin-bottom: 28px; }
+      #mobile-desc { font-family: var(--sans); font-size: 13px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.56); text-wrap: pretty; margin-bottom: 10px; }
+      #mobile-notes { font-family: var(--sans); font-size: 13px; font-weight: 400; line-height: 1.5; color: rgba(255,255,255,0.38); text-wrap: pretty; font-style: italic; margin-bottom: 28px; }
       #mobile-bottom { display: flex; align-items: center; justify-content: space-between; }
       #mobile-learn-more { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); text-decoration: none; opacity: 0.55; }
       #mobile-nav { display: flex; align-items: center; gap: 10px; }
@@ -166,6 +168,7 @@
       <div id="art-year"></div>
       <div id="divider"></div>
       <div id="art-desc"></div>
+      <div id="art-notes"></div>
     </div>
     <div id="sidebar-bottom">
       <a id="learn-more" href="#" target="_blank">Learn More</a>
@@ -209,6 +212,7 @@
     <div id="mobile-year"></div>
     <div id="mobile-divider"></div>
     <div id="mobile-desc"></div>
+    <div id="mobile-notes"></div>
     <div id="mobile-bottom">
       <a id="mobile-learn-more" href="#" target="_blank">Learn More</a>
       <div id="mobile-nav">
@@ -245,7 +249,15 @@ const ARTWORKS = [
   { title: "The Wreck of a Transport Ship", artist: "J. M. W. Turner", date: "1810", imageFile: "Shipwreck_turner.jpg", wikiPage: "The_Wreck_of_a_Transport_Ship", desc: "The painting depicts a ship overwhelmed by wind and waves during a violent storm, with lifeboats attempting to rescue survivors from the doomed vessel. Although Turner had begun preparatory sketches before the event, the work gained topicality when the HMS Minotaur was wrecked off the Dutch coast with heavy loss of life in November 1810, shortly after the painting was completed." },
   { title: "Ulysses Deriding Polyphemus", artist: "J. M. W. Turner", date: "1829", imageFile: "Turner_-_Ulysses_deriding_Polyphemus_1829.jpg", wikiPage: "Ulysses_Deriding_Polyphemus", desc: "The painting depicts a scene from Homer's Odyssey in which Odysseus stands on his ship and taunts the blinded cyclops Polyphemus, who looms as a dark mass behind the mountains on the left. Turner considered it one of his most important works. The sea is lit with an extraordinary golden light, and the figures of the Nereids can be seen in the waves beneath the ship." },
   { title: "Ophelia", artist: "John Everett Millais", date: "1851–1852", imageFile: "John_Everett_Millais_-_Ophelia_-_Google_Art_Project.jpg", wikiPage: "Ophelia_(painting)", desc: "The painting depicts Ophelia from Shakespeare's Hamlet floating in a stream moments before her drowning, her expression serene and her hands open above the water. Millais painted the landscape on location in Surrey over five months, and later had the model Elizabeth Siddal pose in a heated bath for the figure. The botanically precise flowers surrounding her each carry symbolic meaning." },
-  { title: "The Hay Wain", artist: "John Constable", date: "1821", imageFile: "John_Constable_-_The_Hay_Wain_(1821).jpg", wikiPage: "The_Hay_Wain", desc: "The painting shows a horse-drawn cart fording a shallow river beside a water mill in the Stour Valley on the border of Suffolk and Essex. Constable made dozens of oil sketches for the work, pioneering a method of direct outdoor observation that was highly unusual for the period. When it was shown in Paris in 1824 it caused a sensation and directly influenced the generation of French painters that followed." }
+  { title: "The Hay Wain", artist: "John Constable", date: "1821", imageFile: "John_Constable_-_The_Hay_Wain_(1821).jpg", wikiPage: "The_Hay_Wain", desc: "The painting shows a horse-drawn cart fording a shallow river beside a water mill in the Stour Valley on the border of Suffolk and Essex. Constable made dozens of oil sketches for the work, pioneering a method of direct outdoor observation that was highly unusual for the period. When it was shown in Paris in 1824 it caused a sensation and directly influenced the generation of French painters that followed." },
+  { title: "The Sleep of Reason Produces Monsters", artist: "Francisco Goya", date: "1799", imageFile: "Francisco_José_de_Goya_y_Lucientes_-_The_sleep_of_reason_produces_monsters_(No._43),_from_Los_Caprichos_-_Google_Art_Project.jpg", wikiPage: "The_Sleep_of_Reason_Produces_Monsters", desc: "The 43rd plate from Goya's Los Caprichos. A man sleeps at his desk as owls and bats swarm above him and a lynx watches in silence. The inscription reads: the sleep of reason produces monsters.", notes: "Adam's Note: This piece becomes more interesting when paired with Goya's quote: \"Imagination abandoned by reason produces impossible monsters; united with her, she is the mother of the arts and source of their wonders\" — as it flips the original meaning. Rather than prioritizing reason, it's positioned as the mechanism through which imagination reaches its fullest expression." },
+  { title: "Prometheus Bound", artist: "Peter Paul Rubens", date: "c. 1612", imageFile: "Peter_Paul_Rubens,_Flemish_(active_Italy,_Antwerp,_and_England)_-_Prometheus_Bound_-_Google_Art_Project.jpg", wikiPage: "Prometheus_Bound_(Rubens)", desc: "Prometheus is chained to a rock as an eagle tears at his liver, which regenerates each night so the torment can resume. Rubens painted the figure; Frans Snyders rendered the eagle.", notes: "Adam's Note: Worth reading the full backstory. A few things worth noticing — the lack of a clear focal point, and the way it reads as a cautionary tale of another being who flew too close to the sun by disobeying the divine order of things. Even if — and maybe especially because — that disobedience came in the name of advancing humanity. At what point does nature step in?" },
+  { title: "The Great Day of His Wrath", artist: "John Martin", date: "1851–1853", imageFile: "John_Martin_-_The_Great_Day_of_His_Wrath_-_Google_Art_Project.jpg", wikiPage: "The_Great_Day_of_His_Wrath", desc: "Cities collapse, mountains split apart, and the earth is consumed by fire and darkness in this depiction of the destruction of Babylon from the Book of Revelation. Martin suffered a stroke while completing it in 1853. It forms one panel of a triptych called The Last Judgement, and is considered among the most ambitious apocalyptic paintings ever made." },
+  { title: "The Desperate Man", artist: "Gustave Courbet", date: "1843–1845", imageFile: "Gustave_Courbet_-_Le_Désespéré_(1843-45).jpg", wikiPage: "The_Desperate_Man", desc: "A self-portrait in which Courbet grips his own head with both hands and stares directly out of the canvas. He painted it in his mid-twenties, before his career had taken hold.", notes: "Adam's Note: Less a critique of the painting and more an observation — it would be practically impossible today to produce a self portrait of any kind and have a person 200 years into the future still writing about it. Maybe it's the goatee." },
+  { title: "A Storm in the Rocky Mountains", artist: "Albert Bierstadt", date: "1866", imageFile: "Albert_Bierstadt_-_A_Storm_in_the_Rocky_Mountains,_Mt._Rosalie.jpg", wikiPage: "A_Storm_in_the_Rocky_Mountains,_Mt._Rosalie", desc: "Storm clouds build over jagged peaks as a valley below is caught in a shaft of light. Bierstadt painted this after an 1863 expedition to the Colorado Rockies. At over four meters wide, the canvas was designed to overwhelm.", notes: "Adam's Note: Not to sound like a crazy hippy, but the composition frames the scene like a conversation between the sky and the earth — and with that a whole can of symbolic worms opens. The scene can almost in one frame be an entire movie, with the white mountaintop peering through clouds and the blacked-out region between us and it representing different points in a story arc." },
+  { title: "Interior of the Pantheon", artist: "Giovanni Paolo Panini", date: "1747", imageFile: "Giovanni_Paolo_Panini_-_Interior_of_the_Pantheon,_Rome_-_Google_Art_Project.jpg", wikiPage: "Giovanni_Paolo_Panini", desc: "The interior of Rome's ancient temple rendered with architectural precision, the oculus at the top casting a circle of light onto the floor below. Panini painted the Pantheon multiple times across his career, each version an obsessive cataloguing of the space. The painting captures the uncanny quality of ancient Roman engineering — the sense that the building is impossible and yet indisputably there." },
+  { title: "The Anatomy Lesson of Dr. Deijman", artist: "Rembrandt van Rijn", date: "1656", imageFile: "Rembrandt_-_The_Anatomy_Lesson_of_Dr_Deijman.jpg", wikiPage: "The_Anatomy_Lesson_of_Dr._Deijman", desc: "Only a fragment of the original painting survives after a fire in 1723. What remains shows the opened skull and exposed brain of a cadaver, foreshortened toward the viewer in a pose deliberately echoing Mantegna's Dead Christ. Dr. Deijman stands behind, supervising. Rembrandt turned a medical demonstration into something that reads as both scientific and sacred." },
+  { title: "The Tower of Babel", artist: "Pieter Bruegel the Elder", date: "1563", imageFile: "Pieter_Bruegel_the_Elder_-_The_Tower_of_Babel_(Vienna)_-_Google_Art_Project.jpg", wikiPage: "The_Tower_of_Babel_(Bruegel)", desc: "A colossal spiral tower under construction dominates the canvas while tiny figures swarm across its surface. Bruegel based the architecture on the Colosseum in Rome, which he had visited. The tower is unfinished and already crumbling — the project is doomed from within. In the foreground, a king receives the builders. No one appears to notice the collapse beginning above them." }
 ];
 
 const params = new URLSearchParams(location.search);
@@ -272,11 +284,13 @@ document.getElementById('art-title').textContent  = artwork.title;
 document.getElementById('art-artist').textContent = artwork.artist;
 document.getElementById('art-year').textContent   = artwork.date;
 document.getElementById('art-desc').textContent   = artwork.desc;
+document.getElementById('art-notes').textContent  = artwork.notes || '';
 document.getElementById('learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
 document.getElementById('mobile-title').textContent  = artwork.title;
 document.getElementById('mobile-artist').textContent = artwork.artist;
 document.getElementById('mobile-year').textContent   = artwork.date;
 document.getElementById('mobile-desc').textContent   = artwork.desc;
+document.getElementById('mobile-notes').textContent  = artwork.notes || '';
 document.getElementById('mobile-learn-more').href = `https://en.wikipedia.org/wiki/${artwork.wikiPage}`;
 
 const loader = document.getElementById('painting-loader');
