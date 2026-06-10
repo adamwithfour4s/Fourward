@@ -143,8 +143,9 @@
       #mobile-learn-more { font-family: var(--sans); font-size: 11px; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--white); text-decoration: none; opacity: 0.55; }
       #mobile-nav { display: flex; align-items: center; gap: 10px; }
       #mobile-icons { display: flex; align-items: center; justify-content: center; gap: 20px; padding: 24px 0 8px; }
-      #mobile-icons a img { height: 20px; width: 20px; opacity: 0.35; transition: opacity 0.2s; }
+      #mobile-icons a img { height: 20px; width: 20px; opacity: 0.35; transition: opacity 0.2s; display: block; object-fit: contain; }
       #mobile-icons a:hover img { opacity: 0.7; }
+      #mobile-icons a.icon-mail img, #mobile-icons a.icon-globe img { height: 24px; width: 24px; }
     }
   </style>
 </head>
@@ -225,8 +226,8 @@
       </div>
     </div>
     <div id="mobile-icons">
-      <a href="mailto:adam4karim@gmail.com"><img src="icon-mail.png" alt="Email" /></a>
-      <a href="https://readymag.website/6247804" target="_blank"><img src="icon-globe.png" alt="Website" /></a>
+      <a class="icon-mail" href="mailto:adam4karim@gmail.com"><img src="icon-mail.png" alt="Email" /></a>
+      <a class="icon-globe" href="https://readymag.website/6247804" target="_blank"><img src="icon-globe.png" alt="Website" /></a>
       <a href="https://www.instagram.com/adamwithfour4s/" target="_blank"><img src="instagram.png" alt="Instagram" /></a>
       <a href="https://x.com/Adamwithfour4s" target="_blank"><img src="social-icons.png" alt="Twitter" /></a>
     </div>
