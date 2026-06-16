@@ -97,7 +97,15 @@
     #view-full-btn:hover { opacity: 0.85; }
     #full-overlay { display: none; position: absolute; inset: 0; z-index: 4; align-items: center; justify-content: center; pointer-events: none; }
     #full-overlay.visible { display: flex; pointer-events: auto; }
-    #full-overlay img { width: 60%; height: auto; max-height: 90%; object-fit: contain; border: 1px solid #fff; display: block; }
+    #full-overlay img {
+      max-width: 60%;
+      max-height: 90%;
+      width: auto;
+      height: auto;
+      object-fit: contain;
+      border: 1px solid #fff;
+      display: block;
+    }
 
     /* ═══════════════════ MOBILE ═══════════════════ */
     #mobile-header { display: none; }
